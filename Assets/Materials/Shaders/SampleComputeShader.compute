@@ -1,0 +1,36 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+RWTexture2D<float4> Result;
+
+Texture2D<float4> StampMap;
+
+float2 stampSize;
+
+float2 position;
+float1 rotation;
+float1 multiplier;
+
+float2 rotate(float2 inVector, float _rotation) {
+	float2x2 rotationMatrix = float2x2(cos(_rotation), -sin(_rotation), sin(_rotation), cos(_rotation));
+	return mul(inVector, rotationMatrix);
+}
+
+bool inBounds(float2 pos, float2 boundsSize) {
+	bool isBd = pos.x >= 0 && pos.x <= boundsSize.x;
+	isBd = isBd && pos.y >= 0 && pos.y <= boundsSize.y;
+	return isBd;
+}
+
+[numthreads(8,8,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+	float2 pos = rotate(id.xy - position.xy, rotation) + (stampSize/2);
+	float4 AdditionalColor = (inBounds(pos, stampSize)) ? StampMap[pos] : float4(0, 0, 0, 0);
+	Result[id.xy] = Result[id.xy] + ((AdditionalColor / 2 + 1) * AdditionalColor.a);
+	//Result[id.xy] = lerp(Result[id.xy], AdditionalColor, AdditionalColor.a);
+	//Result[id.xy] = Result[id.xy] + (AdditionalColor * AdditionalColor.a);
+}
