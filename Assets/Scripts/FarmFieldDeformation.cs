@@ -39,7 +39,7 @@ public class FarmFieldDeformation : MonoBehaviour {
         compute.SetTexture(kernel, "Result", outputTexture);
         compute.SetFloat("rotation", Mathf.Deg2Rad * stampRotation);
         compute.SetFloat("multiplier", alphaMultiplier);
-
+        compute.SetFloat("deltaTime", 0);
         //compute.Dispatch(kernel, mapWidth / 8, mapHeight / 8, 1);
 
         GetComponent<MeshRenderer>().material.SetTexture("Texture2D_5564C194", outputTexture);
@@ -61,7 +61,9 @@ public class FarmFieldDeformation : MonoBehaviour {
 
                 Vector2 vel = new Vector2(rb.velocity.x, rb.velocity.z).normalized;
 
-                if (rb.velocity.magnitude > 0.5f) {
+                compute.SetFloat("deltaTime", Time.deltaTime);
+
+                if (rb.velocity.magnitude > 0.25f) {
                     stampRotation = Angle(vel);
                     compute.SetFloat("rotation", Mathf.Deg2Rad * stampRotation);
                     compute.Dispatch(kernel, mapWidth / 8, mapHeight / 8, 1);
