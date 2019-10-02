@@ -8,10 +8,7 @@ public class FarmFieldDeformation : MonoBehaviour {
     public ComputeShader compute;
     public RenderTexture outputTexture;
     public Texture2D startMap;
-    public Texture2D stampMap;
 
-    public Vector2 stampPosition;
-    public float stampRotation = 0;
     int kernel;
     int mapWidth = 0; int mapHeight = 0;
     public int alphaMultiplier = 1;
@@ -33,66 +30,55 @@ public class FarmFieldDeformation : MonoBehaviour {
         Graphics.Blit(startMap, outputTexture);
         RenderTexture.active = null;
 
-        compute.SetTexture(kernel, "StampMap", stampMap);
-        compute.SetVector("position", new Vector4(stampPosition.x, stampPosition.y, 0, 0));
-        compute.SetVector("stampSize", new Vector2(stampMap.width, stampMap.height));
-        compute.SetTexture(kernel, "Result", outputTexture);
-        compute.SetFloat("rotation", Mathf.Deg2Rad * stampRotation);
-        compute.SetFloat("multiplier", alphaMultiplier);
-        compute.SetFloat("deltaTime", 0);
-        //compute.Dispatch(kernel, mapWidth / 8, mapHeight / 8, 1);
-
-        GetComponent<MeshRenderer>().material.SetTexture("Texture2D_5564C194", outputTexture);
-
+        GetComponent<MeshRenderer>().material.SetTexture("Texture2D_E55C6680", outputTexture);
     }
 
-    // Update is called once per frame
-    void Update() {
-        //Modify the texture here to represent hammy ball modifications.
-        if (hammyOnField) {
-            RaycastHit hit;
-            if (Physics.Raycast(hammyBall.transform.position + ( Vector3.up * 5 ), Vector3.down, out hit, 50, fieldMask)) {
+    //I want to build the transformation matrix here for the stamp map.
+    Matrix4x4 MakeTransformationMatrix(Vector2 position, Vector2 offset, float rotation, float scale) {
+        //Vector3 vec = position + offset;
+        Matrix4x4 pos = Matrix4x4.identity;
+        
+        pos *= Matrix4x4.TRS(offset, Quaternion.Euler(new Vector3(0, 0, Mathf.Rad2Deg * rotation)), Vector3.one);
+        pos *= Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3(1 / scale, 1 / scale, 1 / scale));
+        pos *= Matrix4x4.TRS(position, Quaternion.identity, Vector3.one);
+        return pos;
+    }
 
-                //Figure out the absolute position of the hammy ball relative to the texture....
-                stampPosition = hit.textureCoord * mapWidth;
-                //Rotation can come later, right now, I wanna get this working!!!
-                compute.SetVector("position", stampPosition);
-                Rigidbody rb = hammyBall.GetComponent<Rigidbody>();
+    public void Deform ( GameObject deformer, Texture2D stampMap, float deltaTime, float stampScale, float weight ) {
 
-                Vector2 vel = new Vector2(rb.velocity.x, rb.velocity.z).normalized;
+        if (Physics.Raycast(deformer.transform.position + ( Vector3.up * 5 ), Vector3.down, out RaycastHit hit, 50, fieldMask)) {
+            //Figure out the texture coords (relative position on the mesh) where the object is.
+            Vector2 stampPosition = hit.textureCoord * mapWidth;
+            //Get some pre-requisite information about the object.
+            Rigidbody rb = deformer.GetComponent<Rigidbody>();
+            Vector2 flatVelocity = new Vector2(rb.velocity.x, rb.velocity.z);
 
-                compute.SetFloat("deltaTime", Time.deltaTime);
+            //If the object is not really moving, then it should not deform.
+            if (flatVelocity.magnitude > 0.25f) {
 
-                if (rb.velocity.magnitude > 0.25f) {
-                    stampRotation = Angle(vel);
-                    compute.SetFloat("rotation", Mathf.Deg2Rad * stampRotation);
-                    compute.Dispatch(kernel, mapWidth / 8, mapHeight / 8, 1);
-                }
-                //Debug.Log(hit.textureCoord * mapWidth);
+                float rot = Angle(flatVelocity);
+
+                Vector2 stampSize = new Vector2(stampMap.width, stampMap.height);
+                compute.SetVector("velocity", rb.velocity);
+                compute.SetTexture(kernel, "StampMap", stampMap);
+                compute.SetTexture(kernel, "Result", outputTexture);
+                compute.SetVector("stampSize", stampSize);
+                compute.SetMatrix("transformationMatrix", MakeTransformationMatrix(-stampPosition, stampSize / 2, rot, stampScale));
+                compute.SetFloat("deltaTime", deltaTime);
+                compute.SetFloat("weight", weight);
+                compute.Dispatch(kernel, mapWidth / 8, mapHeight / 8, 1);
+
             }
-        }
-    }
-
-    public void OnTriggerEnter ( Collider other ) {
-        if (other.tag == "HammyBall") {
-            hammyOnField = true;
-            hammyBall = other.gameObject;
-            hammyBall.GetComponent<Rigidbody>().drag = 1.5f;
-        }
-    }
-
-    public void OnTriggerExit ( Collider other ) {
-        if (other.tag == "HammyBall") {
-            hammyOnField = false;
-            hammyBall.GetComponent<Rigidbody>().drag = 0;
         }
     }
 
     float Angle(Vector2 vec) {
         if (vec.x < 0) {
-            return 360 - ( Mathf.Atan2(vec.x, vec.y) * Mathf.Rad2Deg * -1 );
+            return (Mathf.PI * 2f) - ( Mathf.Atan2(vec.x, vec.y) );
         } else {
-            return Mathf.Atan2(vec.x, vec.y) * Mathf.Rad2Deg;
+            return -Mathf.Atan2(vec.x, vec.y);
         }
     }
+
+
 }

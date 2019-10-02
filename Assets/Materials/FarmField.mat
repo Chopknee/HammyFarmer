@@ -21,14 +21,15 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FarmField
-  m_Shader: {fileID: -6465566751694194690, guid: eb163ba0ae1eef443bc57a27b0dc1445,
+  m_Shader: {fileID: -6465566751694194690, guid: 4ffc7e6ede818ed4991c3a01307e7601,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    MotionVector: User
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -46,11 +47,31 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_5564C194:
-        m_Texture: {fileID: 2800000, guid: da57be5a9726a2c4383528f7e28fa5bf, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2240e8b45bf22f243abbc6324893c041, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_86A4A89B:
+        m_Texture: {fileID: 2800000, guid: 2f30371d8d25de04faf9ec8931eb5ea9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_8D54FC2B:
         m_Texture: {fileID: 2800000, guid: 419e091516b60b140b22e2e0e7628037, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_A70DE2E0:
+        m_Texture: {fileID: 2800000, guid: b5d13c9f7ea0a4847a6d678c936e8da6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_AD398728:
+        m_Texture: {fileID: 2800000, guid: 25e789602d665794aa90adb937939044, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_ADB85115:
+        m_Texture: {fileID: 2800000, guid: d7c5fe187bdc5c842a84444c5b4581eb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_E55C6680:
+        m_Texture: {fileID: 2800000, guid: 2240e8b45bf22f243abbc6324893c041, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -82,7 +103,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_2186F5E2: 1
     - Vector1_67967F17: 0.69
+    - Vector1_A7EF230E: 0.54
     - Vector1_CC84851E: 3.63
     - _AlphaClip: 0
     - _Blend: 0
@@ -106,6 +129,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Vector2_7C1942A: {r: 16, g: 16, b: 0, a: 0}
     - Vector2_FCEC03B6: {r: 1, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
