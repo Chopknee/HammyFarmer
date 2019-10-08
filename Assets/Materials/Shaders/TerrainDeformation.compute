@@ -9,11 +9,8 @@ Texture2D<float4> StampMap;
 
 float2 stampSize;
 float4x4 transformationMatrix;
-float3 velocity;
-float weight;
-float deformWeight;
-float tillWeight;
-float waterWeight;
+
+float3 weights;
 
 float deltaTime;
 bool additiveOnly;
@@ -24,28 +21,21 @@ bool inBounds ( float2 pos, float2 boundsSize ) {
     return isBd;
 }
 
-float magnitude ( float2 vec ) {
-    return sqrt(vec.x * vec.x + vec.y * vec.y);
-}
-
 [numthreads(8, 8, 1)]
 void CSMain ( uint3 id : SV_DispatchThreadID ) {
 	
 	//Transform the stamp map on the main texture
     float4 pos = float4(id.x, id.y, id.z, 1);
     pos = mul(transformationMatrix, pos);
-	float3 weights = float3(deformWeight, tillWeight, waterWeight);
+	//float3 weights = float3(deformWeight, tillWeight, waterWeight);
 	//Get the color weights into a vector
 	float3 col = StampMap[pos.xy].rgb;
 	//Shift the colors down
-	
-	float speed = magnitude(velocity.xz); //length(velocity.xz);
 
 	//col = ((col * 2.0) - 1.0) * 0.5;
 	if (!additiveOnly)
 		col = (col - 0.5) * 2;
 
-	col = col * weight * speed;
 	col.r *= weights.r;col.g *= weights.g;col.b *= weights.b;
 	col = col * deltaTime;
 	//Get the stamp bounds clipping into an alpha

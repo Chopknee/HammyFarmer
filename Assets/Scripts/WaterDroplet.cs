@@ -29,25 +29,32 @@ public class WaterDroplet: MonoBehaviour {
         del += Time.deltaTime;
         if (del >= collisionDelay) {
             if (collided) {
-                if (shouldWater) {
-                    field.GetComponent<FarmFieldDeformation>().Deform(gameObject, deformationMap, 1, mapScale, mapWeight, deformWeight, tillWeight, waterWeight, additiveOnly, GetComponent<Rigidbody>().velocity);
-                }
+
+            }
+        }
+    }
+
+    public void OnDestroy() {
+        if (shouldWater) {
+            Debug.Log("Doing the watering.");
+            Vector3 weights = new Vector3(deformWeight, tillWeight, waterWeight);
+            field.GetComponent<FarmFieldDeformation>().Deform(gameObject, deformationMap, 1, mapScale, mapWeight, weights, additiveOnly, new Vector3(1, 1, 1));
+        }
+    }
+
+    public void OnTriggerStay(Collider other) {
+        if (other.CompareTag("FarmField")) {
+            shouldWater = true;
+            field = other.gameObject;
+            if (del >= collisionDelay) {
                 Destroy(gameObject);
             }
         }
     }
 
-    public void OnCollisionEnter ( Collision collision ) {
-        //Aaaaaahhh
-        //Destroy(this);
-        collided = true;
-    }
-
-    public void OnTriggerEnter ( Collider other ) {
-        //Ahhhh
-        if (other.CompareTag("FarmField")) {
-            field = other.gameObject;
-            shouldWater = true;
+    public void OnCollisionStay(Collision collision) {
+        if (del >= collisionDelay) {
+            Destroy(gameObject);
         }
     }
 }

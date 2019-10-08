@@ -31,6 +31,9 @@ public class TerrainDeform: MonoBehaviour {
     int velocityCaptureIndex = 0;
     float averageVelocity = 0;
 
+    public float minimumDeformationVelocity = 0.25f;
+    float minDefVelSquared;
+
     [Range(-1f, 1f)]
     public float deformWeight = 1;
     [Range(-1f, 1f)]
@@ -46,13 +49,16 @@ public class TerrainDeform: MonoBehaviour {
         fieldRollingAS.playOnAwake = false;
         fieldRollingAS.loop = true;
         fieldRollingAS.volume = soundVolume;
+        minDefVelSquared = minDefVelSquared * minDefVelSquared;
     }
 
     void Update () {
         if (isOnField) {
-            //While the object is within a farm field trigger, run that field's deform function.
-            ffd.Deform(gameObject, stampMap, Time.deltaTime, stampScale, weight, deformWeight, tillWeight, waterWeight, additiveOnly, rb.velocity);
-
+            if (rb.velocity.sqrMagnitude > minDefVelSquared) {
+                //While the object is within a farm field trigger, run that field's deform function.
+                Vector3 weights = new Vector3(deformWeight, tillWeight, waterWeight);
+                ffd.Deform(gameObject, stampMap, Time.deltaTime, stampScale, weight, weights, additiveOnly, rb.velocity);
+            }
         }
     }
 

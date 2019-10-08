@@ -44,32 +44,26 @@ public class FarmFieldDeformation : MonoBehaviour {
         return pos;
     }
 
-    public void Deform ( GameObject deformer, Texture2D stampMap, float deltaTime, float stampScale, float weight, float deformWeight, float tillWeight, float waterWeight, bool additiveOnly, Vector3 vel ) {
+    public void Deform(GameObject deformer, Texture2D stampMap, float deltaTime, float stampScale, float weight, Vector3 weights, bool additiveOnly, Vector3 vel) {
 
         if (Physics.Raycast(deformer.transform.position + ( Vector3.up * 5 ), Vector3.down, out RaycastHit hit, 50, fieldMask)) {
             //Figure out the texture coords (relative position on the mesh) where the object is.
             Vector2 stampPosition = hit.textureCoord * mapWidth;
-            //Get some pre-requisite information about the object.
-            Rigidbody rb = deformer.GetComponent<Rigidbody>();
 
             Vector2 flatVelocity = new Vector2(vel.x, vel.z);
 
             //If the object is not really moving, then it should not deform.
-            if (flatVelocity.magnitude > 0.25f) {
+            if (vel.sqrMagnitude > 0.25f) {
 
                 float rot = Angle(flatVelocity);
-
+                Vector3 transformedWeights = weights * vel.magnitude * weight;
                 Vector2 stampSize = new Vector2(stampMap.width, stampMap.height);
-                compute.SetVector("velocity", vel);
                 compute.SetTexture(kernel, "StampMap", stampMap);
                 compute.SetTexture(kernel, "Result", outputTexture);
                 compute.SetVector("stampSize", stampSize);
                 compute.SetMatrix("transformationMatrix", MakeTransformationMatrix(-stampPosition, stampSize / 2, rot, stampScale));
                 compute.SetFloat("deltaTime", deltaTime);
-                compute.SetFloat("weight", weight);
-                compute.SetFloat("deformWeight", deformWeight);
-                compute.SetFloat("tillWeight", tillWeight);
-                compute.SetFloat("waterWeight", waterWeight);
+                compute.SetVector("weights", weights);
                 compute.SetBool("additiveOnly", additiveOnly);
                 compute.Dispatch(kernel, mapWidth / 8, mapHeight / 8, 1);
 
