@@ -23,10 +23,21 @@ public class TerrainDeform: MonoBehaviour {
     public float soundVolume = 0.75f;
     [Range(0, 2f)]
     public float pitchSpeedMultiplier;
-
+    [Range(0f, 0.9f)]
+    public float pitchMin = 0.1f;
+    [Range(0.1f, 1f)]
+    public float pitchMax = 0.5f;
     float[] velocityCaptures = new float[10];
     int velocityCaptureIndex = 0;
     float averageVelocity = 0;
+
+    [Range(-1f, 1f)]
+    public float deformWeight = 1;
+    [Range(-1f, 1f)]
+    public float tillWeight = 1;
+    [Range(-1f, 1f)]
+    public float waterWeight = 1;
+    public bool additiveOnly = true;
 
     void Start () {
         rb = GetComponent<Rigidbody>();
@@ -40,7 +51,7 @@ public class TerrainDeform: MonoBehaviour {
     void Update () {
         if (isOnField) {
             //While the object is within a farm field trigger, run that field's deform function.
-            ffd.Deform(gameObject, stampMap, Time.deltaTime, stampScale, weight);
+            ffd.Deform(gameObject, stampMap, Time.deltaTime, stampScale, weight, deformWeight, tillWeight, waterWeight, additiveOnly, rb.velocity);
 
         }
     }
@@ -63,7 +74,7 @@ public class TerrainDeform: MonoBehaviour {
                 } else if (vel < 0.2f && fieldRollingAS.isPlaying) {
                     fieldRollingAS.Stop();
                 }
-                fieldRollingAS.pitch = averageVelocity * pitchSpeedMultiplier;
+                fieldRollingAS.pitch = Mathf.Min(Mathf.Max(averageVelocity * pitchSpeedMultiplier, pitchMin), pitchMax);
             } else {
                 if (fieldRollingAS.isPlaying) {
                     fieldRollingAS.Stop();

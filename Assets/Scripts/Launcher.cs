@@ -27,4 +27,10 @@ public class Launcher : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmos () {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + transform.up * (force/100f));
+        Gizmos.DrawCube(transform.position + transform.up * (force/100f), Vector3.one);
+    }
+
 }

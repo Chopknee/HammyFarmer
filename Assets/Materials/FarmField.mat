@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FarmField
-  m_Shader: {fileID: -6465566751694194690, guid: 4ffc7e6ede818ed4991c3a01307e7601,
+  m_Shader: {fileID: -6465566751694194690, guid: eb163ba0ae1eef443bc57a27b0dc1445,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -43,7 +43,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_405919D0:
-        m_Texture: {fileID: 2800000, guid: 1f50d3ec9261ef742b1cb209a0bd9e4c, type: 3}
+        m_Texture: {fileID: 2800000, guid: d7c5fe187bdc5c842a84444c5b4581eb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_5564C194:
@@ -52,6 +52,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - Texture2D_86A4A89B:
         m_Texture: {fileID: 2800000, guid: 2f30371d8d25de04faf9ec8931eb5ea9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_89CC7574:
+        m_Texture: {fileID: 2800000, guid: dcd96d020292ae247a064ea4c9d559d0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_8D54FC2B:
@@ -78,8 +82,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _BorderBlendMap:
+        m_Texture: {fileID: 2800000, guid: 25e789602d665794aa90adb937939044, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DisplacementMap:
+        m_Texture: {fileID: 2800000, guid: 2240e8b45bf22f243abbc6324893c041, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -87,7 +99,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: d7c5fe187bdc5c842a84444c5b4581eb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -104,20 +116,24 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_2186F5E2: 1
-    - Vector1_67967F17: 0.69
+    - Vector1_67967F17: 0.54
+    - Vector1_8217E324: 1
     - Vector1_A7EF230E: 0.54
-    - Vector1_CC84851E: 3.63
+    - Vector1_CA5DBC08: 0
+    - Vector1_CC84851E: 0.45
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
     - _Cull: 2
     - _Cutoff: 0.5
+    - _DisplacementFactor: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
+    - _MipLevel: 0
     - _OcclusionStrength: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -130,7 +146,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Vector2_7C1942A: {r: 16, g: 16, b: 0, a: 0}
-    - Vector2_FCEC03B6: {r: 1, g: 1, b: 0, a: 0}
+    - Vector2_FCEC03B6: {r: 8, g: 8, b: 0, a: 0}
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
