@@ -69,7 +69,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 19bd3e08272f389468ed4942b8555994, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e608cba30d430fc4cbd484773e8590a4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 5458705107830269054}
   - component: {fileID: 7546629406392049516}
   - component: {fileID: 3849867730952254404}
+  - component: {fileID: 1007809286927603809}
   m_Layer: 0
   m_Name: Seeds
   m_TagString: Untagged
@@ -217,3 +218,27 @@ MonoBehaviour:
   heightOffset: 1
   hoverTags:
   - {fileID: 1205997518}
+--- !u!114 &1007809286927603809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4540854049173812594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 110773be822005642b86bb6a67ef14c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plantPrefab: {fileID: 4332114498840483463, guid: d878368a3f403bc46950c03b93a3e6a5,
+    type: 3}
+  cantGrowIcon: {fileID: 21300000, guid: e608cba30d430fc4cbd484773e8590a4, type: 3}
+  canGrowIcon: {fileID: 21300000, guid: 914fde5b6859661458e3c225364d762a, type: 3}
+  minimumTilledness: 0.35
+  minimumWetness: 0.35
+  growCheckTime: 0.25
+  nextStateTime: 3
+  fieldMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  sr: {fileID: 1205997520}

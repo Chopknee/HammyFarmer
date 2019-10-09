@@ -13,9 +13,6 @@ public class FarmFieldDeformation : MonoBehaviour {
     int mapWidth = 0; int mapHeight = 0;
     public int alphaMultiplier = 1;
 
-    bool hammyOnField = false;
-    GameObject hammyBall;
-
     void Start() {
         mapWidth = startMap.width;
         mapHeight = startMap.height;
@@ -31,6 +28,8 @@ public class FarmFieldDeformation : MonoBehaviour {
         RenderTexture.active = null;
 
         GetComponent<MeshRenderer>().material.SetTexture("Texture2D_5564C194", outputTexture);
+
+        fieldMap = new Texture2D(mapWidth, mapHeight, TextureFormat.RGB24, false, false);
     }
 
     //I want to build the transformation matrix here for the stamp map.
@@ -69,6 +68,32 @@ public class FarmFieldDeformation : MonoBehaviour {
 
             }
         }
+    }
+
+    public float fieldUpdateDelay = 1;
+    float t = 0;
+
+    private void OnRenderObject () {
+        t += Time.deltaTime;
+        if (t > fieldUpdateDelay) {
+            t = 0;
+            StartCoroutine("DecodeScreen");
+        }
+    }
+
+    public Texture2D fieldMap = null;
+    WaitForEndOfFrame frameWait = new WaitForEndOfFrame();
+
+    IEnumerator DecodeScreen() {
+        yield return frameWait;
+        RenderTexture.active = outputTexture;
+        fieldMap.ReadPixels(new Rect(0, 0, mapWidth, mapHeight), 0, 0);
+        fieldMap.Apply();
+        RenderTexture.active = null;
+    }
+
+    public Color GetFieldValuesAt(Vector2 texCoords) {
+        return fieldMap.GetPixel((int) (texCoords.x * mapWidth), (int) (texCoords.y * mapHeight));
     }
 
     float Angle(Vector2 vec) {

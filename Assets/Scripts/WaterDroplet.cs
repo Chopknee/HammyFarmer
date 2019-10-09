@@ -36,7 +36,6 @@ public class WaterDroplet: MonoBehaviour {
 
     public void OnDestroy() {
         if (shouldWater) {
-            Debug.Log("Doing the watering.");
             Vector3 weights = new Vector3(deformWeight, tillWeight, waterWeight);
             field.GetComponent<FarmFieldDeformation>().Deform(gameObject, deformationMap, 1, mapScale, mapWeight, weights, additiveOnly, new Vector3(1, 1, 1));
         }

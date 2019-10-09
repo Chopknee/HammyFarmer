@@ -50,6 +50,7 @@ public class TerrainDeform: MonoBehaviour {
         fieldRollingAS.loop = true;
         fieldRollingAS.volume = soundVolume;
         minDefVelSquared = minDefVelSquared * minDefVelSquared;
+        
     }
 
     void Update () {

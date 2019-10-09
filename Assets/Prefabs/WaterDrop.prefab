@@ -162,11 +162,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3edb9a1467c8f6246bc83c92aaa7de8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionDelay: 0.5
+  collisionDelay: 0.69
   deformationMap: {fileID: 2800000, guid: ffea196941c71204787d55b461e7031f, type: 3}
   mapScale: 0.69
-  mapWeight: 1
+  mapWeight: 6
   deformWeight: 0
   tillWeight: 0
-  waterWeight: 0.555
+  waterWeight: 0.779
   additiveOnly: 1
