@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 5262928730304761019}
   - component: {fileID: 6565937319237129840}
   - component: {fileID: 3376753535043817841}
+  - component: {fileID: 4601248233681275221}
   m_Layer: 0
   m_Name: WaterDrop
   m_TagString: Untagged
@@ -148,7 +149,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &3376753535043817841
 MonoBehaviour:
@@ -170,3 +171,19 @@ MonoBehaviour:
   tillWeight: 0
   waterWeight: 0.779
   additiveOnly: 1
+--- !u!114 &4601248233681275221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8741041289235485967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c2519d33e72c8749ae2dd03fd15703c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upAxis: {x: 2.98, y: 5.67, z: 8.63}
+  minVelocity: 0.25
+  useAverageVelocity: 0
+  averageVelocityBins: 10

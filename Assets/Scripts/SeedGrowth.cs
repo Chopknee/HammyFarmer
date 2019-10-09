@@ -45,7 +45,7 @@ public class SeedGrowth: MonoBehaviour {
                 }
             }
         }
-
+        sr.color = colorUnderMe;
         if (growing) {
             ns += Time.deltaTime;
         }

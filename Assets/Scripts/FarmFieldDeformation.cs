@@ -21,6 +21,7 @@ public class FarmFieldDeformation : MonoBehaviour {
 
         outputTexture = new RenderTexture(mapWidth, mapHeight, 24);
         outputTexture.enableRandomWrite = true;
+        outputTexture.filterMode = FilterMode.Bilinear;
         outputTexture.Create();
 
         RenderTexture.active = outputTexture;
@@ -43,6 +44,8 @@ public class FarmFieldDeformation : MonoBehaviour {
         return pos;
     }
 
+    bool computing = false;
+
     public void Deform(GameObject deformer, Texture2D stampMap, float deltaTime, float stampScale, float weight, Vector3 weights, bool additiveOnly, Vector3 vel) {
 
         if (Physics.Raycast(deformer.transform.position + ( Vector3.up * 5 ), Vector3.down, out RaycastHit hit, 50, fieldMask)) {
@@ -64,16 +67,12 @@ public class FarmFieldDeformation : MonoBehaviour {
                 compute.SetFloat("deltaTime", deltaTime);
                 compute.SetVector("weights", weights);
                 compute.SetBool("additiveOnly", additiveOnly);
+                computing = true;
                 compute.Dispatch(kernel, mapWidth / 8, mapHeight / 8, 1);
-
+                computing = false;
             }
         }
-    }
 
-    public float fieldUpdateDelay = 1;
-    float t = 0;
-
-    private void OnRenderObject () {
         t += Time.deltaTime;
         if (t > fieldUpdateDelay) {
             t = 0;
@@ -81,11 +80,15 @@ public class FarmFieldDeformation : MonoBehaviour {
         }
     }
 
+    public float fieldUpdateDelay = 1;
+    float t = 0;
     public Texture2D fieldMap = null;
     WaitForEndOfFrame frameWait = new WaitForEndOfFrame();
 
     IEnumerator DecodeScreen() {
-        yield return frameWait;
+        if (computing) {
+            yield return null;
+        }
         RenderTexture.active = outputTexture;
         fieldMap.ReadPixels(new Rect(0, 0, mapWidth, mapHeight), 0, 0);
         fieldMap.Apply();
