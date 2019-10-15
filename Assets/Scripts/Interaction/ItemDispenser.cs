@@ -25,7 +25,7 @@ public class ItemDispenser: HammyInteractable {
     float delay = 0;
     bool hasSpawned = false;
 
-    public override void Update () {
+    public void Update () {
         if (hasSpawned) {
             delay += Time.deltaTime;
             if (delay >= reuseDelay) {
@@ -33,8 +33,6 @@ public class ItemDispenser: HammyInteractable {
                 hasSpawned = false;
             }
         }
-
-        base.Update();
     }
 
     public override void HammyInteracted ( GameObject hammy ) {

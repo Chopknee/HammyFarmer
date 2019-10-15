@@ -15,6 +15,8 @@ public class ToolAttatchment : HammyInteractable {
     public float positionDamper = 2;
 
     public AudioClip attachSound;
+    public AudioClip disconnectSound;
+    public AudioClip breakConnectionSound;
     AudioSource attachSoundAS;
     [Range(0, 1f)]
     public float soundVolume;
@@ -23,7 +25,7 @@ public class ToolAttatchment : HammyInteractable {
     public float tooFarRadius = 10;
     float tooFarSquared;
 
-    private void Start () {
+    public override void Start () {
         attachSoundAS = gameObject.AddComponent<AudioSource>();
         attachSoundAS.clip = attachSound;
         attachSoundAS.playOnAwake = false;
@@ -32,11 +34,13 @@ public class ToolAttatchment : HammyInteractable {
 
         tooFarSquared = tooFarRadius * tooFarRadius;
 
+        base.Start();
+        Pausemenu.InputMasterController.Hammy.Attach.performed += context => OnAttachPushed();
     }
 
     bool hasChangedState = false;
 
-    public override void Update () {
+    public void Update () {
         hasChangedState = false;
         if (messageGUI != null) {
             if (!isHookedIn && isHammyInside) {
@@ -49,17 +53,15 @@ public class ToolAttatchment : HammyInteractable {
                 }
             }
         }
+    }
 
-        if (isHookedIn) {
-            if (Input.GetButtonDown("Use")) {
-                hasChangedState = true;
-                //Disconnect it
-                isHookedIn = false;
-                Destroy(attachmentJoint);
-            }
+    void OnAttachPushed() {
+        if (isHookedIn && !hasChangedState) {
+            //Disconnect it
+            isHookedIn = false;
+            Destroy(attachmentJoint);
+            PlaySound(disconnectSound);
         }
-
-        base.Update();
     }
 
     private void FixedUpdate () {
@@ -73,20 +75,28 @@ public class ToolAttatchment : HammyInteractable {
                     //Disconnect
                     isHookedIn = false;
                     Destroy(attachmentJoint);
+                    PlaySound(breakConnectionSound);
                 }
             }
         }
     }
     
     public override void HammyInteracted(GameObject hammy) {
-        if (!isHookedIn && !hasChangedState) {
+        if (!isHookedIn) {
+            hasChangedState = true;
             isHookedIn = true;
             RecreateJoint();
             attachmentJoint.connectedBody = hammy.transform.Find("ToolAttatchmentPoint").GetComponent<Rigidbody>();
             attachmentJoint.autoConfigureConnectedAnchor = false;
             attachmentJoint.connectedAnchor = Vector3.zero;
-            attachSoundAS.Play();
+            PlaySound(attachSound);
         }
+    }
+
+    void PlaySound(AudioClip clip) {
+        attachSoundAS.Stop();
+        attachSoundAS.clip = clip;
+        attachSoundAS.Play();
     }
 
     void RecreateJoint() {
@@ -105,6 +115,6 @@ public class ToolAttatchment : HammyInteractable {
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, tooFarRadius);
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(( transform.rotation * transform.position ) + rbOffset, Vector3.one * 0.25f);
+        Gizmos.DrawWireCube(transform.position + (transform.rotation *  rbOffset), Vector3.one * 0.25f);
     }
 }

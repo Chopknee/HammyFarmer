@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Hammy;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,14 +22,30 @@ public class BallControl : MonoBehaviour {
     [Range(0.001f, 1)]
     public float airControlDivider;
 
-	// Use this for initialization
-	void Start () {
+    GameObject cameraTracker;
+    Transform cameraTrackTransform;
+
+
+    void AY() {
+        Debug.Log("AAY WAS PRESSED");
+    }
+
+    // Use this for initialization
+    void Start () {
         rb = GetComponent<Rigidbody>();
-	}
+        cameraAnchor = Camera.main.transform;
+
+        cameraTracker = new GameObject("CameraTracker");
+        cameraTracker.transform.SetParent(transform);
+        cameraTrackTransform = cameraTracker.transform;
+
+        Pausemenu.InputMasterController.Hammy.Jump.performed += context => Jump();
+
+    }
 
     private void FixedUpdate() {
-        rb.AddForce(dir * ((jumped)? airControlDivider : 1));
-        rb.AddTorque(rot * ( ( jumped ) ? airControlDivider : 1 ));
+        rb.AddForce(dir * ((jumped || !onGround)? airControlDivider : 1));
+        rb.AddTorque(rot * ((jumped || !onGround) ? airControlDivider : 1 ));
 
         if (ragdoll != null) {
             if (( ragdoll.transform.position - transform.position ).sqrMagnitude > reteleportRadius * reteleportRadius) {
@@ -40,8 +57,18 @@ public class BallControl : MonoBehaviour {
         }
     }
 
+    void Jump() {
+        if (onGround && !jumped) {
+            rb.AddForce(Vector3.up * jumpForce);
+            jumped = true;
+        }
+    }
+
+    public float forward;
+    public float right;
+
     public bool onGround = false;
-    bool jumped = false;
+    public bool jumped = false;
     float jumpDel = 0;
 
     Vector3 dir = new Vector3(0, 0, 0);
@@ -51,22 +78,22 @@ public class BallControl : MonoBehaviour {
 
         onGround = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, groundHitDistance, GroundLayers);
 
-        float forward = Input.GetAxis("Vertical");
-        float right = Input.GetAxis("Horizontal");
+        Vector2 axes = Pausemenu.InputMasterController.Hammy.Roll.ReadValue<Vector2>();
+        forward = axes.y;
+        right = axes.x;
 
-        Vector3 forDir = forward * cameraAnchor.forward;
-        Vector3 rightDir = right * cameraAnchor.right;
+        cameraTrackTransform.rotation = Quaternion.identity;
+        cameraTrackTransform.position = new Vector3(cameraAnchor.transform.position.x, transform.position.y, cameraAnchor.transform.position.z);
+        cameraTrackTransform.forward = ( transform.position - cameraTracker.transform.position );
+
+        Vector3 forDir = forward * cameraTrackTransform.forward;
+        Vector3 rightDir = right * cameraTrackTransform.right;
 
         dir = forDir + rightDir;
         dir.Normalize();
         dir *= forceMultiplier;
 
-        rot = (( right * -1 * cameraAnchor.forward ) + ( forward * cameraAnchor.right )).normalized * torqueMultiplier;
-
-        if (Input.GetButtonDown("Jump") && onGround && !jumped) {
-            rb.AddForce(Vector3.up * jumpForce);
-            jumped = true;
-        }
+        rot = (( right * -1 * cameraTrackTransform.forward ) + ( forward * cameraTrackTransform.right )).normalized * torqueMultiplier;
 
         if (jumped) {
             jumpDel += Time.deltaTime;

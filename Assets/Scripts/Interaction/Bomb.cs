@@ -21,7 +21,7 @@ public class Bomb: HammyInteractable {
     public float upForcePercentage = 0.25f;
     float t = 0;
 
-    public override void Update () {
+    public void Update () {
         if (exploding) {
             t += Time.deltaTime;
             if (t >= timeToExplosion) {
@@ -41,7 +41,6 @@ public class Bomb: HammyInteractable {
                 
             }
         }
-        base.Update();
     }
 
     public override void HammyInteracted ( GameObject hammy ) {

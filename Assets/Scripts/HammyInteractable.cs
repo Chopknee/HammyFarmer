@@ -7,11 +7,13 @@ public class HammyInteractable: MonoBehaviour {
     protected bool isHammyInside = false;
     protected GameObject hammy;
 
-    public virtual void Update () {
+    public virtual void Start() {
+        Pausemenu.InputMasterController.Hammy.Attach.performed += context => OnInteracted();
+    }
+
+    public void OnInteracted() {
         if (isHammyInside) {
-            if (Input.GetButtonDown("Use")) {
-                HammyInteracted(hammy);
-            }
+            HammyInteracted(hammy);
         }
     }
 

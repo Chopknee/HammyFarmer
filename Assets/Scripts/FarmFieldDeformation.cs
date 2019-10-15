@@ -65,7 +65,7 @@ public class FarmFieldDeformation : MonoBehaviour {
                 compute.SetVector("stampSize", stampSize);
                 compute.SetMatrix("transformationMatrix", MakeTransformationMatrix(-stampPosition, stampSize / 2, rot, stampScale));
                 compute.SetFloat("deltaTime", deltaTime);
-                compute.SetVector("weights", weights);
+                compute.SetVector("weights", transformedWeights);
                 compute.SetBool("additiveOnly", additiveOnly);
                 computing = true;
                 compute.Dispatch(kernel, mapWidth / 8, mapHeight / 8, 1);

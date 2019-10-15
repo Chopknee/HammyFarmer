@@ -15,6 +15,7 @@ public class SeedGrowth: MonoBehaviour {
     public float minimumWetness;
     public float growCheckTime = 1;
     public float nextStateTime = 1;
+    public float deathTime = 20;
 
     public LayerMask fieldMask;
 
@@ -28,6 +29,8 @@ public class SeedGrowth: MonoBehaviour {
     float ns = 0;
     public bool growing;
     public Color colorUnderMe;
+
+    float dt = 0;
     void Update () {
         t += Time.deltaTime;
         if (t >= growCheckTime) {
@@ -48,11 +51,19 @@ public class SeedGrowth: MonoBehaviour {
         sr.color = colorUnderMe;
         if (growing) {
             ns += Time.deltaTime;
+            dt = 0;
+        } else {
+            dt += Time.deltaTime;
+            ns = 0;
         }
 
         if (ns > nextStateTime) {
             //Spawn the raddish
             Instantiate(plantPrefab, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
+
+        if (dt > deathTime) {
             Destroy(gameObject);
         }
     }
