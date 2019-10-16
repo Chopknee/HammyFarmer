@@ -6,6 +6,7 @@ TagManager:
   tags:
   - HammyBall
   - FarmField
+  - WaterDrop
   layers:
   - Default
   - TransparentFX
