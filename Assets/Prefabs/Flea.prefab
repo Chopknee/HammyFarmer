@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 6383181855008183294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 26.53, y: 1.365915, z: -461.74}
-  m_LocalScale: {x: 0.21183, y: 0.21183, z: 0.21183}
+  m_LocalScale: {x: 0.36583108, y: 0.36583108, z: 0.36583108}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -363,7 +363,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.5
+  m_Radius: 5
   m_Center: {x: -0.00000029802322, y: 0.00000023841858, z: 0.000054359436}
 --- !u!82 &714840124101723916
 AudioSource:

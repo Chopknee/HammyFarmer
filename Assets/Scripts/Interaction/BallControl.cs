@@ -44,6 +44,7 @@ public class BallControl : MonoBehaviour {
     }
 
     private void FixedUpdate() {
+        if (rb == null) { rb = GetComponent<Rigidbody>(); }
         rb.AddForce(dir * ((jumped || !onGround)? airControlDivider : 1));
         rb.AddTorque(rot * ((jumped || !onGround) ? airControlDivider : 1 ));
 

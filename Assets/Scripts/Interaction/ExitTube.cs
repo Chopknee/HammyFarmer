@@ -29,8 +29,10 @@ public class ExitTube: MonoBehaviour {
     }
 
     private void OnTriggerEnter ( Collider other ) {
-        if (sceneToLoad != -1 || reloadSceneIfNotSet) {
-            UIFade.DoFade(fadeTime, OnFadeComplete, fadeColor, fadeCurve);
+        if (other.gameObject.CompareTag("HammyBall")) {
+            if (sceneToLoad != -1 || reloadSceneIfNotSet) {
+                UIFade.DoFade(fadeTime, OnFadeComplete, fadeColor, fadeCurve);
+            }
         }
     }
 

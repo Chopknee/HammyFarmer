@@ -11,7 +11,6 @@ public class FarmFieldDeformation : MonoBehaviour {
 
     int kernel;
     int mapWidth = 0; int mapHeight = 0;
-    public int alphaMultiplier = 1;
 
     void Start() {
         mapWidth = startMap.width;
@@ -72,7 +71,11 @@ public class FarmFieldDeformation : MonoBehaviour {
                 computing = false;
             }
         }
+    }
 
+
+
+    public void LateUpdate () {
         t += Time.deltaTime;
         if (t > fieldUpdateDelay) {
             t = 0;
@@ -85,10 +88,16 @@ public class FarmFieldDeformation : MonoBehaviour {
     public Texture2D fieldMap = null;
     WaitForEndOfFrame frameWait = new WaitForEndOfFrame();
 
+    float tt = 0;
+
     IEnumerator DecodeScreen() {
+        tt += Time.deltaTime;
         if (computing) {
             yield return null;
         }
+        yield return frameWait;
+
+        tt = 0;
         RenderTexture.active = outputTexture;
         fieldMap.ReadPixels(new Rect(0, 0, mapWidth, mapHeight), 0, 0);
         fieldMap.Apply();

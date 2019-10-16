@@ -27,9 +27,8 @@ public class TerrainDeform: MonoBehaviour {
     public float pitchMin = 0.1f;
     [Range(0.1f, 1f)]
     public float pitchMax = 0.5f;
-    float[] velocityCaptures = new float[10];
-    int velocityCaptureIndex = 0;
-    float averageVelocity = 0;
+
+    Average velocityAverage;
 
     public float minimumDeformationVelocity = 0.25f;
     float minDefVelSquared;
@@ -42,6 +41,9 @@ public class TerrainDeform: MonoBehaviour {
     public float waterWeight = 1;
     public bool additiveOnly = true;
 
+    public ParticleSystem[] deformParticles;
+    bool systemsPlaying = false;
+
     void Start () {
         rb = GetComponent<Rigidbody>();
         fieldRollingAS = gameObject.AddComponent<AudioSource>();
@@ -50,6 +52,8 @@ public class TerrainDeform: MonoBehaviour {
         fieldRollingAS.loop = true;
         fieldRollingAS.volume = soundVolume;
         minDefVelSquared = minDefVelSquared * minDefVelSquared;
+        velocityAverage = new Average(10);
+        origDrag = rb.drag;
         
     }
 
@@ -59,20 +63,33 @@ public class TerrainDeform: MonoBehaviour {
                 //While the object is within a farm field trigger, run that field's deform function.
                 Vector3 weights = new Vector3(deformWeight, tillWeight, waterWeight);
                 ffd.Deform(gameObject, stampMap, Time.deltaTime, stampScale, weight, weights, additiveOnly, rb.velocity);
+                systemsPlaying = true;
+            } else {
+                systemsPlaying = false;
+            }
+        } else {
+            systemsPlaying = false;
+        }
+
+        SetParticleSystems(systemsPlaying);
+    }
+
+    void SetParticleSystems(bool playing) {
+        foreach (ParticleSystem ps in deformParticles) {
+            if (systemsPlaying) {
+                if (!ps.isPlaying) {
+                    ps.Play();
+                }
+            } else {
+                if (ps.isPlaying) {
+                    ps.Stop();
+                }
             }
         }
     }
 
     private void FixedUpdate () {
         float vel = rb.velocity.magnitude;
-        velocityCaptures[velocityCaptureIndex] = vel;
-        velocityCaptureIndex++;
-        velocityCaptureIndex = ( velocityCaptureIndex == velocityCaptures.Length ) ? 0 : velocityCaptureIndex;
-        averageVelocity = 0;
-        for (int i = 0; i < velocityCaptures.Length; i++) {
-            averageVelocity += velocityCaptures[i];
-        }
-        averageVelocity = averageVelocity / velocityCaptures.Length;
 
         if (fieldSound != null) {
             if (isOnField) {        
@@ -81,7 +98,7 @@ public class TerrainDeform: MonoBehaviour {
                 } else if (vel < 0.2f && fieldRollingAS.isPlaying) {
                     fieldRollingAS.Stop();
                 }
-                fieldRollingAS.pitch = Mathf.Min(Mathf.Max(averageVelocity * pitchSpeedMultiplier, pitchMin), pitchMax);
+                fieldRollingAS.pitch = Mathf.Min(Mathf.Max(velocityAverage.GetNext(vel) * pitchSpeedMultiplier, pitchMin), pitchMax);
             } else {
                 if (fieldRollingAS.isPlaying) {
                     fieldRollingAS.Stop();
@@ -96,7 +113,6 @@ public class TerrainDeform: MonoBehaviour {
             ffd = other.gameObject.GetComponent<FarmFieldDeformation>();
             if (ffd != null) {
                 isOnField = true;
-                origDrag = rb.drag;
                 rb.drag = mudDragValue;
             }
 

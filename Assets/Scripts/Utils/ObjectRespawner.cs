@@ -7,6 +7,10 @@ public class ObjectRespawner : MonoBehaviour {
     public Transform respawnPoint;
 
     public void OnTriggerEnter ( Collider other ) {
-        other.transform.position = respawnPoint.position;
+        if (other.GetComponent<Rigidbody>() != null) {
+            other.transform.position = respawnPoint.position;
+            other.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
+
     }
 }

@@ -147,11 +147,11 @@ MonoBehaviour:
   distanceConstraint: {x: 6.06, y: 17}
   zoomDrag: 6
   target: {fileID: 0}
-  horizontalSensitivity: 0.15
+  horizontalSensitivity: 0.25
   horizontalSmoothing: 10
   horizontal: 3.14
-  verticalSensitivity: 0.15
+  verticalSensitivity: 0.25
   verticalSmoothing: 10
   vertical: 0.5
-  heightZoomScalar: 2
+  heightZoomScalar: 3
   smoothTime: 0.1
