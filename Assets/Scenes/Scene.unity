@@ -10327,6 +10327,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 2c27612ba376c2145a68711f8a3dac32,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2c27612ba376c2145a68711f8a3dac32,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10426,7 +10431,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   compute: {fileID: 7200000, guid: 0cdd17e7d4a5ea94895a4d322f280fec, type: 3}
-  outputTexture: {fileID: 0}
   startMap: {fileID: 2800000, guid: 2240e8b45bf22f243abbc6324893c041, type: 3}
 --- !u!64 &329747187
 MeshCollider:
@@ -96015,6 +96019,11 @@ PrefabInstance:
       propertyPath: startMap
       value: 
       objectReference: {fileID: 2800000, guid: 2240e8b45bf22f243abbc6324893c041, type: 3}
+    - target: {fileID: 4845324154142535060, guid: c7364e2c5286a034385036954ba381db,
+        type: 3}
+      propertyPath: chunkSize
+      value: 128
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7364e2c5286a034385036954ba381db, type: 3}
 --- !u!4 &5006512734786904702 stripped

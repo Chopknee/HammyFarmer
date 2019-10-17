@@ -236,9 +236,9 @@ MonoBehaviour:
   canGrowIcon: {fileID: 21300000, guid: 914fde5b6859661458e3c225364d762a, type: 3}
   minimumTilledness: 0.746
   minimumWetness: 0.35
-  growCheckTime: 2
+  growCheckTime: 0.16
   nextStateTime: 8
-  deathTime: 20
+  deathTime: 3600
   fieldMask:
     serializedVersion: 2
     m_Bits: 1024

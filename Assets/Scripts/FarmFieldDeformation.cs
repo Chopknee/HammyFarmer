@@ -6,7 +6,7 @@ public class FarmFieldDeformation : MonoBehaviour {
 
     public LayerMask fieldMask;
     public ComputeShader compute;
-    public RenderTexture outputTexture;
+    RenderTexture outputTexture;
     public Texture2D startMap;
 
     int kernel;
@@ -31,7 +31,10 @@ public class FarmFieldDeformation : MonoBehaviour {
 
         GetComponent<MeshRenderer>().material.SetTexture("Texture2D_5564C194", outputTexture);
 
-        tex = new Texture2D(1, 1, TextureFormat.RGB24, false, false);
+        //tex = new Texture2D(1, 1, TextureFormat.RGB24, false, false);
+        fieldMap = new Texture2D(mapWidth, mapHeight, TextureFormat.RGB24, false, false);
+        StartCoroutine("DecodeScreen");
+        chunks = mapWidth / chunkSize;
     }
 
     //I want to build the transformation matrix here for the stamp map.
@@ -45,9 +48,7 @@ public class FarmFieldDeformation : MonoBehaviour {
         return pos;
     }
 
-    bool computing = false;
-
-    public void Deform(GameObject deformer, Texture2D stampMap, float deltaTime, float stampScale, float weight, Vector3 weights, bool additiveOnly, Vector3 vel) {
+    public void Deform ( GameObject deformer, Texture2D stampMap, float deltaTime, float stampScale, float weight, Vector3 weights, bool additiveOnly, Vector3 vel ) {
 
         if (Physics.Raycast(deformer.transform.position + ( Vector3.up * 5 ), Vector3.down, out RaycastHit hit, 50, fieldMask)) {
             //Figure out the texture coords (relative position on the mesh) where the object is.
@@ -68,23 +69,9 @@ public class FarmFieldDeformation : MonoBehaviour {
                 compute.SetFloat("deltaTime", deltaTime);
                 compute.SetVector("weights", transformedWeights);
                 compute.SetBool("additiveOnly", additiveOnly);
-                computing = true;
                 compute.Dispatch(kernel, mapWidth / 8, mapHeight / 8, 1);
-                computing = false;
             }
         }
-    }
-
-
-
-    Texture2D tex;
-
-    public Color GetFieldValuesAt(Vector2 texCoords) {
-        RenderTexture.active = outputTexture;
-        tex.ReadPixels(new Rect(texCoords.x * mapWidth, (1-texCoords.y) * mapHeight, 1, 1), 0, 0);
-        tex.Apply();
-        RenderTexture.active = null;
-        return tex.GetPixel(0, 0);
     }
 
     float Angle(Vector2 vec) {
@@ -95,33 +82,38 @@ public class FarmFieldDeformation : MonoBehaviour {
         }
     }
 
-    //public void LateUpdate () {
-    //    t += Time.deltaTime;
-    //    if (t > fieldUpdateDelay) {
-    //        t = 0;
-    //        if (!decoding) {
-    //            decoding = true;
-    //            StartCoroutine("DecodeScreen");
-    //        }
-    //    }
-    //}
+    int chunkSize = 128;
+    int x = 0;
+    int y = 0;
+    int chunks = 0;
 
-    //public float fieldUpdateDelay = 1;
-    //float t = 0;
-    //public Texture2D fieldMap = null;
-    //bool decoding = false;
+    IEnumerator DecodeScreen () {
+        while (true) {
+            yield return new WaitForEndOfFrame();
+            //Figure out where we are at in this thing.
+            int posX = x * chunkSize;
+            int posY = y * chunkSize;
+            RenderTexture.active = outputTexture;
+            fieldMap.ReadPixels(new Rect(posX, posY, chunkSize, chunkSize), posX, posY);
+            //Apply isn't needed because I am using the field map to sample the texture in main cpu accessible memory
+            //Apply essentially sends the texture data to the gpu, so it's pointless since the whole idea of this is to
+            //  sample the output texture from the gpu.
+            RenderTexture.active = null;
+            x++;
+            if (x >= chunks) {
+                x = 0;
+                y++;
+                if (y >= chunks) {
+                    y = 0;
+                }
+            }
+        }
+    }
 
-    //IEnumerator DecodeScreen() {
-    //    //if (computing) {
-    //    //    yield return null;
-    //    //}
-    //    yield return new WaitForEndOfFrame();
+    Texture2D fieldMap;
 
-    //    RenderTexture.active = outputTexture;
-    //    fieldMap.ReadPixels(new Rect(0, 0, mapWidth, mapHeight), 0, 0);
-    //    fieldMap.Apply();
-    //    RenderTexture.active = null;
-    //    decoding = false;
-    //}
+    public Color GetFieldValuesAt ( Vector2 texCoords ) {
+        return fieldMap.GetPixel((int) ( texCoords.x * mapWidth ), (int) ( ( 1 - texCoords.y ) * mapHeight ));
+    }
 
 }
