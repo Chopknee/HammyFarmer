@@ -81,7 +81,7 @@ public class ToolAttatchment : HammyInteractable {
         }
     }
     
-    public override void HammyInteracted(GameObject hammy) {
+    public override void HammyHookedIn(GameObject hammy) {
         if (!isHookedIn) {
             hasChangedState = true;
             isHookedIn = true;

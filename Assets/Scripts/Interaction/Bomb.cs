@@ -21,6 +21,8 @@ public class Bomb: HammyInteractable {
     public float upForcePercentage = 0.25f;
     float t = 0;
 
+    public GameObject messageGUI;
+
     public void Update () {
         if (exploding) {
             t += Time.deltaTime;
@@ -39,6 +41,18 @@ public class Bomb: HammyInteractable {
                 }
                 GetComponent<AudioSource>().Stop();
                 
+            }
+        }
+
+        if (messageGUI != null) {
+            if (isHammyInside) {
+                if (!messageGUI.activeSelf) {
+                    messageGUI.SetActive(true);
+                }
+            } else {
+                if (messageGUI.activeSelf) {
+                    messageGUI.SetActive(false);
+                }
             }
         }
     }

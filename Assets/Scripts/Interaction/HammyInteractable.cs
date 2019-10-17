@@ -8,10 +8,17 @@ public class HammyInteractable: MonoBehaviour {
     protected GameObject hammy;
 
     public virtual void Start() {
-        Pausemenu.InputMasterController.Hammy.Attach.performed += context => OnInteracted();
+        Pausemenu.InputMasterController.Hammy.Attach.performed += context => OnHammyHook();
+        Pausemenu.InputMasterController.Hammy.Use.performed += context => OnHammyInteract();
     }
 
-    public void OnInteracted() {
+    public void OnHammyHook() {
+        if (isHammyInside) {
+            HammyHookedIn(hammy);
+        }
+    }
+
+    public void OnHammyInteract() {
         if (isHammyInside) {
             HammyInteracted(hammy);
         }
@@ -35,6 +42,7 @@ public class HammyInteractable: MonoBehaviour {
 
     public virtual void HammyEntered(GameObject hammy) {}
     public virtual void HammyExited () {}
-    public virtual void HammyInteracted (GameObject hammy) {}
+    public virtual void HammyHookedIn (GameObject hammy) {}
+    public virtual void HammyInteracted ( GameObject hammy ) { }
 
 }

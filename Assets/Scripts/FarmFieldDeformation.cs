@@ -12,10 +12,12 @@ public class FarmFieldDeformation : MonoBehaviour {
     int kernel;
     int mapWidth = 0; int mapHeight = 0;
 
+    int baseMapResolution = 2048;//This is the size I am basing all the scales on
+    float mapScalar = 0;
     void Start() {
         mapWidth = startMap.width;
         mapHeight = startMap.height;
-
+        mapScalar = (float) mapWidth / (float)baseMapResolution;
         kernel = compute.FindKernel("CSMain");
 
         outputTexture = new RenderTexture(mapWidth, mapHeight, 24);
@@ -29,7 +31,7 @@ public class FarmFieldDeformation : MonoBehaviour {
 
         GetComponent<MeshRenderer>().material.SetTexture("Texture2D_5564C194", outputTexture);
 
-        fieldMap = new Texture2D(mapWidth, mapHeight, TextureFormat.RGB24, false, false);
+        tex = new Texture2D(1, 1, TextureFormat.RGB24, false, false);
     }
 
     //I want to build the transformation matrix here for the stamp map.
@@ -58,7 +60,7 @@ public class FarmFieldDeformation : MonoBehaviour {
 
                 float rot = Angle(flatVelocity);
                 Vector3 transformedWeights = weights * vel.magnitude * weight;
-                Vector2 stampSize = new Vector2(stampMap.width, stampMap.height);
+                Vector2 stampSize = new Vector2(stampMap.width * mapScalar, stampMap.height * mapScalar);
                 compute.SetTexture(kernel, "StampMap", stampMap);
                 compute.SetTexture(kernel, "Result", outputTexture);
                 compute.SetVector("stampSize", stampSize);
@@ -75,37 +77,14 @@ public class FarmFieldDeformation : MonoBehaviour {
 
 
 
-    public void LateUpdate () {
-        t += Time.deltaTime;
-        if (t > fieldUpdateDelay) {
-            t = 0;
-            StartCoroutine("DecodeScreen");
-        }
-    }
-
-    public float fieldUpdateDelay = 1;
-    float t = 0;
-    public Texture2D fieldMap = null;
-    WaitForEndOfFrame frameWait = new WaitForEndOfFrame();
-
-    float tt = 0;
-
-    IEnumerator DecodeScreen() {
-        tt += Time.deltaTime;
-        if (computing) {
-            yield return null;
-        }
-        yield return frameWait;
-
-        tt = 0;
-        RenderTexture.active = outputTexture;
-        fieldMap.ReadPixels(new Rect(0, 0, mapWidth, mapHeight), 0, 0);
-        fieldMap.Apply();
-        RenderTexture.active = null;
-    }
+    Texture2D tex;
 
     public Color GetFieldValuesAt(Vector2 texCoords) {
-        return fieldMap.GetPixel((int) (texCoords.x * mapWidth), (int) (texCoords.y * mapHeight));
+        RenderTexture.active = outputTexture;
+        tex.ReadPixels(new Rect(texCoords.x * mapWidth, (1-texCoords.y) * mapHeight, 1, 1), 0, 0);
+        tex.Apply();
+        RenderTexture.active = null;
+        return tex.GetPixel(0, 0);
     }
 
     float Angle(Vector2 vec) {
@@ -116,5 +95,33 @@ public class FarmFieldDeformation : MonoBehaviour {
         }
     }
 
+    //public void LateUpdate () {
+    //    t += Time.deltaTime;
+    //    if (t > fieldUpdateDelay) {
+    //        t = 0;
+    //        if (!decoding) {
+    //            decoding = true;
+    //            StartCoroutine("DecodeScreen");
+    //        }
+    //    }
+    //}
+
+    //public float fieldUpdateDelay = 1;
+    //float t = 0;
+    //public Texture2D fieldMap = null;
+    //bool decoding = false;
+
+    //IEnumerator DecodeScreen() {
+    //    //if (computing) {
+    //    //    yield return null;
+    //    //}
+    //    yield return new WaitForEndOfFrame();
+
+    //    RenderTexture.active = outputTexture;
+    //    fieldMap.ReadPixels(new Rect(0, 0, mapWidth, mapHeight), 0, 0);
+    //    fieldMap.Apply();
+    //    RenderTexture.active = null;
+    //    decoding = false;
+    //}
 
 }
