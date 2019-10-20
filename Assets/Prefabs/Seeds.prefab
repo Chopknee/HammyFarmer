@@ -238,7 +238,7 @@ MonoBehaviour:
   minimumWetness: 0.35
   growCheckTime: 0.16
   nextStateTime: 8
-  deathTime: 3600
+  deathTime: 20
   fieldMask:
     serializedVersion: 2
     m_Bits: 1024

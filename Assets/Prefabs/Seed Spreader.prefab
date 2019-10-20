@@ -73,7 +73,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 2
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -394,7 +394,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 2
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -4034,7 +4034,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1409717592189033553}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4efd34e76800b3c4589f45c8c08e89da, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -4068,7 +4068,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.024999911, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.0010006428, y: 0.7290001, z: -0.008999944}
+  m_ConnectedAnchor: {x: 0.0010006429, y: 0.72900015, z: -0.009002686}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -4983,7 +4983,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   messageGUI: {fileID: 7280822466640760659}
   rbOffset: {x: 0.63, y: 0, z: 2.97}
-  positionSpring: 250
+  positionSpring: 650
   positionDamper: 2
   attachSound: {fileID: 8300000, guid: 6f609c967669f234f9c8ba7b13a12214, type: 3}
   disconnectSound: {fileID: 8300000, guid: 6f609c967669f234f9c8ba7b13a12214, type: 3}
@@ -5017,7 +5017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00c277242e702cf45bd925914d39a17c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heightOffset: 1
+  heightOffset: 2.5
   hoverTags:
   - {fileID: 8297141850201685790}
 --- !u!1 &1409717592634380749
@@ -7147,7 +7147,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1409717592759573791}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4efd34e76800b3c4589f45c8c08e89da, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -7181,7 +7181,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.024999911, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.0009995103, y: -0.62400055, z: -0.008999944}
+  m_ConnectedAnchor: {x: 0.0009995104, y: -0.6240006, z: -0.009002686}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
