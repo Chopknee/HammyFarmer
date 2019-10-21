@@ -42,16 +42,20 @@ public class CameraMotion: MonoBehaviour {
 
     void LateUpdate () {
 
-        //Vector2 cameraAxis = Pausemenu.InputMasterController.Hammy.C
+        Vector2 cameraAxis = Pausemenu.InputMasterController.Hammy.Look.ReadValue<Vector2>();
+        float zoom = Pausemenu.InputMasterController.Hammy.Zoom.ReadValue<float>();
+        if (zoom != 0) {
+            cameraAxis.y = 0;
+        }
 
         int vDir = ( Pausemenu.VerticalInverted ) ? -1 : 1;
-        float verticalDelta = Pausemenu.InputMasterController.Hammy.CameraVertical.ReadValue<float>() * Time.deltaTime * verticalSensitivity * vDir;
+        float verticalDelta = cameraAxis.y * Time.deltaTime * verticalSensitivity * vDir;
         vertical += verticalDelta;
         vertical = Mathf.Clamp(vertical, 0, 1);
         verticalSmoothed += ( vertical - verticalSmoothed ) * Time.deltaTime * verticalSmoothing;
 
         int hDir = ( Pausemenu.HorizontalInverted ) ? -1 : 1;
-        float horizontalDelta = Pausemenu.InputMasterController.Hammy.CameraHorizontal.ReadValue<float>() * Time.deltaTime * horizontalSensitivity * hDir;
+        float horizontalDelta = cameraAxis.x * Time.deltaTime * horizontalSensitivity * hDir;
         horizontal += horizontalDelta;
         horizontalSmoothed += ( horizontal - horizontalSmoothed ) * Time.deltaTime * horizontalSmoothing;
         // Keeping rotation within the 0 to 2 * PI range
@@ -65,7 +69,7 @@ public class CameraMotion: MonoBehaviour {
         
 
         //Update speed (scroll wheel)
-        zoomSpeed += Pausemenu.InputMasterController.Hammy.CameraZoom.ReadValue<float>() * zoomSensitivity * Time.deltaTime;
+        zoomSpeed += zoom * zoomSensitivity * Time.deltaTime;
         zoomSpeed += -zoomSpeed * zoomDrag * Time.deltaTime;
         //Update the zoom amount
         zoomPercent = Mathf.Clamp01(zoomPercent + zoomSpeed);

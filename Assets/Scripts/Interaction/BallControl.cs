@@ -23,21 +23,15 @@ public class BallControl : MonoBehaviour {
     public float airControlDivider;
 
     GameObject cameraTracker;
-    Transform cameraTrackTransform;
+    public static Transform CameraTrackTransform;
 
-
-    void AY() {
-        Debug.Log("AAY WAS PRESSED");
-    }
-
-    // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody>();
         cameraAnchor = Camera.main.transform;
 
         cameraTracker = new GameObject("CameraTracker");
         cameraTracker.transform.SetParent(transform);
-        cameraTrackTransform = cameraTracker.transform;
+        CameraTrackTransform = cameraTracker.transform;
 
         Pausemenu.InputMasterController.Hammy.Jump.performed += context => Jump();
 
@@ -47,15 +41,6 @@ public class BallControl : MonoBehaviour {
         if (rb == null) { rb = GetComponent<Rigidbody>(); }
         rb.AddForce(dir * ((jumped || !onGround)? airControlDivider : 1));
         rb.AddTorque(rot * ((jumped || !onGround) ? airControlDivider : 1 ));
-
-        if (ragdoll != null) {
-            if (( ragdoll.transform.position - transform.position ).sqrMagnitude > reteleportRadius * reteleportRadius) {
-                //ragdoll.transform.SetParent(transform);
-                //ragdoll.transform.position = Vector3.zero;
-                //ragdoll.transform.SetParent(null);
-                //ragdoll.transform.position = transform.position;
-            }
-        }
     }
 
     void Jump() {
@@ -74,7 +59,7 @@ public class BallControl : MonoBehaviour {
 
     Vector3 dir = new Vector3(0, 0, 0);
     Vector3 rot = new Vector3(0, 0, 0);
-    // Update is called once per frame
+
     void Update () {
 
         onGround = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, groundHitDistance, GroundLayers);
@@ -83,18 +68,18 @@ public class BallControl : MonoBehaviour {
         forward = axes.y;
         right = axes.x;
 
-        cameraTrackTransform.rotation = Quaternion.identity;
-        cameraTrackTransform.position = new Vector3(cameraAnchor.transform.position.x, transform.position.y, cameraAnchor.transform.position.z);
-        cameraTrackTransform.forward = ( transform.position - cameraTracker.transform.position );
+        CameraTrackTransform.rotation = Quaternion.identity;
+        CameraTrackTransform.position = new Vector3(cameraAnchor.transform.position.x, transform.position.y, cameraAnchor.transform.position.z);
+        CameraTrackTransform.forward = ( transform.position - cameraTracker.transform.position );
 
-        Vector3 forDir = forward * cameraTrackTransform.forward;
-        Vector3 rightDir = right * cameraTrackTransform.right;
+        Vector3 forDir = forward * CameraTrackTransform.forward;
+        Vector3 rightDir = right * CameraTrackTransform.right;
 
         dir = forDir + rightDir;
         dir.Normalize();
         dir *= forceMultiplier;
 
-        rot = (( right * -1 * cameraTrackTransform.forward ) + ( forward * cameraTrackTransform.right )).normalized * torqueMultiplier;
+        rot = (( right * -1 * CameraTrackTransform.forward ) + ( forward * CameraTrackTransform.right )).normalized * torqueMultiplier;
 
         if (jumped) {
             jumpDel += Time.deltaTime;

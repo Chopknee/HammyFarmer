@@ -11,7 +11,9 @@ public class Launcher : MonoBehaviour
 
     public void FixedUpdate () {
         foreach (Collider c in colliders) {
-            c.GetComponent<Rigidbody>().AddForce(transform.up * force);
+            if (c.GetComponent<Rigidbody>() != null) {
+                c.GetComponent<Rigidbody>().AddForce(transform.up * force);
+            }
         }
     }
 
