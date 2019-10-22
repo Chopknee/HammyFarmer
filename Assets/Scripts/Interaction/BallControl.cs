@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.Haptics;
 
 public class BallControl : MonoBehaviour {
 
@@ -88,8 +89,8 @@ public class BallControl : MonoBehaviour {
                 jumped = false;
             }
         }
-
-	}
+        //Pausemenu.InputMasterController.devices.Value[0].
+    }
 
     private void OnDrawGizmos () {
         Gizmos.color = Color.red;
