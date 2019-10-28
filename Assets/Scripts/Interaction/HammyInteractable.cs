@@ -1,7 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// This is a class for generic hammy interactions.
+/// It exposes functions for both general interaction, or attatchment.
+/// </summary>
 public class HammyInteractable: MonoBehaviour {
 
     protected bool isHammyInside = false;
@@ -35,11 +38,11 @@ public class HammyInteractable: MonoBehaviour {
     private void OnTriggerExit ( Collider other ) {
         if (other.tag == "HammyBall") {
             isHammyInside = false;
-            //hammy = null;
             HammyExited();
         }
     }
 
+    //Override any of these to get the desired functionality
     public virtual void HammyEntered(GameObject hammy) {}
     public virtual void HammyExited () {}
     public virtual void HammyHookedIn (GameObject hammy) {}

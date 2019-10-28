@@ -7,42 +7,47 @@ public class TerrainDeform: MonoBehaviour {
 
     bool isOnField = false;
     FarmFieldDeformation ffd;
-
+    [Header("Deformation Stamp")]
+    [Tooltip("The base texture used to deform the field.")]
     public Texture2D stampMap;
+    [Tooltip("How big the stamp is on the field.")]
     public float stampScale = 1;
+    [Tooltip("How much to apply the stamp each pass in the shader.")]
     public float weight = 1;
-
-    public float mudDragValue = 1.35f;
-    float origDrag = 0;
-
-    Rigidbody rb;
-
+    [Tooltip("How fast should the object be moving before deformations happen?")]
+    public float minimumDeformationVelocity = 0.25f;
+    [Tooltip("What is the weight of the 'deform' or red channel.")]
+    [Range(-1f, 1f)]
+    public float deformWeight = 1;
+    [Tooltip("What is the weight of the 'tilledness' or green channel.")]
+    [Range(-1f, 1f)]
+    public float tillWeight = 1;
+    [Tooltip("What is the weight of the 'wateredness' or blue channel.")]
+    [Range(-1f, 1f)]
+    public float waterWeight = 1;
+    [Tooltip("Tells if the stamp's weights should be set in a range of -1 to 1, or 0 to 1. (Just play with this to see different results.)")]
+    public bool additiveOnly = true;
+    [Header("Deformation Sound")]
+    [Tooltip("What sound should play when deforming the field?")]
     public AudioClip fieldSound;
     AudioSource fieldRollingAS;
     [Range(0, 1f)]
     public float soundVolume = 0.75f;
     [Range(0, 2f)]
     public float pitchSpeedMultiplier;
-    [Range(0f, 0.9f)]
-    public float pitchMin = 0.1f;
-    [Range(0.1f, 1f)]
-    public float pitchMax = 0.5f;
-
-    Average velocityAverage;
-
-    public float minimumDeformationVelocity = 0.25f;
-    float minDefVelSquared;
-
-    [Range(-1f, 1f)]
-    public float deformWeight = 1;
-    [Range(-1f, 1f)]
-    public float tillWeight = 1;
-    [Range(-1f, 1f)]
-    public float waterWeight = 1;
-    public bool additiveOnly = true;
-
+    [Tooltip("The minimum and maximum pitch the sound may play at.")]
+    public Vector2 pitchRange;
+    [Header("Misc Properties")]
+    [Tooltip("Particle systems that should play when deforming.")]
     public ParticleSystem[] deformParticles;
+    [Tooltip("What should the drag be set to when over the field?")]
+    public float mudDragValue = 1.35f;
+
     bool systemsPlaying = false;
+    float origDrag = 0;
+    Rigidbody rb;
+    float minDefVelSquared;
+    Average velocityAverage;
 
     void Start () {
         rb = GetComponent<Rigidbody>();
@@ -98,7 +103,7 @@ public class TerrainDeform: MonoBehaviour {
                 } else if (vel < 0.2f && fieldRollingAS.isPlaying) {
                     fieldRollingAS.Stop();
                 }
-                fieldRollingAS.pitch = Mathf.Min(Mathf.Max(velocityAverage.GetNext(vel) * pitchSpeedMultiplier, pitchMin), pitchMax);
+                fieldRollingAS.pitch = Mathf.Clamp(velocityAverage.GetNext(vel) * pitchSpeedMultiplier, pitchRange.x, pitchRange.y);
             } else {
                 if (fieldRollingAS.isPlaying) {
                     fieldRollingAS.Stop();
@@ -126,5 +131,11 @@ public class TerrainDeform: MonoBehaviour {
             ffd = null;
             rb.drag = origDrag;
         }
+    }
+
+    private void OnValidate () {
+        pitchRange.x = Mathf.Max(0.001f, pitchRange.x);
+        pitchRange.y = Mathf.Max(pitchRange.x + 0.001f, pitchRange.y);
+        pitchRange.y = Mathf.Min(1f, pitchRange.y);
     }
 }

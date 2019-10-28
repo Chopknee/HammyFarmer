@@ -35,8 +35,6 @@ public class Pausemenu: MonoBehaviour {
 
         InputMasterController.Enable();
         InputMasterController.Hammy.Pause.performed += context => OnPausePressed();
-
-        DontDestroyOnLoad(gameObject);
     }
 
     void Start () {
