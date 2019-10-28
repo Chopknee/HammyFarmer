@@ -2,45 +2,47 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//So basically, this takes over the main camera and does the stuff..
+//This class controls the camera view. (There's alot going on in this class and I'm not going to describe most of it..)
 public class StickVisualizer: MonoBehaviour {
-
-    Transform parent;
-
-    public static Transform trans;
-
-    bool lastSMBMode;
-
-    public float zoomSensitivity = -3;
+    [Header("Starting Camera Position")]
+    [Tooltip("The starting zoom of the camera.")]
+    [Range(0f, 1f)]
     public float zoomPercent = 0.5f;
-    float zoomSpeed;
-
-    public float horizontalSensitivity = 0.15f;
-    public float horizontalSmoothing = 10;
-    float horizontalSmoothed;
-    float horizontalRotation;
-
-    public float zoomDrag = 4.15f;
-
-    public float verticalSensitivity = 0.15f;
-    public float verticalSmoothing = 10f;
+    [Tooltip("The starting rotation of the camera in radians.")]
+    [Range(0, Mathf.PI * 2)]
+    public float horizontalRotation;
+    [Tooltip("The starting vertical position of the camera.")]
+    [Range(0f, 1f)]
     public float vertical = 0.5f;//between 0 and 1
-    float verticalSmoothed;
+    [Header("Movement Modifiers")]
+    [Tooltip("How sensitive the zoom is for controls in general. For fine tuning each controller type, find the input master and ajust there.")]
+    public float zoomSensitivity = -3;
+    [Tooltip("How much smoothing to apply to zoom.")]
+    public float zoomSmoothing = 10;
+    [Tooltip("How sensitive the horizontal axis is for controls in general. For fine tuning each controller type, find the input master and ajust there.")]
+    public float horizontalSensitivity = 0.15f;
+    [Tooltip("How much smoothing to apply to the horizontal look axis.")]
+    public float horizontalSmoothing = 10;
+    [Tooltip("How sensitive the vertical axis is for controls in general. For fine tuning each controller type, find the input master and ajust there.")]
+    public float verticalSensitivity = 0.15f;
+    [Tooltip("How much smoothing to apply to the vertical look axis.")]
+    public float verticalSmoothing = 10f;
+    [Tooltip("How much farther up should the camera be allowed to go zoomed out vs. zoomed in.")]
     public float heightZoomScalar = 2;
-
+    [Tooltip("The base minimum and maximum height the camera can go.")]
     public Vector2 heightConstraintRange = new Vector2(0, 8.9f);
+    [Tooltip("The distance the camera is allowed to go from the player.")]
     public Vector2 distanceConstraint = new Vector2(5, 6);
+    [Tooltip("A curve to apply to the zooming. (May remove at some point.)")]
     public AnimationCurve zoomCurve;
 
+    float horizontalSmoothed;
+    float zoomSmoothed;
+    float verticalSmoothed;
     float PI2 = Mathf.PI * 2;
-
     GameObject hammyCam;
 
     void Start () {
-        if (Pausemenu.SMBMode) {
-            parent = transform.parent;
-            trans = transform;
-        }
         hammyCam = GetComponentInChildren<Camera>().gameObject;
     }
 
@@ -72,28 +74,21 @@ public class StickVisualizer: MonoBehaviour {
             horizontalSmoothed += PI2;
         }
 
-
-        //Update speed (scroll wheel)
-        zoomSpeed += zoom * zoomSensitivity * Time.deltaTime;
-        zoomSpeed += -zoomSpeed * zoomDrag * Time.deltaTime;
-        //Update the zoom amount
-        zoomPercent = Mathf.Clamp01(zoomPercent + zoomSpeed);
-        //Zero out values that are extremely low
-        if (zoomSpeed > -0.001f && zoomSpeed < 0.001f) {
-            zoomSpeed = 0;
-        }
+        float zoomDelta = zoom * Time.deltaTime * zoomSensitivity;
+        zoomPercent += zoomDelta;
+        zoomPercent = Mathf.Clamp(zoomPercent, 0, 1);
+        zoomSmoothed += ( zoomPercent - zoomSmoothed ) * Time.deltaTime * zoomSmoothing;
 
         //Calculate the position!!
         hammyCam.transform.localPosition = Vector3.zero;
         Vector3 pos = Vector3.zero;
-        pos.y = Mathf.Lerp(heightConstraintRange.x, heightConstraintRange.y + ( heightZoomScalar * zoomPercent ), verticalSmoothed);
-        float dist = Mathf.Lerp(distanceConstraint.x, distanceConstraint.y, zoomCurve.Evaluate(zoomPercent));
+        pos.y = Mathf.Lerp(heightConstraintRange.x, heightConstraintRange.y + ( heightZoomScalar * zoomSmoothed ), verticalSmoothed);
+        float dist = Mathf.Lerp(distanceConstraint.x, distanceConstraint.y, zoomCurve.Evaluate(zoomSmoothed));
         pos.z = -dist;
 
         hammyCam.transform.localPosition = pos;
         //Figure out what x rotation to apply to the camera
         //A^2 + B^2 = C^2
-        //hammyCam.transform.localRotation.eulerAngles = 
         hammyCam.transform.localEulerAngles = new Vector3(Mathf.Atan(pos.z / pos.y) * Mathf.Rad2Deg + 90, 0, 0);
 
         transform.rotation = Quaternion.identity;
@@ -101,9 +96,7 @@ public class StickVisualizer: MonoBehaviour {
 
         if (Pausemenu.SMBMode) {
             Vector2 stick = Pausemenu.InputMasterController.Hammy.Roll.ReadValue<Vector2>();
-            //transform.forward = BallControl.CameraTrackTransform.forward;
             transform.Rotate(new Vector3(-stick.y, 0, stick.x), stick.magnitude * 25f);
-            //transform.up += new Vector3(stick.x, 1, stick.y).normalized;
         }
 
         Physics.gravity = (transform.up).normalized * -9.81f;

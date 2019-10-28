@@ -44,15 +44,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6abfa872deeca7640a861c423ba8185c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoomSensitivity: -0.05
   zoomPercent: 0.5
+  horizontalRotation: 0
+  vertical: 0.5
+  zoomSensitivity: -0.05
+  zoomSmoothing: 5
   horizontalSensitivity: 0.15
   horizontalSmoothing: 10
-  zoomDrag: 4.15
   verticalSensitivity: 0.15
   verticalSmoothing: 10
-  vertical: 0.5
-  heightZoomScalar: 2
+  heightZoomScalar: 11
   heightConstraintRange: {x: 0, y: 8.9}
   distanceConstraint: {x: 3, y: 15}
   zoomCurve:
@@ -70,8 +71,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 2
-      outSlope: 2
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -139,7 +140,6 @@ GameObject:
   - component: {fileID: 538416297667782548}
   - component: {fileID: 538416297667782549}
   - component: {fileID: 538416297667782546}
-  - component: {fileID: 538416297667782547}
   - component: {fileID: 538416297667782544}
   - component: {fileID: 538416297667782545}
   m_Layer: 12
@@ -241,23 +241,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.7
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &538416297667782547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 538416297667782542}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80dba4755e2126640b28ae9c47aa28ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uniformScale: 2.17
-  colliderLayer: 9
-  spherePoints: 60
-  colliderScale: 0.9
-  colliderMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &538416297667782544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,20 +253,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12547f49068183240b7b8eaff1e6d6ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraAnchor: {fileID: 538416298270948348}
   forceMultiplier: 150
   torqueMultiplier: 150
   jumpForce: 8000
-  ragdoll: {fileID: 0}
-  reteleportRadius: 4
   GroundLayers:
     serializedVersion: 2
     m_Bits: 3379
   groundHitDistance: 1.74
   jumpSleepTime: 0.45
   airControlDivider: 0.38
-  forward: 0
-  right: 0
+  associatedCameraTransform: {fileID: 0}
   onGround: 1
   jumped: 0
 --- !u!114 &538416297667782545
@@ -492,8 +471,7 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.1922691
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7957060315675633732, guid: a1b4996e21799d543839e0968854d56e, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1b4996e21799d543839e0968854d56e, type: 3}
 --- !u!4 &538416298270948348 stripped
 Transform:

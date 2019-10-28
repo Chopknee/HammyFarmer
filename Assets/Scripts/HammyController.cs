@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Not something for adjusting. Don't mess with this. It is a huge work in progress.
 public class HammyController: MonoBehaviour {
 
     Rigidbody rb;
