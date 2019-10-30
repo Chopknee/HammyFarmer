@@ -23,8 +23,8 @@ TagManager:
   - PPFx
   - HamsterBall
   - NotJumpable
-  - 
-  - 
+  - NoTubeCollision
+  - TubeSection
   - 
   - 
   - 

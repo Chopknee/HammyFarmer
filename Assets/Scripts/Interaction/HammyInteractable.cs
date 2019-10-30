@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 /// <summary>
 /// This is a class for generic hammy interactions.
 /// It exposes functions for both general interaction, or attatchment.
@@ -11,17 +12,17 @@ public class HammyInteractable: MonoBehaviour {
     protected GameObject hammy;
 
     public virtual void Start() {
-        Pausemenu.InputMasterController.Hammy.Attach.performed += context => OnHammyHook();
-        Pausemenu.InputMasterController.Hammy.Use.performed += context => OnHammyInteract();
+        Pausemenu.InputMasterController.Hammy.Attach.performed += OnHammyHook;
+        Pausemenu.InputMasterController.Hammy.Use.performed += OnHammyInteract;
     }
 
-    public void OnHammyHook() {
+    public void OnHammyHook(InputAction.CallbackContext context) {
         if (isHammyInside) {
             HammyHookedIn(hammy);
         }
     }
 
-    public void OnHammyInteract() {
+    public void OnHammyInteract(InputAction.CallbackContext context) {
         if (isHammyInside) {
             HammyInteracted(hammy);
         }
@@ -40,6 +41,11 @@ public class HammyInteractable: MonoBehaviour {
             isHammyInside = false;
             HammyExited();
         }
+    }
+
+    private void OnDestroy () {
+        Pausemenu.InputMasterController.Hammy.Attach.performed -= OnHammyHook;
+        Pausemenu.InputMasterController.Hammy.Use.performed -= OnHammyInteract;
     }
 
     //Override any of these to get the desired functionality

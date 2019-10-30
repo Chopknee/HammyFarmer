@@ -75,6 +75,14 @@ namespace Hammy
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Debug"",
+                    ""type"": ""Button"",
+                    ""id"": ""e64bf18b-6444-42da-a683-e3f1d3551a30"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -297,6 +305,50 @@ namespace Hammy
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ea22bb49-582c-4b38-b218-e0027562fd3e"",
+                    ""path"": ""<Keyboard>/backquote"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Debug"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""GamepadDebug"",
+                    ""id"": ""3295c4b9-33d5-41d9-9c8c-e99c0d9f85e3"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Debug"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""2c6e7964-b6d5-4478-89c9-097b83487b3a"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Debug"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""291d3205-71fc-45a8-8c87-3392cf2081d1"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Debug"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -700,6 +752,7 @@ namespace Hammy
             m_Hammy_Pause = m_Hammy.FindAction("Pause", throwIfNotFound: true);
             m_Hammy_Zoom = m_Hammy.FindAction("Zoom", throwIfNotFound: true);
             m_Hammy_Look = m_Hammy.FindAction("Look", throwIfNotFound: true);
+            m_Hammy_Debug = m_Hammy.FindAction("Debug", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -769,6 +822,7 @@ namespace Hammy
         private readonly InputAction m_Hammy_Pause;
         private readonly InputAction m_Hammy_Zoom;
         private readonly InputAction m_Hammy_Look;
+        private readonly InputAction m_Hammy_Debug;
         public struct HammyActions
         {
             private InputMaster m_Wrapper;
@@ -780,6 +834,7 @@ namespace Hammy
             public InputAction @Pause => m_Wrapper.m_Hammy_Pause;
             public InputAction @Zoom => m_Wrapper.m_Hammy_Zoom;
             public InputAction @Look => m_Wrapper.m_Hammy_Look;
+            public InputAction @Debug => m_Wrapper.m_Hammy_Debug;
             public InputActionMap Get() { return m_Wrapper.m_Hammy; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -810,6 +865,9 @@ namespace Hammy
                     Look.started -= m_Wrapper.m_HammyActionsCallbackInterface.OnLook;
                     Look.performed -= m_Wrapper.m_HammyActionsCallbackInterface.OnLook;
                     Look.canceled -= m_Wrapper.m_HammyActionsCallbackInterface.OnLook;
+                    Debug.started -= m_Wrapper.m_HammyActionsCallbackInterface.OnDebug;
+                    Debug.performed -= m_Wrapper.m_HammyActionsCallbackInterface.OnDebug;
+                    Debug.canceled -= m_Wrapper.m_HammyActionsCallbackInterface.OnDebug;
                 }
                 m_Wrapper.m_HammyActionsCallbackInterface = instance;
                 if (instance != null)
@@ -835,6 +893,9 @@ namespace Hammy
                     Look.started += instance.OnLook;
                     Look.performed += instance.OnLook;
                     Look.canceled += instance.OnLook;
+                    Debug.started += instance.OnDebug;
+                    Debug.performed += instance.OnDebug;
+                    Debug.canceled += instance.OnDebug;
                 }
             }
         }
@@ -979,6 +1040,7 @@ namespace Hammy
             void OnPause(InputAction.CallbackContext context);
             void OnZoom(InputAction.CallbackContext context);
             void OnLook(InputAction.CallbackContext context);
+            void OnDebug(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

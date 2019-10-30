@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 687999076288962835}
   - component: {fileID: 3128702339048716842}
   - component: {fileID: 4326782912539740120}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: TubeFunnel
   m_TagString: Untagged
   m_Icon: {fileID: 0}

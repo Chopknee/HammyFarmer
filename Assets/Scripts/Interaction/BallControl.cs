@@ -31,7 +31,7 @@ public class BallControl : MonoBehaviour {
     Rigidbody rb;
 
     int numAlternateGroundChecks = 8;
-    float groundCheckHeightAdjustment = -0.5f;
+    public float groundCheckHeightAdjustment = -0.5f;
     Vector3[] groundCheckPoints;
 
     void Start () {
@@ -57,6 +57,7 @@ public class BallControl : MonoBehaviour {
 
     //The jump action
     void Jump (InputAction.CallbackContext context) {
+        if (rb == null) { rb = GetComponent<Rigidbody>(); }
         if (onGround && !jumped) {
             rb.AddForce(Vector3.up * jumpForce);
             jumped = true;
@@ -131,5 +132,9 @@ public class BallControl : MonoBehaviour {
                 Gizmos.DrawLine(transform.position, transform.position + point * groundHitDistance);
             }
         }
+    }
+
+    private void OnDestroy () {
+        Pausemenu.InputMasterController.Hammy.Jump.performed -= Jump;
     }
 }

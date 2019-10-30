@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Pausemenu: MonoBehaviour {
@@ -20,6 +21,8 @@ public class Pausemenu: MonoBehaviour {
 
     public Button quitButton;
     public Button resumeButton;
+    public Button resetButton;
+    public Button returnToHubButton;
 
     CanvasGroup group;
     public bool showing = false;
@@ -30,6 +33,8 @@ public class Pausemenu: MonoBehaviour {
             Destroy(gameObject);
             return;
         }
+
+        Instance = this;
 
         InputMasterController = new InputMaster();
 
@@ -51,6 +56,8 @@ public class Pausemenu: MonoBehaviour {
         SMBmodeToggle.onValueChanged.AddListener(SMBToggle);
         quitButton.onClick.AddListener(quit);
         resumeButton.onClick.AddListener(resume);
+        resetButton.onClick.AddListener(restart);
+        returnToHubButton.onClick.AddListener(returnHub);
 
         group = GetComponent<CanvasGroup>();
         Hide();
@@ -97,7 +104,24 @@ public class Pausemenu: MonoBehaviour {
         Cursor.visible = false;
     }
 
+    void restart() {
+        Hide();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    void returnHub() {
+        Hide();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        SceneManager.LoadScene(0);
+    }
+
     void Show() {
+        if (group == null) {
+            group = GetComponent<CanvasGroup>();
+        }
         SetControlsEnabled(false);
         group.interactable = true;
         group.blocksRaycasts = true;
@@ -105,9 +129,13 @@ public class Pausemenu: MonoBehaviour {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         showing = true;
+        EventSystem.current.SetSelectedGameObject(resumeButton.gameObject);
     }
 
     void Hide() {
+        if (group == null) {
+            group = GetComponent<CanvasGroup>();
+        }
         SetControlsEnabled(true);
         group.interactable = false;
         group.blocksRaycasts = false;

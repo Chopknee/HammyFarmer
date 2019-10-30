@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6450384376615414925}
   - component: {fileID: 4036534357704473595}
   - component: {fileID: 9204078236772116503}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Tube 90 Degrees No Caps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
