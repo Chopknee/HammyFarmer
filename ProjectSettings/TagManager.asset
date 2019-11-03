@@ -8,6 +8,7 @@ TagManager:
   - FarmField
   - WaterDrop
   - Radish
+  - Harvester
   layers:
   - Default
   - TransparentFX

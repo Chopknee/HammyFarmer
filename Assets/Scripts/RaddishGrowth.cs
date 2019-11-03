@@ -24,6 +24,12 @@ public class RaddishGrowth : MonoBehaviour {
 
     MaterialPropertyBlock mat;
 
+    public float growPercent {
+        get {
+            return growTimer.percentComplete;
+        }
+    }
+
 
     void Start() {
         growTimer = new Timeout(growTime);
@@ -79,6 +85,13 @@ public class RaddishGrowth : MonoBehaviour {
     void SetTopColor(Color col) {
         mat.SetColor("_BaseColor", col);
         GetComponent<Renderer>().SetPropertyBlock(mat, 1);
+    }
+
+    private void OnTriggerEnter ( Collider other ) {
+        if (other.CompareTag("Harvester")) {
+            //Do the harvesting!!!
+            other.GetComponent<Harvester>().Harvest(this);
+        }
     }
 
     private void OnValidate () {

@@ -94,7 +94,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 1
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!1 &538416297563057811
@@ -141,7 +141,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 1
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!1 &538416297667782542
@@ -209,7 +209,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 065c7e3e19e2cc44d90c7635fa992fb4, type: 2}
-  - {fileID: 2100000, guid: c6850d0026d9b9844a1a2a33da846c7d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -238,8 +237,8 @@ Rigidbody:
   m_GameObject: {fileID: 538416297667782542}
   serializedVersion: 2
   m_Mass: 20
-  m_Drag: 0.35
-  m_AngularDrag: 0.05
+  m_Drag: 0.2
+  m_AngularDrag: 0.005
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
@@ -270,8 +269,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12547f49068183240b7b8eaff1e6d6ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMultiplier: 150
-  torqueMultiplier: 150
+  forceMultiplier: 185
+  torqueMultiplier: 175
   jumpForce: 8000
   GroundLayers:
     serializedVersion: 2
@@ -282,7 +281,7 @@ MonoBehaviour:
   associatedCameraTransform: {fileID: 0}
   onGround: 1
   jumped: 1
-  groundCheckHeightAdjustment: 1
+  groundCheckHeightAdjustment: -0.5
 --- !u!114 &538416297667782545
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,7 +13,15 @@ public class Pausemenu: MonoBehaviour {
     public static bool SMBMode { get; private set; }
     public static Pausemenu Instance { get; private set; }
 
-    public static InputMaster InputMasterController { get; private set; }
+    static InputMaster _inputMaster;
+    public static InputMaster InputMasterController {
+        get {
+            if (_inputMaster == null) {
+                _inputMaster = new InputMaster();
+            }
+            return _inputMaster;
+        }
+    }
 
     public Toggle InvertVerticalToggle;
     public Toggle InvertHorizontalToggle;
@@ -36,7 +44,7 @@ public class Pausemenu: MonoBehaviour {
 
         Instance = this;
 
-        InputMasterController = new InputMaster();
+        _inputMaster = new InputMaster();
 
         InputMasterController.Enable();
         InputMasterController.Hammy.Pause.performed += context => OnPausePressed();
