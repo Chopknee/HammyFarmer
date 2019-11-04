@@ -72,7 +72,10 @@ public class Flea: MonoBehaviour {
         if (!hooked && !resting) {
             if (collision.gameObject.CompareTag("HammyBall")) {
                 //Stick to the player! (IDK HOW...)
-                transform.parent = collision.transform;
+                transform.SetParent(collision.transform);
+                //
+                transform.up = ( transform.position - collision.transform.position );
+                transform.localPosition = transform.localPosition.normalized * 1.8f;
                 Destroy(rb);
                 hooked = true;
                 t = 0;
