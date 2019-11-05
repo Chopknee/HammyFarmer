@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 7380726881919155677}
   - component: {fileID: 7128399768986724399}
   - component: {fileID: 1135088794128148199}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: FlexiTube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
