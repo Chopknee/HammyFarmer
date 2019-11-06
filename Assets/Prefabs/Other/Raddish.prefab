@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2603666777060074075}
   - component: {fileID: 4646564537686935220}
   - component: {fileID: 9207705412451663666}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Raddish
   m_TagString: Radish
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 4021400277645671693}
   - component: {fileID: 3033347841848224968}
   - component: {fileID: 7985425473589823720}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1205997518}
   - component: {fileID: 1205997520}
   - component: {fileID: 1205997519}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: SeedsIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 7546629406392049516}
   - component: {fileID: 3849867730952254404}
   - component: {fileID: 1007809286927603809}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Seeds
   m_TagString: Untagged
   m_Icon: {fileID: 0}

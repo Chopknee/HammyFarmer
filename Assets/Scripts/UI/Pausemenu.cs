@@ -10,7 +10,6 @@ public class Pausemenu: MonoBehaviour {
 
     public static bool VerticalInverted { get; private set; }
     public static bool HorizontalInverted { get; private set; }
-    public static bool SMBMode { get; private set; }
     public static Pausemenu Instance { get; private set; }
 
     static InputMaster _inputMaster;
@@ -55,13 +54,10 @@ public class Pausemenu: MonoBehaviour {
         InvertVerticalToggle.isOn = VerticalInverted;
         HorizontalInverted = PlayerPrefs.GetInt("HorizontalToggle", 0) == 1;
         InvertHorizontalToggle.isOn = HorizontalInverted;
-        SMBMode = PlayerPrefs.GetInt("SMBMode", 0) == 1;
-        SMBmodeToggle.isOn = SMBMode;
 
 
         InvertVerticalToggle.onValueChanged.AddListener(verticalToggleChanged);
         InvertHorizontalToggle.onValueChanged.AddListener(horizontalToggleChanged);
-        SMBmodeToggle.onValueChanged.AddListener(SMBToggle);
         quitButton.onClick.AddListener(quit);
         resumeButton.onClick.AddListener(resume);
         resetButton.onClick.AddListener(restart);
@@ -85,11 +81,6 @@ public class Pausemenu: MonoBehaviour {
             Cursor.visible = false;
             Hide();
         }
-    }
-
-    void SMBToggle(bool value) {
-        PlayerPrefs.SetInt("SMBMode", ( value ) ? 1 : 0);
-        SMBMode = value;
     }
 
     void verticalToggleChanged(bool value) {

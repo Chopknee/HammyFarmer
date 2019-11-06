@@ -94,7 +94,7 @@ public class StickVisualizer: MonoBehaviour {
         transform.rotation = Quaternion.identity;
         transform.Rotate(new Vector3(0, 1, 0), Mathf.Rad2Deg * horizontalSmoothed);
 
-        if (Pausemenu.SMBMode) {
+        if (false) {
             Vector2 stick = Pausemenu.InputMasterController.Hammy.Roll.ReadValue<Vector2>();
             transform.Rotate(new Vector3(-stick.y, 0, stick.x), stick.magnitude * 25f);
         }

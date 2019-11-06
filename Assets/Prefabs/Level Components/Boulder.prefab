@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3104864935123004642}
   - component: {fileID: 3104864935123004645}
   - component: {fileID: 3104864935123004644}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Boulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -691,14 +691,14 @@ MonoBehaviour:
   stampMap: {fileID: 2800000, guid: 5daf36e29d389a8479c324f013fe33d1, type: 3}
   stampScale: 0.8
   weight: 0.4
-  mudDragValue: 1.35
-  fieldSound: {fileID: 0}
-  soundVolume: 0.75
-  pitchSpeedMultiplier: 0
-  pitchMin: 0.1
-  pitchMax: 0.5
   minimumDeformationVelocity: 0.25
   deformWeight: -0.563
   tillWeight: -0.284
   waterWeight: 0
   additiveOnly: 1
+  fieldSound: {fileID: 0}
+  soundVolume: 0.75
+  pitchSpeedMultiplier: 0
+  pitchRange: {x: 0.001, y: 0.002}
+  deformParticles: []
+  mudDragValue: 1.35
