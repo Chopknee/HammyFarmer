@@ -4,105 +4,54 @@ using UnityEngine;
 
 public class CameraMotion: MonoBehaviour {
 
-    public AnimationCurve zoomCurve;
-    public float zoomSensitivity = -3;
-    public float zoomPercent = 0.5f;
-    float zoomSpeed;
-    public Vector2 heightConstraintRange = new Vector2(0, 8.9f);
-    public Vector2 distanceConstraint = new Vector2(5, 6);
+    //This is just for the target camera position, not the camera it'self
+    //It is assumed that this is part of a parent game object.
+    [Range(0, 360)]
+    public float horizontalRotation = 0;
+    [Range(-90, 90)]
+    public float verticalRotation = 0;
+    public float zoom = 0;
 
-    public float zoomDrag = 4.15f;
+    public float horizontalSensitivity = 1;
+    public float verticalSensitivity = 1;
+    public float zoomSensitivity = 1;
 
     public Transform target;
-    
-    public float horizontalSensitivity = 0.15f;
-    public float horizontalSmoothing = 10;
-    public float horizontal = 0;//In radians
-
-    public float verticalSensitivity = 0.15f;
-    public float verticalSmoothing = 10f;
-    public float vertical = 0.5f;//between 0 and 1
-    public float heightZoomScalar = 2;
-
-    public float smoothTime = 0.1f;
 
     void Start () {
-        target = GameObject.FindGameObjectWithTag("HammyBall").transform;
-        if (target == null) {
-            Debug.Log("Could not find the player!");
-            enabled = false;
-        }
-        verticalSmoothed = vertical;
     }
-
-    readonly float PI2 = Mathf.PI * 2;
-
-    float verticalSmoothed;
-    float horizontalSmoothed;
 
     void LateUpdate () {
 
-        Vector2 cameraAxis = Pausemenu.InputMasterController.Hammy.Look.ReadValue<Vector2>();
-        float zoom = Pausemenu.InputMasterController.Hammy.Zoom.ReadValue<float>();
-        if (zoom != 0) {
-            cameraAxis.y = 0;
+        if (target == null)
+            return;
+
+        Vector2 cameraDelta = Pausemenu.InputMasterController.Hammy.Look.ReadValue<Vector2>();
+        float zoomDelta = Pausemenu.InputMasterController.Hammy.Zoom.ReadValue<float>();
+        if (zoomDelta != 0) {
+            cameraDelta.y = 0;
         }
 
-        int vDir = ( Pausemenu.VerticalInverted ) ? -1 : 1;
-        float verticalDelta = cameraAxis.y * Time.deltaTime * verticalSensitivity * vDir;
-        vertical += verticalDelta;
-        vertical = Mathf.Clamp(vertical, 0, 1);
-        verticalSmoothed += ( vertical - verticalSmoothed ) * Time.deltaTime * verticalSmoothing;
+        horizontalRotation += cameraDelta.x * horizontalSensitivity * Time.deltaTime;
+        verticalRotation += cameraDelta.y * verticalSensitivity * Time.deltaTime;
+        zoom += zoomDelta * zoomSensitivity * Time.deltaTime;
 
-        int hDir = ( Pausemenu.HorizontalInverted ) ? -1 : 1;
-        float horizontalDelta = cameraAxis.x * Time.deltaTime * horizontalSensitivity * hDir;
-        horizontal += horizontalDelta;
-        horizontalSmoothed += ( horizontal - horizontalSmoothed ) * Time.deltaTime * horizontalSmoothing;
-        // Keeping rotation within the 0 to 2 * PI range
-        if (horizontal >= PI2) {
-            horizontal -= PI2;
-            horizontalSmoothed -= PI2;
-        } else if (horizontal < 0) {
-            horizontal += PI2;
-            horizontalSmoothed += PI2;
+        if (verticalRotation > 89) {
+            verticalRotation = 89;
+        } else if (verticalRotation < -89) {
+            verticalRotation = -89;
         }
+
         
 
-        //Update speed (scroll wheel)
-        zoomSpeed += zoom * zoomSensitivity * Time.deltaTime;
-        zoomSpeed += -zoomSpeed * zoomDrag * Time.deltaTime;
-        //Update the zoom amount
-        zoomPercent = Mathf.Clamp01(zoomPercent + zoomSpeed);
-        //Zero out values that are extremely low
-        if (zoomSpeed > -0.001f && zoomSpeed < 0.001f) {
-            zoomSpeed = 0;
-        }
+        transform.position = target.position + Quaternion.Euler(new Vector3(verticalRotation, horizontalRotation, 0)) * (zoom * Vector3.back);
+        transform.LookAt(target);
 
-        //Calculate the position!!
-        transform.position = target.position;
-        Vector3 pos = target.position;
-        pos.y += Mathf.Lerp(heightConstraintRange.x, heightConstraintRange.y + (heightZoomScalar * zoomPercent), verticalSmoothed);
-        float dist = Mathf.Lerp(distanceConstraint.x, distanceConstraint.y, zoomCurve.Evaluate(zoomPercent));
-        
-        pos.x += Mathf.Sin(horizontalSmoothed) * dist;
-        pos.z += Mathf.Cos(horizontalSmoothed) * dist;
-
-        //Point toward the object
-        transform.position = pos;
-        transform.forward = ( target.position - transform.position ).normalized;
     }
 
 
     //Just for the editor
     private void OnValidate () {
-        if (!Application.isPlaying) {
-            //Height constraint x is the min, must be above 0.
-            heightConstraintRange.x = Mathf.Max(0, heightConstraintRange.x);
-            //Height constrain y is the max, it must be above the min
-            heightConstraintRange.y = Mathf.Max(heightConstraintRange.x + 0.1f, heightConstraintRange.y);
 
-            distanceConstraint.x = Mathf.Max(0, distanceConstraint.x);
-            distanceConstraint.y = Mathf.Max(distanceConstraint.x + 0.1f, distanceConstraint.y);
-        }
     }
 }
