@@ -31,9 +31,6 @@ public class CameraMotion: MonoBehaviour {
     public LayerMask cameraCollisionLayers;
     public float forwardPushOnCollide = 0.1f;
 
-    void Start () {
-    }
-
     void LateUpdate () {
 
         if (target == null)
