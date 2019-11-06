@@ -47,8 +47,8 @@ MonoBehaviour:
   horizontalRotation: 0
   verticalRotation: 0
   zoom: 8
-  horizontalSensitivity: 1.5
-  verticalSensitivity: 1.5
+  horizontalSensitivity: 4.5
+  verticalSensitivity: 4.5
   zoomSensitivity: 0.35
   horizontalSmoothing: 20
   verticalSmoothing: 20
@@ -58,6 +58,7 @@ MonoBehaviour:
   cameraCollisionLayers:
     serializedVersion: 2
     m_Bits: 1
+  forwardPushOnCollide: 0.1
 --- !u!1 &538416297563057811
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,6 +374,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 553246005}
     m_Modifications:
+    - target: {fileID: 7957060315675633785, guid: a1b4996e21799d543839e0968854d56e,
+        type: 3}
+      propertyPath: m_Name
+      value: Camera
+      objectReference: {fileID: 0}
     - target: {fileID: 7957060315675633784, guid: a1b4996e21799d543839e0968854d56e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -443,11 +449,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7957060315675633785, guid: a1b4996e21799d543839e0968854d56e,
-        type: 3}
-      propertyPath: m_Name
-      value: Camera
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1b4996e21799d543839e0968854d56e, type: 3}
 --- !u!4 &538416298270948348 stripped
@@ -463,6 +464,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3200532960310582392}
     m_Modifications:
+    - target: {fileID: -927199367670048503, guid: 1e758f88800d31841a12ce3d0dcf2c56,
+        type: 3}
+      propertyPath: m_Name
+      value: hammi
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 1e758f88800d31841a12ce3d0dcf2c56,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -532,11 +538,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1.9732332
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 1e758f88800d31841a12ce3d0dcf2c56,
-        type: 3}
-      propertyPath: m_Name
-      value: hammi
       objectReference: {fileID: 0}
     - target: {fileID: -6057140222963153312, guid: 1e758f88800d31841a12ce3d0dcf2c56,
         type: 3}
