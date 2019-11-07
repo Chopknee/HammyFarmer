@@ -11,10 +11,13 @@ public class HammyInteractable: MonoBehaviour {
     protected bool isHammyInside = false;
     protected GameObject hammy;
 
+    bool controlsHooked = false;
+
     public virtual void Start() {
         Pausemenu.InputMasterController.Hammy.Attach.performed += OnHammyHook;
         Pausemenu.InputMasterController.Hammy.Use.performed += OnHammyInteract;
     }
+
 
     public void OnHammyHook(InputAction.CallbackContext context) {
         if (isHammyInside) {

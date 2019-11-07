@@ -4,11 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class Bomb: HammyInteractable {
-
-    public GameObject debrisPrefab;
-    public int debrisCount;
-    public float debrisRadius;
+public class Bomb : HammyInteractable {
 
     public GameObject destructionPrefab;
 
@@ -17,18 +13,21 @@ public class Bomb: HammyInteractable {
     private bool exploding = false;
 
     public float explosionRadius = 0;
-    float explosionRadSquared = 0;
-    float explosionForceMultiplier = 10;
+    public float explosionForceMultiplier = 10;
 
-    public float spawnedObjectForce = 100f;
+    public GameObject debrisPrefab;
+    public int debrisCount;
+    public float debrisRadius;
+
+    public float debrisSpawnForce = 100f;
     [Range(0f, 1f)]
-    public float spawnedObjectUpForce = 0.25f;
+    public float debrisSpawnUpForce = 0.25f;
     float t = 0;
 
     public GameObject messageGUI;
 
-    private void Start() {
-        explosionRadSquared = explosionRadius * explosionRadius;
+    public override void Start() {
+        base.Start();
     }
 
     public void Update () {
@@ -38,8 +37,8 @@ public class Bomb: HammyInteractable {
                 foreach (Vector3 vec in Utility.FibonacciSphereDistro(debrisCount, debrisRadius)) {
                     GameObject sd = Instantiate(debrisPrefab, transform.position + vec, Random.rotation);
                     sd.GetComponent<Rigidbody>().AddForce(
-                        ( transform.position - ( transform.position + vec ) ) * (spawnedObjectForce * (1 - spawnedObjectUpForce)) + 
-                        (Vector3.up * (spawnedObjectForce * spawnedObjectUpForce)));
+                        ( transform.position - ( transform.position + vec ) ) * (debrisSpawnForce * (1 - debrisSpawnUpForce)) + 
+                        (Vector3.up * (debrisSpawnForce * debrisSpawnUpForce)));
                 }
 
                 if (explosionRadius > 0) {
@@ -49,8 +48,9 @@ public class Bomb: HammyInteractable {
                         //Do an inverse square for the explosion power
 
                         Vector3 positionDifference = go.transform.position - transform.position;
-                        float explosionPower = explosionRadius - positionDifference.sqrMagnitude * explosionForceMultiplier;
-                        Rigidbody rb = GetComponent<Rigidbody>();
+                        float explosionPower = ( explosionRadius - positionDifference.magnitude) * explosionForceMultiplier;
+                        Debug.Log(explosionPower);
+                        Rigidbody rb = go.GetComponent<Rigidbody>();
                         if (rb != null) {
                             rb.AddForce(positionDifference.normalized * explosionPower);
                         }
@@ -82,12 +82,13 @@ public class Bomb: HammyInteractable {
 
     public override void HammyInteracted ( GameObject hammy ) {
         if (!exploding) {
-            SetOff();
+            exploding = true;
             GetComponent<AudioSource>().Play();
         }
     }
 
-    public void SetOff() {
-        exploding = true;
+    public void OnDrawGizmosSelected () {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, explosionRadius);
     }
 }
