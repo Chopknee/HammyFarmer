@@ -45,17 +45,26 @@ public class CameraMotion: MonoBehaviour {
 
         //The horizontal rotation of the camera
         horizontalRotation += cameraDelta.x * horizontalSensitivity * Time.deltaTime * ((Pausemenu.HorizontalInverted)? -1 : 1);
-        smoothedHorizontal += ( horizontalRotation - smoothedHorizontal ) * Time.deltaTime * horizontalSmoothing;
 
         //The vertical rotation of the camera
         verticalRotation += cameraDelta.y * verticalSensitivity * Time.deltaTime * ( ( Pausemenu.VerticalInverted ) ? -1 : 1 );
         verticalRotation = Mathf.Clamp(verticalRotation, -89, 89);
-        smoothedVertical += ( verticalRotation - smoothedVertical ) * Time.deltaTime * verticalSmoothing;
+        
 
         //Zoom Control
         zoom += -1 * zoomDelta * zoomSensitivity * Time.deltaTime;
         zoom = Mathf.Clamp(zoom, 2.25f, maxZoomDistance);
-        smoothedZoom += ( zoom - smoothedZoom ) * Time.deltaTime * zoomSmoothing;
+        
+
+        if (Time.deltaTime < 0.036f) {//Checking if the 
+            smoothedHorizontal += (horizontalRotation - smoothedHorizontal) * Time.deltaTime * horizontalSmoothing;
+            smoothedVertical += (verticalRotation - smoothedVertical) * Time.deltaTime * verticalSmoothing;
+            smoothedZoom += (zoom - smoothedZoom) * Time.deltaTime * zoomSmoothing;
+        } else {
+            smoothedHorizontal = horizontalRotation;
+            smoothedVertical = verticalRotation;
+            smoothedZoom = zoom;
+        }
 
         //
         Vector3 desiredPosition = target.position + Quaternion.Euler(new Vector3(smoothedVertical, smoothedHorizontal, 0)) * ( smoothedZoom * Vector3.back );
