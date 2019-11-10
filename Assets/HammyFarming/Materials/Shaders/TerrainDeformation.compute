@@ -1,0 +1,49 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+RWTexture2D<float4> Result;
+Texture2D<float4> StampMap;
+
+float2 stampSize;
+float4x4 transformationMatrix;
+
+float3 weights;
+
+float deltaTime;
+bool additiveOnly;
+
+bool inBounds ( float2 pos, float2 boundsSize ) {
+    bool isBd = pos.x >= 0 && pos.x <= boundsSize.x;
+    isBd = isBd && pos.y >= 0 && pos.y <= boundsSize.y;
+    return isBd;
+}
+
+[numthreads(8, 8, 1)]
+void CSMain ( uint3 id : SV_DispatchThreadID ) {
+	
+	//Transform the stamp map on the main texture
+    float4 pos = float4(id.x, id.y, id.z, 1);
+    pos = mul(transformationMatrix, pos);
+	//float3 weights = float3(deformWeight, tillWeight, waterWeight);
+	//Get the color weights into a vector
+	float3 col = StampMap[pos.xy].rgb;
+	//Shift the colors down
+
+	//col = ((col * 2.0) - 1.0) * 0.5;
+	if (!additiveOnly)
+		col = (col - 0.5) * 2;
+
+	col.r *= weights.r;col.g *= weights.g;col.b *= weights.b;
+	col = col * deltaTime;
+	//Get the stamp bounds clipping into an alpha
+	float alpha = (inBounds(pos.xy, stampSize)) ? StampMap[pos.xy].a : 0;
+	//Pre-make the final vector for later use
+	float4 final = float4(0, 0, 0, 0);
+	//Calculate the final result by multiplying each component of color by alpha.
+	final.rgb = Result[id.xy].rgb + ((col) * alpha);
+	//Apply the final result to the output
+    Result[id.xy] = final;
+}

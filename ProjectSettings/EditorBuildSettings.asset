@@ -6,16 +6,16 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/LevelSelect.unity
+    path: Assets/HammyFarming/Scenes/LevelSelect.unity
     guid: 431d262927659a34a9991a5d3793e063
   - enabled: 1
-    path: Assets/Scenes/Scene.unity
+    path: Assets/HammyFarming/Brian/Scenes/Scene.unity
     guid: 92010c187582202419c0a088a6eccc22
   - enabled: 1
-    path: Assets/Scenes/01Spring.unity
+    path: Assets/HammyFarming/Scenes/01Spring.unity
     guid: 5b614327c1a025f4ba8d8a7b25cbe1de
   - enabled: 1
-    path: Assets/Scenes/02Summer.unity
+    path: Assets/HammyFarming/Scenes/02Summer.unity
     guid: f39a853967f71d74095aafaaa10e5c9a
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 7f474b5332b7edf4d9ea2138d89830f3,
