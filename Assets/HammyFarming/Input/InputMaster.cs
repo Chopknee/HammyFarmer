@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Misc/Input/InputMaster.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/HammyFarming/Input/InputMaster.inputactions'
 
 using System;
 using System.Collections;

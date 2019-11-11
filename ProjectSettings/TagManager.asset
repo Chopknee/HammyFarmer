@@ -9,6 +9,7 @@ TagManager:
   - WaterDrop
   - Radish
   - Harvester
+  - Destructable
   layers:
   - Default
   - TransparentFX

@@ -2,36 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Director : MonoBehaviour {
+namespace HammyFarming.Brian {
 
-    public static Director Instance;
+    public class Director: MonoBehaviour {
 
-    public delegate void SiloFillChanged ( float value );
-    public SiloFillChanged OnSiloFillChanged;
+        public static Director Instance;
 
-    public void Start () {
-        Instance = this;
-    }
+        public delegate void SiloFillChanged ( float value );
+        public SiloFillChanged OnSiloFillChanged;
 
-    float _siloFill;
-    public float SiloFillLevel {
-        get {
-            return _siloFill;
+        public void Start () {
+            Instance = this;
         }
-        set {
-            _siloFill = value;
-            OnSiloFillChanged?.Invoke(value);
+
+        float _siloFill;
+        public float SiloFillLevel {
+            get {
+                return _siloFill;
+            }
+            set {
+                _siloFill = value;
+                OnSiloFillChanged?.Invoke(value);
+            }
         }
-    }
 
-    public float SiloFillGoal = 100;
-    public float FullGrowthScore = 5;
+        public float SiloFillGoal = 100;
+        public float FullGrowthScore = 5;
 
-    void Awake() {
-        //Prevent multiple director instances from existing.
-        if (Instance != null) {
-            Destroy(this);
-            return;
+        void Awake () {
+            //Prevent multiple director instances from existing.
+            if (Instance != null) {
+                Destroy(this);
+                return;
+            }
+
+            //Figure out what level should be loaded
         }
     }
 }
