@@ -37,10 +37,6 @@ namespace HammyFarming.Brian.Monsters {
         private void Awake () {
             reSpawnPoint = transform.position;
 
-            if (target == null) {
-                target = GameObject.FindGameObjectWithTag("HammyBall").transform;
-            }
-
             distSquared = attemptJumpRadius * attemptJumpRadius;
 
             rb = GetComponent<Rigidbody>();
@@ -49,6 +45,12 @@ namespace HammyFarming.Brian.Monsters {
             jumpRestTimeout = new Timeout(jumpRestTime);
             restingTimeout = new Timeout(hitByWaterRestTime);
 
+        }
+
+        private void Start () {
+            if (target == null) {
+                target = GameObject.FindGameObjectWithTag("HammyBall").transform;
+            }
         }
 
         void Update () {

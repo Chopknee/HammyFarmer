@@ -10,6 +10,7 @@ TagManager:
   - Radish
   - Harvester
   - Destructable
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using HammyFarming.Brian.UI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,8 +40,8 @@ namespace HammyFarming.Brian.Animation {
                 return;
 
             //Grabbing the deltas from the input class
-            Vector2 cameraDelta = Pausemenu.InputMasterController.Hammy.Look.ReadValue<Vector2>();
-            float zoomDelta = Pausemenu.InputMasterController.Hammy.Zoom.ReadValue<float>();
+            Vector2 cameraDelta = Director.InputMasterController.Hammy.Look.ReadValue<Vector2>();
+            float zoomDelta = Director.InputMasterController.Hammy.Zoom.ReadValue<float>();
             if (zoomDelta != 0) {
                 cameraDelta.y = 0;
             }

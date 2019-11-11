@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FaceCamera : MonoBehaviour {
+namespace HammyFarming.Brian.Animation {
 
-    void Update() {
-        
-    }
+    public class FaceCamera: MonoBehaviour {
 
-    private void FixedUpdate () {
-        transform.LookAt(Camera.main.transform);
+        private void LateUpdate () {
+            transform.LookAt(Camera.main.transform);
+        }
     }
 }

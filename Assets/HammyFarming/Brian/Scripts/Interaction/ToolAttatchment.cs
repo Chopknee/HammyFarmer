@@ -43,7 +43,7 @@ namespace HammyFarming.Brian.Interaction {
             tooFarSquared = tooFarRadius * tooFarRadius;
 
             base.Start();
-            Pausemenu.InputMasterController.Hammy.Attach.performed += context => OnAttachPushed();
+            Director.InputMasterController.Hammy.Attach.performed += context => OnAttachPushed();
         }
 
         bool hasChangedState = false;

@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeepOriented : MonoBehaviour {
+namespace HammyFarming.Brian.Animation {
 
-    [Tooltip("Axis to keep the up aligned with.")]
-    public Vector3 up = new Vector3(0, 1, 0);
+    public class KeepOriented: MonoBehaviour {
 
-    private void FixedUpdate () {
-        transform.up = up;
+        [Tooltip("Axis to keep the up aligned with.")]
+        public Vector3 up = new Vector3(0, 1, 0);
+
+        private void FixedUpdate () {
+            transform.up = up;
+        }
     }
 }
