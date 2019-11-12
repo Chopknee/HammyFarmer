@@ -57,7 +57,7 @@ namespace HammyFarming.Brian.Interaction {
                             float explosionPower = ( explosionRadius - positionDifference.magnitude ) * explosionForceMultiplier;
                             Rigidbody rb = go.GetComponent<Rigidbody>();
                             if (rb != null) {
-                                rb.AddForce(positionDifference.normalized * explosionPower);
+                                rb.AddForce(positionDifference.normalized * explosionPower * rb.mass);
                             }
                         }
                     }

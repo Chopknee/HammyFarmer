@@ -19,6 +19,8 @@ namespace HammyFarming.Brian {
 
         public enum ControlDevice { Keyboard, Gamepad };
 
+        public ControlDevice CurrentControlDevice;
+
         public delegate void ControlDeviceChanged ( ControlDevice device );
         public ControlDeviceChanged OnControlDeviceChanged;
 
@@ -62,18 +64,24 @@ namespace HammyFarming.Brian {
             _inputMaster = new InputMaster();
 
             InputMasterController.Enable();
+            CurrentControlDevice = ControlDevice.Gamepad;
 
-            InputUser.onChange += Event;
-            InputUser.onUnpairedDeviceUsed += UpairedUsed;
+            _inputMaster.InputDevice.Keyboard.performed += OnKeyboardUsed;
+            _inputMaster.InputDevice.Gamepad.performed += OnGamepadUsed;
         }
 
-        void Event(InputUser user, InputUserChange change, InputDevice device) {
-            Debug.Log("Device " + device.displayName + " changed " + change.ToString());
-
+        void OnKeyboardUsed(InputAction.CallbackContext context) {
+            if (CurrentControlDevice != ControlDevice.Keyboard) {
+                CurrentControlDevice = ControlDevice.Keyboard;
+                OnControlDeviceChanged?.Invoke(CurrentControlDevice);
+            }
         }
 
-        void UpairedUsed(InputControl ctrl, UnityEngine.InputSystem.LowLevel.InputEventPtr thing) {
-
+        void OnGamepadUsed(InputAction.CallbackContext context) {
+            if (CurrentControlDevice != ControlDevice.Gamepad) {
+                CurrentControlDevice = ControlDevice.Gamepad;
+                OnControlDeviceChanged?.Invoke(CurrentControlDevice);
+            }
         }
 
         public void Start () {
@@ -113,6 +121,11 @@ namespace HammyFarming.Brian {
                 InputMasterController.Hammy.Zoom.Disable();
                 InputMasterController.Hammy.Look.Disable();
             }
+        }
+
+        private void OnDestroy () {
+            _inputMaster.InputDevice.Keyboard.performed -= OnKeyboardUsed;
+            _inputMaster.InputDevice.Gamepad.performed -= OnGamepadUsed;
         }
     }
 }
