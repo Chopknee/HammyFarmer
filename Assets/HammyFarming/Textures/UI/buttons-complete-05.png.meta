@@ -44,6 +44,9 @@ TextureImporter:
   - first:
       213: -2738808161035283872
     second: buttons-complete-05_13
+  - first:
+      213: 334779162632884138
+    second: buttons-complete-05_14
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -440,7 +443,7 @@ TextureImporter:
         width: 1257
         height: 492
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -448,6 +451,27 @@ TextureImporter:
       bones: []
       spriteID: 538d5a372f039f349b2bc30c24bd306d
       internalID: -2738808161035283872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buttons-complete-05_14
+      rect:
+        serializedVersion: 2
+        x: 1553
+        y: 513
+        width: 391
+        height: 420
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed006fbb1ba048148b38d1507abf4d2d
+      internalID: 334779162632884138
       vertices: []
       indices: 
       edges: []

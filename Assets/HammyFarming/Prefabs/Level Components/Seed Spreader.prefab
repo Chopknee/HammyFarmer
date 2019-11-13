@@ -7590,6 +7590,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8859522360802130289}
   - component: {fileID: 3092595038666246164}
+  - component: {fileID: 1428613164930619089}
   m_Layer: 13
   m_Name: buttons-complete-05_5
   m_TagString: Untagged
@@ -7651,7 +7652,7 @@ SpriteRenderer:
   m_Sprite: {fileID: -8489501506861470861, guid: e2ee7216cee032b4dad2f866d56980cf,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 4.24, y: 4.06}
@@ -7660,6 +7661,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1428613164930619089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7268443836650832301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d156abb2754737469224aa7273f6742, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KeyboardPromptSprite: {fileID: 334779162632884138, guid: e2ee7216cee032b4dad2f866d56980cf,
+    type: 3}
+  GamepadPromptSprite: {fileID: -8489501506861470861, guid: e2ee7216cee032b4dad2f866d56980cf,
+    type: 3}
 --- !u!1 &7280822466640760659
 GameObject:
   m_ObjectHideFlags: 0

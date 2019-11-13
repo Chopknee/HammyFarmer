@@ -47,14 +47,17 @@ namespace HammyFarming.Brian.Interaction {
                         Collider[] objectsInExplosionRadius = Physics.OverlapSphere(transform.position, explosionRadius);
                         foreach (Collider objectInRadius in objectsInExplosionRadius) {
                             GameObject go = objectInRadius.gameObject;
-                            //Do an inverse square for the explosion power
+
+                            if (go.CompareTag("Destructable")) {
+                                Destroy(go);
+                                continue;
+                            }
 
                             Vector3 positionDifference = go.transform.position - transform.position;
                             float explosionPower = ( explosionRadius - positionDifference.magnitude ) * explosionForceMultiplier;
-                            Debug.Log(explosionPower);
                             Rigidbody rb = go.GetComponent<Rigidbody>();
                             if (rb != null) {
-                                rb.AddForce(positionDifference.normalized * explosionPower);
+                                rb.AddForce(positionDifference.normalized * explosionPower * rb.mass);
                             }
                         }
                     }

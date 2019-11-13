@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6337242220915481345}
   - component: {fileID: 6716896210305583405}
   - component: {fileID: 7532609915343235192}
+  - component: {fileID: 8363386452638923646}
   m_Layer: 0
   m_Name: buttons-complete-05_7
   m_TagString: Untagged
@@ -93,6 +94,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1d6438f70f65f74fa8f977ee3d92878, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8363386452638923646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706999153354691516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d156abb2754737469224aa7273f6742, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KeyboardPromptSprite: {fileID: 707480492490246125, guid: e2ee7216cee032b4dad2f866d56980cf,
+    type: 3}
+  GamepadPromptSprite: {fileID: 334779162632884138, guid: e2ee7216cee032b4dad2f866d56980cf,
+    type: 3}
 --- !u!1 &2150284598460932613
 GameObject:
   m_ObjectHideFlags: 0
@@ -2488,8 +2505,8 @@ MonoBehaviour:
   destructionPrefab: {fileID: 3489782559702948712, guid: 8854d4153f283ef45a4e079abb23f81f,
     type: 3}
   timeToExplosion: 3
-  explosionRadius: 10
-  explosionForceMultiplier: 850
+  explosionRadius: 11.38
+  explosionForceMultiplier: 650
   debrisPrefab: {fileID: 0}
   debrisCount: 0
   debrisRadius: 0

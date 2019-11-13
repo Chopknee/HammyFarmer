@@ -1,20 +1,29 @@
-﻿using System.Collections;
+﻿using HammyFarming.Brian;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SiloFillElement : MonoBehaviour {
+namespace HammyFarming.Brian.UI {
 
-    public Image FillImage;
+    public class SiloFillElement: MonoBehaviour {
 
-    // Start is called before the first frame update
-    void Start() {
-        if (Director.Instance != null) {
-            Director.Instance.OnSiloFillChanged += SiloFillChanged;
+        public Image FillImage;
+
+        // Start is called before the first frame update
+        void Start () {
+
+            if (Director.Instance.SiloFillGoal == 0) {
+
+            }
+
+            if (Director.Instance != null) {
+                Director.Instance.OnSiloFillChanged += SiloFillChanged;
+            }
         }
-    }
 
-    void SiloFillChanged(float value) {
-        FillImage.fillAmount = value / Director.Instance.SiloFillGoal;
+        void SiloFillChanged ( float value ) {
+            FillImage.fillAmount = value / Director.Instance.SiloFillGoal;
+        }
     }
 }

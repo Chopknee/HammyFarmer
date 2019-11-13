@@ -14,11 +14,11 @@ namespace HammyFarming.Brian.Interaction {
         protected bool isHammyInside = false;
         protected GameObject hammy;
 
-        bool controlsHooked = false;
+        //bool controlsHooked = false;
 
         public virtual void Start () {
-            Pausemenu.InputMasterController.Hammy.Attach.performed += OnHammyHook;
-            Pausemenu.InputMasterController.Hammy.Use.performed += OnHammyInteract;
+            Director.InputMasterController.Hammy.Attach.performed += OnHammyHook;
+            Director.InputMasterController.Hammy.Use.performed += OnHammyInteract;
         }
 
 
@@ -50,8 +50,8 @@ namespace HammyFarming.Brian.Interaction {
         }
 
         private void OnDestroy () {
-            Pausemenu.InputMasterController.Hammy.Attach.performed -= OnHammyHook;
-            Pausemenu.InputMasterController.Hammy.Use.performed -= OnHammyInteract;
+            Director.InputMasterController.Hammy.Attach.performed -= OnHammyHook;
+            Director.InputMasterController.Hammy.Use.performed -= OnHammyInteract;
         }
 
         //Override any of these to get the desired functionality

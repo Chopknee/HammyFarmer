@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using HammyFarming.Brian.Utils;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,12 +13,10 @@ namespace HammyFarming.Brian.Interaction {
         public float mapScale = 1;
         public float mapWeight = 1;
 
+        public float deSpawnTime = 15f;
 
-        float del = 0;
 
-        bool collided = false;
-        bool shouldWater = false;
-        GameObject field;
+        FarmFieldDeformation ffield;
 
         [Range(-1f, 1f)]
         public float deformWeight = 1;
@@ -27,36 +26,53 @@ namespace HammyFarming.Brian.Interaction {
         public float waterWeight = 1;
         public bool additiveOnly = false;
 
-        void Update () {
-            del += Time.deltaTime;
-            if (del >= collisionDelay) {
-                if (collided) {
+        Timeout despawnTimeout;
+        Timeout canWaterTimeout;
 
-                }
+        private void Awake () {
+            despawnTimeout = new Timeout(deSpawnTime, true);
+            canWaterTimeout = new Timeout(collisionDelay, true);
+        }
+
+        void Update () {
+
+            canWaterTimeout.Tick(Time.deltaTime);
+
+            if (despawnTimeout.Tick(Time.deltaTime)) {
+                Destroy(gameObject);
             }
+
         }
 
         public void OnDestroy () {
-            if (shouldWater) {
+            if (ffield != null) {
                 Vector3 weights = new Vector3(deformWeight, tillWeight, waterWeight);
-                field.GetComponent<FarmFieldDeformation>().Deform(gameObject, deformationMap, 1, mapScale, mapWeight, weights, additiveOnly, new Vector3(1, 1, 1));
+                ffield.Deform(gameObject, deformationMap, 1, mapScale, mapWeight, weights, additiveOnly, new Vector3(1, 1, 1));
             }
         }
 
         public void OnTriggerStay ( Collider other ) {
+            //Looking for a farm field
             if (other.CompareTag("FarmField")) {
-                shouldWater = true;
-                field = other.gameObject;
-                if (del >= collisionDelay) {
+
+                if (ffield == null) {
+                    ffield = other.gameObject.GetComponent<FarmFieldDeformation>();
+                }
+
+                if (canWaterTimeout.percentComplete >= 1) {
                     Destroy(gameObject);
                 }
             }
         }
 
         public void OnCollisionStay ( Collision collision ) {
-            if (del >= collisionDelay) {
+            if (canWaterTimeout.percentComplete >= 1) {
                 Destroy(gameObject);
             }
+        }
+
+        public void OnTriggerExit ( Collider other ) {
+            ffield = null;
         }
     }
 }

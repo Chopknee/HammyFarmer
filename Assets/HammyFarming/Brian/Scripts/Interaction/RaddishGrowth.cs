@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using HammyFarming.Brian.Utils;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -52,8 +53,7 @@ public class RaddishGrowth : MonoBehaviour {
 
         if (soilCheckTimer.Tick(Time.deltaTime)) {
             //Do the soil check
-            soilCheckTimer.Reset();
-            soilCheckTimer.Start();
+            soilCheckTimer.ReStart();
 
             if (Physics.Raycast(transform.position + ( Vector3.up * 5 ), Vector3.down, out RaycastHit hit, 50, fieldMask)) {
                 //Only collides with the field.
