@@ -717,7 +717,7 @@ namespace Hammy
             ""id"": ""efaed615-008d-45a5-b3b3-c899f41dae23"",
             ""actions"": [
                 {
-                    ""name"": ""Keyboard"",
+                    ""name"": ""KeyboardAny"",
                     ""type"": ""Button"",
                     ""id"": ""3a2542fa-f69f-41b5-91d5-4aa73955d297"",
                     ""expectedControlType"": """",
@@ -725,9 +725,25 @@ namespace Hammy
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Gamepad"",
+                    ""name"": ""KeyboardAnyButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""d15a7d0b-a1f9-4a5f-98df-91b70d2e6824"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""GamepadAny"",
                     ""type"": ""Button"",
                     ""id"": ""94206a9f-fe9b-4bf1-8886-2405dcc08a9f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""GamepadAnyButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""e107e19d-3616-406c-9755-ff5790df1dff"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
@@ -741,7 +757,7 @@ namespace Hammy
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Keyboard"",
+                    ""action"": ""KeyboardAny"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -752,7 +768,40 @@ namespace Hammy
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Keyboard"",
+                    ""action"": ""KeyboardAny"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a5c746da-b466-4903-a9c6-07466c295c7e"",
+                    ""path"": ""<Mouse>/delta/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""KeyboardAny"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9b9096e9-dcfe-4829-a64c-78b68b32be17"",
+                    ""path"": ""<Mouse>/delta/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""KeyboardAny"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""085623ee-7fce-44c1-8dbb-d6090189655c"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""KeyboardAny"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -763,7 +812,7 @@ namespace Hammy
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Gamepad"",
+                    ""action"": ""GamepadAny"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -774,7 +823,7 @@ namespace Hammy
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Gamepad"",
+                    ""action"": ""GamepadAny"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -785,7 +834,7 @@ namespace Hammy
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Gamepad"",
+                    ""action"": ""GamepadAny"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -796,7 +845,7 @@ namespace Hammy
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Gamepad"",
+                    ""action"": ""GamepadAny"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -807,7 +856,7 @@ namespace Hammy
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Gamepad"",
+                    ""action"": ""GamepadAny"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -818,7 +867,7 @@ namespace Hammy
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Gamepad"",
+                    ""action"": ""GamepadAny"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -829,7 +878,7 @@ namespace Hammy
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Gamepad"",
+                    ""action"": ""GamepadAny"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -840,7 +889,7 @@ namespace Hammy
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Gamepad"",
+                    ""action"": ""GamepadAny"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -851,7 +900,7 @@ namespace Hammy
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Gamepad"",
+                    ""action"": ""GamepadAny"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -862,7 +911,7 @@ namespace Hammy
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Gamepad"",
+                    ""action"": ""GamepadAny"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -873,7 +922,7 @@ namespace Hammy
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Gamepad"",
+                    ""action"": ""GamepadAny"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -884,7 +933,7 @@ namespace Hammy
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Gamepad"",
+                    ""action"": ""GamepadAny"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -895,7 +944,7 @@ namespace Hammy
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Gamepad"",
+                    ""action"": ""GamepadAny"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -906,7 +955,7 @@ namespace Hammy
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Gamepad"",
+                    ""action"": ""GamepadAny"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -917,7 +966,7 @@ namespace Hammy
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Gamepad"",
+                    ""action"": ""GamepadAny"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -928,7 +977,139 @@ namespace Hammy
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Gamepad"",
+                    ""action"": ""GamepadAny"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""53094bbd-f9ab-48a4-aac9-0bdf30f9c0c5"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""GamepadAnyButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""38869677-b420-4a33-970e-8af77b3d39ee"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""GamepadAnyButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4b7c547a-8f50-4961-a19c-3b6851b6f0a5"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""GamepadAnyButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""72f79ff2-1b7a-4b36-ad40-384849622538"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""GamepadAnyButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e682620a-1517-4051-9d0d-5e49aed8cc53"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""GamepadAnyButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""917b340e-5143-4406-b3ff-c80ca49870e7"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""GamepadAnyButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2cdddb17-719e-449f-97ea-ee8d18d17715"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""GamepadAnyButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0f474c01-84f5-4dc0-b83f-63aaf8b5cfb5"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""GamepadAnyButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fc4b2634-dbc7-43dc-90dc-aa91365d48c0"",
+                    ""path"": ""<Gamepad>/dpad"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""GamepadAnyButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6969e2c9-d6c3-474d-97ea-655cef5e99b2"",
+                    ""path"": ""<Keyboard>/anyKey"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""KeyboardAnyButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e03bd2c1-c7d7-4154-ba67-852235e23647"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""KeyboardAnyButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b4bebb8e-5833-4506-80bc-9986c3a1b912"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""KeyboardAnyButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -990,8 +1171,10 @@ namespace Hammy
             m_UI_TrackedDeviceSelect = m_UI.FindAction("TrackedDeviceSelect", throwIfNotFound: true);
             // InputDevice
             m_InputDevice = asset.FindActionMap("InputDevice", throwIfNotFound: true);
-            m_InputDevice_Keyboard = m_InputDevice.FindAction("Keyboard", throwIfNotFound: true);
-            m_InputDevice_Gamepad = m_InputDevice.FindAction("Gamepad", throwIfNotFound: true);
+            m_InputDevice_KeyboardAny = m_InputDevice.FindAction("KeyboardAny", throwIfNotFound: true);
+            m_InputDevice_KeyboardAnyButton = m_InputDevice.FindAction("KeyboardAnyButton", throwIfNotFound: true);
+            m_InputDevice_GamepadAny = m_InputDevice.FindAction("GamepadAny", throwIfNotFound: true);
+            m_InputDevice_GamepadAnyButton = m_InputDevice.FindAction("GamepadAnyButton", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -1243,14 +1426,18 @@ namespace Hammy
         // InputDevice
         private readonly InputActionMap m_InputDevice;
         private IInputDeviceActions m_InputDeviceActionsCallbackInterface;
-        private readonly InputAction m_InputDevice_Keyboard;
-        private readonly InputAction m_InputDevice_Gamepad;
+        private readonly InputAction m_InputDevice_KeyboardAny;
+        private readonly InputAction m_InputDevice_KeyboardAnyButton;
+        private readonly InputAction m_InputDevice_GamepadAny;
+        private readonly InputAction m_InputDevice_GamepadAnyButton;
         public struct InputDeviceActions
         {
             private InputMaster m_Wrapper;
             public InputDeviceActions(InputMaster wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Keyboard => m_Wrapper.m_InputDevice_Keyboard;
-            public InputAction @Gamepad => m_Wrapper.m_InputDevice_Gamepad;
+            public InputAction @KeyboardAny => m_Wrapper.m_InputDevice_KeyboardAny;
+            public InputAction @KeyboardAnyButton => m_Wrapper.m_InputDevice_KeyboardAnyButton;
+            public InputAction @GamepadAny => m_Wrapper.m_InputDevice_GamepadAny;
+            public InputAction @GamepadAnyButton => m_Wrapper.m_InputDevice_GamepadAnyButton;
             public InputActionMap Get() { return m_Wrapper.m_InputDevice; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1260,22 +1447,34 @@ namespace Hammy
             {
                 if (m_Wrapper.m_InputDeviceActionsCallbackInterface != null)
                 {
-                    Keyboard.started -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnKeyboard;
-                    Keyboard.performed -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnKeyboard;
-                    Keyboard.canceled -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnKeyboard;
-                    Gamepad.started -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnGamepad;
-                    Gamepad.performed -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnGamepad;
-                    Gamepad.canceled -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnGamepad;
+                    KeyboardAny.started -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnKeyboardAny;
+                    KeyboardAny.performed -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnKeyboardAny;
+                    KeyboardAny.canceled -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnKeyboardAny;
+                    KeyboardAnyButton.started -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnKeyboardAnyButton;
+                    KeyboardAnyButton.performed -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnKeyboardAnyButton;
+                    KeyboardAnyButton.canceled -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnKeyboardAnyButton;
+                    GamepadAny.started -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnGamepadAny;
+                    GamepadAny.performed -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnGamepadAny;
+                    GamepadAny.canceled -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnGamepadAny;
+                    GamepadAnyButton.started -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnGamepadAnyButton;
+                    GamepadAnyButton.performed -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnGamepadAnyButton;
+                    GamepadAnyButton.canceled -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnGamepadAnyButton;
                 }
                 m_Wrapper.m_InputDeviceActionsCallbackInterface = instance;
                 if (instance != null)
                 {
-                    Keyboard.started += instance.OnKeyboard;
-                    Keyboard.performed += instance.OnKeyboard;
-                    Keyboard.canceled += instance.OnKeyboard;
-                    Gamepad.started += instance.OnGamepad;
-                    Gamepad.performed += instance.OnGamepad;
-                    Gamepad.canceled += instance.OnGamepad;
+                    KeyboardAny.started += instance.OnKeyboardAny;
+                    KeyboardAny.performed += instance.OnKeyboardAny;
+                    KeyboardAny.canceled += instance.OnKeyboardAny;
+                    KeyboardAnyButton.started += instance.OnKeyboardAnyButton;
+                    KeyboardAnyButton.performed += instance.OnKeyboardAnyButton;
+                    KeyboardAnyButton.canceled += instance.OnKeyboardAnyButton;
+                    GamepadAny.started += instance.OnGamepadAny;
+                    GamepadAny.performed += instance.OnGamepadAny;
+                    GamepadAny.canceled += instance.OnGamepadAny;
+                    GamepadAnyButton.started += instance.OnGamepadAnyButton;
+                    GamepadAnyButton.performed += instance.OnGamepadAnyButton;
+                    GamepadAnyButton.canceled += instance.OnGamepadAnyButton;
                 }
             }
         }
@@ -1325,8 +1524,10 @@ namespace Hammy
         }
         public interface IInputDeviceActions
         {
-            void OnKeyboard(InputAction.CallbackContext context);
-            void OnGamepad(InputAction.CallbackContext context);
+            void OnKeyboardAny(InputAction.CallbackContext context);
+            void OnKeyboardAnyButton(InputAction.CallbackContext context);
+            void OnGamepadAny(InputAction.CallbackContext context);
+            void OnGamepadAnyButton(InputAction.CallbackContext context);
         }
     }
 }

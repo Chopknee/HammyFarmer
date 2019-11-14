@@ -26,6 +26,8 @@ namespace HammyFarming.Brian {
 
         public string hammyBaseSceneName;
 
+        public bool showAlphaDisclaimer = false;
+
         static InputMaster _inputMaster;
         public static InputMaster InputMasterController {
             get {
@@ -66,8 +68,8 @@ namespace HammyFarming.Brian {
             InputMasterController.Enable();
             CurrentControlDevice = ControlDevice.Gamepad;
 
-            _inputMaster.InputDevice.Keyboard.performed += OnKeyboardUsed;
-            _inputMaster.InputDevice.Gamepad.performed += OnGamepadUsed;
+            _inputMaster.InputDevice.KeyboardAny.performed += OnKeyboardUsed;
+            _inputMaster.InputDevice.GamepadAny.performed += OnGamepadUsed;
         }
 
         void OnKeyboardUsed(InputAction.CallbackContext context) {
@@ -124,8 +126,8 @@ namespace HammyFarming.Brian {
         }
 
         private void OnDestroy () {
-            _inputMaster.InputDevice.Keyboard.performed -= OnKeyboardUsed;
-            _inputMaster.InputDevice.Gamepad.performed -= OnGamepadUsed;
+            _inputMaster.InputDevice.KeyboardAny.performed -= OnKeyboardUsed;
+            _inputMaster.InputDevice.GamepadAny.performed -= OnGamepadUsed;
         }
     }
 }

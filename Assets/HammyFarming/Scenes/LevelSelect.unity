@@ -19187,6 +19187,11 @@ PrefabInstance:
       propertyPath: SiloFillGoal
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2624585695655070999, guid: a5c4bbbc6d6f1884b879160a98fc6387,
+        type: 3}
+      propertyPath: showAlphaDisclaimer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5c4bbbc6d6f1884b879160a98fc6387, type: 3}
 --- !u!43 &668744243

@@ -2,21 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bee: MonoBehaviour {
+namespace HammyFarming.Brian.Monsters {
 
-    //Doin` stuff here???
+    public class Bee : MonoBehaviour {
 
-    //Thing 1 bee fly
-    //Thing 2 bee move up and down
-    //Thing 3 bee attacc
-    //Thing 4 bee protecc
-    //Thing 5 but most important, bee thicc
+        //Doin` stuff here???
 
-    void Start () {
+        //Thing 1 bee fly
+        //Thing 2 bee move up and down
+        //Thing 3 bee attacc
+        //Thing 4 bee protecc
+        //Thing 5 but most important, bee thicc
 
-    }
+        void Start() {
 
-    void Update () {
+        }
 
+        void Update() {
+
+        }
     }
 }
