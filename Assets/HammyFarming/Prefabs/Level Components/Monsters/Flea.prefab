@@ -141,18 +141,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60bf5aa04ad15b549a44d08bb95c0d04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attemptJumpRadius: 4
+  attemptJumpRadius: 6.02
   jumpForce: 80.71
   upAmount: 3.4
   jumpRestTime: 2
+  hitByWaterRestTime: 10
   target: {fileID: 0}
   hookOnSound: {fileID: 8300000, guid: cc5a654c180e3454fa61adbbeb41840b, type: 3}
   unhookSound: {fileID: 8300000, guid: 4747d60105c908942a444fd9b0b20e36, type: 3}
   jumpSound: {fileID: 8300000, guid: b271490554649ad46a23c8320c012ea6, type: 3}
   randomPitchRange: {x: 0.75, y: 1.25}
-  jumped: 0
-  hooked: 0
-  resting: 0
 --- !u!135 &7444737514710449120
 SphereCollider:
   m_ObjectHideFlags: 0

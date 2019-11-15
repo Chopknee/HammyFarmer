@@ -27,11 +27,11 @@ namespace HammyFarming.Brian.Interaction {
             //Try to figure out the rotational velocity of the wheel. (We don't care about the 'z' velocity)
             Vector2 vel = new Vector2(wheelRB.angularVelocity.x, wheelRB.angularVelocity.z);
             averageWheelVelocity = wheelSpeedAverage.GetNext(vel.magnitude);
-            if (averageWheelVelocity > 0.5f) {
-                GetComponentInChildren<SprinklerSpin>().spinSpeed = averageWheelVelocity;
-            } else {
-                GetComponentInChildren<SprinklerSpin>().spinSpeed = 0;
-            }
+            //if (averageWheelVelocity > 0.5f) {
+            //    GetComponentInChildren<SprinklerSpin>().spinSpeed = averageWheelVelocity;
+            //} else {
+            //    GetComponentInChildren<SprinklerSpin>().spinSpeed = 0;
+            //}
             if (averageWheelVelocity > minSpeed) {
                 SetSpawners(true);
             } else {
