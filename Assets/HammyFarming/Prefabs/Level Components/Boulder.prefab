@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3104864935123004642}
   - component: {fileID: 3104864935123004645}
   - component: {fileID: 3104864935123004644}
-  - component: {fileID: 482997167703626058}
+  - component: {fileID: 5654383059711085892}
   m_Layer: 16
   m_Name: Boulder
   m_TagString: Destructable
@@ -703,7 +703,7 @@ MonoBehaviour:
   pitchRange: {x: 0.001, y: 0.002}
   deformParticles: []
   mudDragValue: 1.35
---- !u!114 &482997167703626058
+--- !u!114 &5654383059711085892
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -712,8 +712,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 3104864935123004647}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4281f1865795064a9eec1a00f939723, type: 3}
+  m_Script: {fileID: 11500000, guid: 68fed2b4fb1feb24f89a36feca50f506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabsToSpawn:
-  - {fileID: 2849432890071704846, guid: 58c90609fd2f98243a7cca86dab65be1, type: 3}
+  destructionPrefab: {fileID: 2849432890071704846, guid: 58c90609fd2f98243a7cca86dab65be1,
+    type: 3}

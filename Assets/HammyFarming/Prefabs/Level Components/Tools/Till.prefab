@@ -4762,13 +4762,13 @@ GameObject:
   m_Component:
   - component: {fileID: 2593409248807181624}
   - component: {fileID: 1560209337480884022}
-  - component: {fileID: 1560209337480884009}
   - component: {fileID: 1560209337480884018}
   - component: {fileID: 1560209337480884021}
   - component: {fileID: 1560209337480884008}
   - component: {fileID: 418803210663166064}
+  - component: {fileID: 6626990152086323041}
   m_Layer: 13
-  m_Name: Plough
+  m_Name: Till
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4812,19 +4812,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &1560209337480884009
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1560209337480884011}
-  m_Material: {fileID: 13400000, guid: 7e764df870ae395478b4966af0b3509f, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 4.8108487, y: 1.6547787, z: 1.0399299}
-  m_Center: {x: 0.023128271, y: 0.2280215, z: -0.0951826}
 --- !u!114 &1560209337480884018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4875,6 +4862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b69e6a7c821144687851753cb80efb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isOnField: 0
   stampMap: {fileID: 2800000, guid: 6d1ca6973440a0b439f4d683562c3622, type: 3}
   stampScale: 0.6
   weight: 0.5
@@ -4907,6 +4895,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.58
   m_Center: {x: 0, y: 0.88, z: -2.71}
+--- !u!136 &6626990152086323041
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560209337480884011}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.7589507
+  m_Height: 4.706976
+  m_Direction: 0
+  m_Center: {x: -0.17752886, y: 0.36434054, z: -0.26430535}
 --- !u!1 &1600987082792624127
 GameObject:
   m_ObjectHideFlags: 0
@@ -4949,8 +4951,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.647408, y: 0.352077, z: 1.99018}
-  m_Center: {x: 0.013205767, y: 0.38294554, z: -1.2281985}
+  m_Size: {x: 0.647408, y: 0.352077, z: 1.7029077}
+  m_Center: {x: 0.013205767, y: 0.38294554, z: -1.3718348}
 --- !u!1 &3431797720572721769
 GameObject:
   m_ObjectHideFlags: 0

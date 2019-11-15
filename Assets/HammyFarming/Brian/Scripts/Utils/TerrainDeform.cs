@@ -5,8 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class TerrainDeform: MonoBehaviour {
 
-    bool isOnField = false;
-    FarmFieldDeformation ffd;
+    List<FarmFieldDeformation> intersectedFields;
+
     [Header("Deformation Stamp")]
     [Tooltip("The base texture used to deform the field.")]
     public Texture2D stampMap;
@@ -49,6 +49,12 @@ public class TerrainDeform: MonoBehaviour {
     float minDefVelSquared;
     Average velocityAverage;
 
+    bool isOnField {
+        get {
+            return intersectedFields.Count > 0;
+        }
+    }
+
     void Start () {
         rb = GetComponent<Rigidbody>();
         fieldRollingAS = gameObject.AddComponent<AudioSource>();
@@ -59,6 +65,8 @@ public class TerrainDeform: MonoBehaviour {
         minDefVelSquared = minDefVelSquared * minDefVelSquared;
         velocityAverage = new Average(10);
         origDrag = rb.drag;
+
+        intersectedFields = new List<FarmFieldDeformation>();
         
     }
 
@@ -67,7 +75,9 @@ public class TerrainDeform: MonoBehaviour {
             if (rb.velocity.sqrMagnitude > minDefVelSquared) {
                 //While the object is within a farm field trigger, run that field's deform function.
                 Vector3 weights = new Vector3(deformWeight, tillWeight, waterWeight);
-                ffd.Deform(gameObject, stampMap, Time.deltaTime, stampScale, weight, weights, additiveOnly, rb.velocity);
+                foreach (FarmFieldDeformation ffd in intersectedFields) {
+                    ffd.Deform(gameObject, stampMap, Time.deltaTime, stampScale, weight, weights, additiveOnly, rb.velocity);
+                }
                 systemsPlaying = true;
             } else {
                 systemsPlaying = false;
@@ -113,23 +123,35 @@ public class TerrainDeform: MonoBehaviour {
     }
 
     private void OnTriggerEnter ( Collider other ) {
-        //If the object enters a farm field trigger;
+        //If we collide with a farm field trigger
         if (other.tag == "FarmField") {
-            ffd = other.gameObject.GetComponent<FarmFieldDeformation>();
-            if (ffd != null) {
-                isOnField = true;
-                rb.drag = mudDragValue;
-            }
+            //Try to grab the farm field deformation component
+            FarmFieldDeformation ffd = other.gameObject.GetComponent<FarmFieldDeformation>();
+            if (ffd != null && !intersectedFields.Contains(ffd)) {
 
+                //Only if the field is not already in the list
+                if (!isOnField) { 
+                    rb.drag = mudDragValue;
+                }
+
+                intersectedFields.Add(ffd);
+            }
         }
     }
 
     private void OnTriggerExit ( Collider other ) {
         //If the object exits a farm field trigger
         if (other.tag == "FarmField" && isOnField) {
-            isOnField = false;
-            ffd = null;
-            rb.drag = origDrag;
+
+            FarmFieldDeformation ffd = other.gameObject.GetComponent<FarmFieldDeformation>();
+
+            if (ffd != null && intersectedFields.Contains(ffd)) {
+                intersectedFields.Remove(ffd);
+            }
+
+            if (!isOnField) {
+                rb.drag = origDrag;
+            }
         }
     }
 

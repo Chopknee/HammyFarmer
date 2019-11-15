@@ -45,4 +45,10 @@ public class PromptSwap: MonoBehaviour {
                 break;
         }
     }
+
+    private void OnEnable () {
+        if (Director.Instance != null) {
+            OnControlSchemeChanged(Director.Instance.CurrentControlDevice);
+        }
+    }
 }

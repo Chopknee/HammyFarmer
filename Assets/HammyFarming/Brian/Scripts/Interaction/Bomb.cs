@@ -1,6 +1,4 @@
 ﻿using Chopknee.Utility;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace HammyFarming.Brian.Interaction {
@@ -36,31 +34,10 @@ namespace HammyFarming.Brian.Interaction {
             if (exploding) {
                 t += Time.deltaTime;
                 if (t >= timeToExplosion) {
-                    foreach (Vector3 vec in Utility.FibonacciSphereDistro(debrisCount, debrisRadius)) {
-                        GameObject sd = Instantiate(debrisPrefab, transform.position + vec, Random.rotation);
-                        sd.GetComponent<Rigidbody>().AddForce(
-                            ( transform.position - ( transform.position + vec ) ) * ( debrisSpawnForce * ( 1 - debrisSpawnUpForce ) ) +
-                            ( Vector3.up * ( debrisSpawnForce * debrisSpawnUpForce ) ));
-                    }
 
-                    if (explosionRadius > 0) {
-                        Collider[] objectsInExplosionRadius = Physics.OverlapSphere(transform.position, explosionRadius);
-                        foreach (Collider objectInRadius in objectsInExplosionRadius) {
-                            GameObject go = objectInRadius.gameObject;
+                    SpawnDebris();
 
-                            if (go.CompareTag("Destructable")) {
-                                Destroy(go);
-                                continue;
-                            }
-
-                            Vector3 positionDifference = go.transform.position - transform.position;
-                            float explosionPower = ( explosionRadius - positionDifference.magnitude ) * explosionForceMultiplier;
-                            Rigidbody rb = go.GetComponent<Rigidbody>();
-                            if (rb != null) {
-                                rb.AddForce(positionDifference.normalized * explosionPower * rb.mass);
-                            }
-                        }
-                    }
+                    ThrowObjects();
 
                     Destroy(gameObject);
 
@@ -80,6 +57,43 @@ namespace HammyFarming.Brian.Interaction {
                 } else {
                     if (messageGUI.activeSelf) {
                         messageGUI.SetActive(false);
+                    }
+                }
+            }
+        }
+
+        public void SpawnDebris() {
+            if (debrisCount > 0) {
+                foreach (Vector3 vec in Utility.FibonacciSphereDistro(debrisCount, debrisRadius)) {
+                    GameObject sd = Instantiate(debrisPrefab, transform.position + vec, Random.rotation);
+                    sd.GetComponent<Rigidbody>().AddForce(
+                        ( transform.position - ( transform.position + vec ) ) * ( debrisSpawnForce * ( 1 - debrisSpawnUpForce ) ) +
+                        ( Vector3.up * ( debrisSpawnForce * debrisSpawnUpForce ) ));
+                }
+            }
+        }
+
+        public void ThrowObjects() {
+            if (explosionRadius > 0) {
+                Collider[] objectsInExplosionRadius = Physics.OverlapSphere(transform.position, explosionRadius);
+                foreach (Collider objectInRadius in objectsInExplosionRadius) {
+                    GameObject go = objectInRadius.gameObject;
+
+                    if (go.CompareTag("Destructable")) {
+                        IDestructable ds = go.GetComponent<IDestructable>();
+                        if (ds != null) {
+                            ds.Break();
+                        } else {
+                            Destroy(go);
+                        }
+                        continue;
+                    }
+
+                    Vector3 positionDifference = go.transform.position - transform.position;
+                    float explosionPower = ( explosionRadius - positionDifference.magnitude ) * explosionForceMultiplier;
+                    Rigidbody rb = go.GetComponent<Rigidbody>();
+                    if (rb != null) {
+                        rb.AddForce(positionDifference.normalized * explosionPower * rb.mass);
                     }
                 }
             }
