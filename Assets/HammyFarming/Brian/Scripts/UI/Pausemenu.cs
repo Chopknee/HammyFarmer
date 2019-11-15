@@ -99,14 +99,14 @@ namespace HammyFarming.Brian.UI {
             Hide();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            Director.SetScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         void returnHub () {
             Hide();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            SceneManager.LoadScene(0);
+            Director.SetScene(1);
         }
 
         void Show () {

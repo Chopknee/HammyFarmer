@@ -17,7 +17,7 @@ public class PromptSwap: MonoBehaviour {
 
         if (Director.Instance != null) {
             subscribed = true;
-            Director.Instance.OnControlDeviceChanged += OnControlSchemeChanged;
+            Director.OnControlDeviceChanged += OnControlSchemeChanged;
         }
 
     }
@@ -25,13 +25,13 @@ public class PromptSwap: MonoBehaviour {
     void Update () {
         if (!subscribed && Director.Instance != null) {
             subscribed = true;
-            Director.Instance.OnControlDeviceChanged += OnControlSchemeChanged;
+            Director.OnControlDeviceChanged += OnControlSchemeChanged;
         }
     }
 
     private void OnDestroy () {
         if (subscribed) {
-            Director.Instance.OnControlDeviceChanged -= OnControlSchemeChanged;
+            Director.OnControlDeviceChanged -= OnControlSchemeChanged;
         }
     }
 
@@ -48,7 +48,7 @@ public class PromptSwap: MonoBehaviour {
 
     private void OnEnable () {
         if (Director.Instance != null) {
-            OnControlSchemeChanged(Director.Instance.CurrentControlDevice);
+            OnControlSchemeChanged(Director.CurrentControlDevice);
         }
     }
 }

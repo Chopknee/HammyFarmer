@@ -732,6 +732,14 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "MainMenuStart",
+                    "type": "Button",
+                    "id": "0a896c56-3451-4a5b-b47b-bac24c4f6e79",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -1095,6 +1103,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "KeyboardAnyButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "48994be7-b022-445b-8e0a-15526c6cf9b9",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "MainMenuStart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ac6f8869-39b0-445d-92d8-151039f041a9",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "MainMenuStart",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

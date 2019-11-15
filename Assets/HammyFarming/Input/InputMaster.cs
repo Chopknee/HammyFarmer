@@ -747,6 +747,14 @@ namespace Hammy
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""MainMenuStart"",
+                    ""type"": ""Button"",
+                    ""id"": ""0a896c56-3451-4a5b-b47b-bac24c4f6e79"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -1112,6 +1120,28 @@ namespace Hammy
                     ""action"": ""KeyboardAnyButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""48994be7-b022-445b-8e0a-15526c6cf9b9"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""MainMenuStart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ac6f8869-39b0-445d-92d8-151039f041a9"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""MainMenuStart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1175,6 +1205,7 @@ namespace Hammy
             m_InputDevice_KeyboardAnyButton = m_InputDevice.FindAction("KeyboardAnyButton", throwIfNotFound: true);
             m_InputDevice_GamepadAny = m_InputDevice.FindAction("GamepadAny", throwIfNotFound: true);
             m_InputDevice_GamepadAnyButton = m_InputDevice.FindAction("GamepadAnyButton", throwIfNotFound: true);
+            m_InputDevice_MainMenuStart = m_InputDevice.FindAction("MainMenuStart", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -1430,6 +1461,7 @@ namespace Hammy
         private readonly InputAction m_InputDevice_KeyboardAnyButton;
         private readonly InputAction m_InputDevice_GamepadAny;
         private readonly InputAction m_InputDevice_GamepadAnyButton;
+        private readonly InputAction m_InputDevice_MainMenuStart;
         public struct InputDeviceActions
         {
             private InputMaster m_Wrapper;
@@ -1438,6 +1470,7 @@ namespace Hammy
             public InputAction @KeyboardAnyButton => m_Wrapper.m_InputDevice_KeyboardAnyButton;
             public InputAction @GamepadAny => m_Wrapper.m_InputDevice_GamepadAny;
             public InputAction @GamepadAnyButton => m_Wrapper.m_InputDevice_GamepadAnyButton;
+            public InputAction @MainMenuStart => m_Wrapper.m_InputDevice_MainMenuStart;
             public InputActionMap Get() { return m_Wrapper.m_InputDevice; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1459,6 +1492,9 @@ namespace Hammy
                     GamepadAnyButton.started -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnGamepadAnyButton;
                     GamepadAnyButton.performed -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnGamepadAnyButton;
                     GamepadAnyButton.canceled -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnGamepadAnyButton;
+                    MainMenuStart.started -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnMainMenuStart;
+                    MainMenuStart.performed -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnMainMenuStart;
+                    MainMenuStart.canceled -= m_Wrapper.m_InputDeviceActionsCallbackInterface.OnMainMenuStart;
                 }
                 m_Wrapper.m_InputDeviceActionsCallbackInterface = instance;
                 if (instance != null)
@@ -1475,6 +1511,9 @@ namespace Hammy
                     GamepadAnyButton.started += instance.OnGamepadAnyButton;
                     GamepadAnyButton.performed += instance.OnGamepadAnyButton;
                     GamepadAnyButton.canceled += instance.OnGamepadAnyButton;
+                    MainMenuStart.started += instance.OnMainMenuStart;
+                    MainMenuStart.performed += instance.OnMainMenuStart;
+                    MainMenuStart.canceled += instance.OnMainMenuStart;
                 }
             }
         }
@@ -1528,6 +1567,7 @@ namespace Hammy
             void OnKeyboardAnyButton(InputAction.CallbackContext context);
             void OnGamepadAny(InputAction.CallbackContext context);
             void OnGamepadAnyButton(InputAction.CallbackContext context);
+            void OnMainMenuStart(InputAction.CallbackContext context);
         }
     }
 }

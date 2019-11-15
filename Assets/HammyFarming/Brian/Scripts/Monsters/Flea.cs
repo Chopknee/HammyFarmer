@@ -48,6 +48,11 @@ namespace HammyFarming.Brian.Monsters {
         }
 
         private void Start () {
+            Director.Instance.OnLevelStarted += LevelStarted;
+        }
+
+        void LevelStarted() {
+            Director.Instance.OnLevelStarted -= LevelStarted;
             if (target == null) {
                 target = GameObject.FindGameObjectWithTag("HammyBall").transform;
             }

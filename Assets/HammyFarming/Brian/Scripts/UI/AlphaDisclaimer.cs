@@ -10,7 +10,7 @@ namespace HammyFarming.Brian.UI {
         static bool hasShown = false;
 
         void Start() {
-            if (hasShown || !Director.Instance.showAlphaDisclaimer) {
+            if (hasShown) {
                 gameObject.SetActive(false);
                 hasShown = true;
                 return;
@@ -20,6 +20,7 @@ namespace HammyFarming.Brian.UI {
             Director.InputMasterController.InputDevice.KeyboardAnyButton.performed += AnyActionPerformed;
             hasShown = true;
             Director.SetControlsEnabled(false);
+            Director.InputMasterController.InputDevice.MainMenuStart.Disable();
         }
 
         void AnyActionPerformed(InputAction.CallbackContext context) {
@@ -27,6 +28,7 @@ namespace HammyFarming.Brian.UI {
             Director.InputMasterController.InputDevice.GamepadAnyButton.performed -= AnyActionPerformed;
             Director.InputMasterController.InputDevice.KeyboardAnyButton.performed -= AnyActionPerformed;
             Director.SetControlsEnabled(true);
+            Director.InputMasterController.InputDevice.MainMenuStart.Enable();
         }
     }
 

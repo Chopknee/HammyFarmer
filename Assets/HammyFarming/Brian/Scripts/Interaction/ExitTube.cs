@@ -33,18 +33,18 @@ namespace HammyFarming.Brian.Interaction {
         private void OnTriggerEnter ( Collider other ) {
             if (other.gameObject.CompareTag("HammyBall")) {
                 if (sceneToLoad != -1 || reloadSceneIfNotSet) {
-                    UIFade.DoFade(fadeTime, OnFadeComplete, fadeColor, fadeCurve);
+                    if (sceneToLoad != -1) {
+                        Director.SetScene(sceneToLoad);
+                    } else {
+                        Director.SetScene(SceneManager.GetActiveScene().buildIndex);
+                    }
                 }
             }
         }
 
         void OnFadeComplete () {
 
-            if (sceneToLoad != -1) {
-                SceneManager.LoadScene(sceneToLoad);
-            } else {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            }
+
         }
     }
 }

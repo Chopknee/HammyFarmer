@@ -11,6 +11,8 @@ TagManager:
   - Harvester
   - Destructable
   - SpawnPoint
+  - BGM
+  - LevelBlackout
   layers:
   - Default
   - TransparentFX
