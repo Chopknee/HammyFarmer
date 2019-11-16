@@ -25,7 +25,6 @@ public class Silo : MonoBehaviour {
     private void OnTriggerEnter ( Collider other ) {
         if (other.CompareTag("Harvester")) {
             //Offload the stuff.
-            Debug.Log("ASS");
             harvester = other.GetComponent<Harvester>();
         }
     }

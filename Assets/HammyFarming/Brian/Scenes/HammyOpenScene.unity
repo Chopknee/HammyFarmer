@@ -1450,6 +1450,8 @@ MonoBehaviour:
   animationTime: 1
   isFinished: 0
   startOnAwake: 0
+  setControls: 1
+  disableWhenFinished: 0
 --- !u!225 &808902401
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1761,7 +1763,7 @@ GameObject:
   - component: {fileID: 1272464037}
   m_Layer: 0
   m_Name: Audio Source
-  m_TagString: Untagged
+  m_TagString: BGM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2808,7 +2810,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1756185741
 MonoBehaviour:
   m_ObjectHideFlags: 0

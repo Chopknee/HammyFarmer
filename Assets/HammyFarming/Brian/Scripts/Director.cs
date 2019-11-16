@@ -56,7 +56,6 @@ namespace HammyFarming.Brian {
                     _inputMaster.Enable();
                     _inputMaster.InputDevice.KeyboardAny.performed += OnKeyboardUsed;
                     _inputMaster.InputDevice.GamepadAny.performed += OnGamepadUsed;
-                    Debug.Log("Activating input master controller.");
                 }
                 return _inputMaster;
             }

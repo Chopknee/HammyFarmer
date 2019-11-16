@@ -4862,7 +4862,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b69e6a7c821144687851753cb80efb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOnField: 0
   stampMap: {fileID: 2800000, guid: 6d1ca6973440a0b439f4d683562c3622, type: 3}
   stampScale: 0.6
   weight: 0.5
@@ -4872,9 +4871,9 @@ MonoBehaviour:
   waterWeight: 0
   additiveOnly: 0
   fieldSound: {fileID: 8300000, guid: a6b6e7ef942d1354e898c1efe12fcca1, type: 3}
-  soundVolume: 0.163
+  soundVolume: 0.258
   pitchSpeedMultiplier: 0.128
-  pitchRange: {x: 0.001, y: 0.002}
+  pitchRange: {x: 0.67, y: 0.72}
   deformParticles:
   - {fileID: 1427890414}
   - {fileID: 1347127079133037535}

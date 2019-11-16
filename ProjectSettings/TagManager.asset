@@ -13,6 +13,8 @@ TagManager:
   - SpawnPoint
   - BGM
   - LevelBlackout
+  - Seed
+  - Plant
   layers:
   - Default
   - TransparentFX

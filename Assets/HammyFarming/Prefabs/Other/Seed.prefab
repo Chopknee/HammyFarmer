@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 948023654059444140}
   m_Layer: 16
   m_Name: Seed
-  m_TagString: Untagged
+  m_TagString: Seed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -186,6 +186,7 @@ MonoBehaviour:
   sr: {fileID: 1205997520}
   growing: 0
   colorUnderMe: {r: 0, g: 0, b: 0, a: 0}
+  crowdedRadius: 0.69
 --- !u!65 &948023654059444140
 BoxCollider:
   m_ObjectHideFlags: 0

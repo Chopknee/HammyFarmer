@@ -21,14 +21,14 @@ public class SeedGrowth: MonoBehaviour {
 
     public SpriteRenderer sr;
 
-    void Start () {
-
-    }
-
     float t = 0;
     float ns = 0;
     public bool growing;
     public Color colorUnderMe;
+
+    public float crowdedRadius = 1;
+
+    bool radiusChecked = false;
 
     float dt = 0;
     void Update () {
@@ -37,8 +37,6 @@ public class SeedGrowth: MonoBehaviour {
             t = 0;
             //Checking if the seed can grow.
             if (Physics.Raycast(transform.position + ( Vector3.up * 5 ), Vector3.down, out RaycastHit hit, 50, fieldMask)) {
-                //Only collides with the field.
-                //Now checking the color under the seed. (probably gonna do an average under the seed at some point.
                 colorUnderMe = hit.collider.gameObject.GetComponent<FarmFieldDeformation>().GetFieldValuesAt(hit.textureCoord);
                 growing = colorUnderMe.g > minimumTilledness && colorUnderMe.b > minimumWetness;
                 if (growing) {
@@ -48,6 +46,20 @@ public class SeedGrowth: MonoBehaviour {
                 }
             }
         }
+
+        if (growing && !radiusChecked && ns > (nextStateTime/3)) {
+            //Check the radius around this seed to see if it can start growing. If not, instantly destroy it.
+            Collider[] otherSeeds = Physics.OverlapSphere(transform.position, crowdedRadius);
+            foreach (Collider c in otherSeeds) {
+
+                if (c.gameObject != gameObject && (c.CompareTag("Seed") || c.CompareTag("Plant") || c.CompareTag("Radish"))) {
+                    //We are indeed too close to another seed.
+                    Destroy(gameObject);
+                }
+            }
+            radiusChecked = true;
+        }
+
         sr.color = colorUnderMe;
         if (growing) {
             ns += Time.deltaTime;
@@ -58,7 +70,6 @@ public class SeedGrowth: MonoBehaviour {
         }
 
         if (ns > nextStateTime) {
-            //Spawn the raddish
             Instantiate(plantPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
@@ -66,5 +77,10 @@ public class SeedGrowth: MonoBehaviour {
         if (dt > deathTime) {
             Destroy(gameObject);
         }
+    }
+
+    private void OnDrawGizmosSelected () {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, crowdedRadius);
     }
 }
