@@ -97,7 +97,7 @@ LightmapSettings:
     m_ShowResolutionOverlay: 1
     m_ExportTrainingData: 0
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -292,6 +292,7 @@ GameObject:
   - component: {fileID: 355373155}
   - component: {fileID: 355373157}
   - component: {fileID: 355373156}
+  - component: {fileID: 355373158}
   m_Layer: 5
   m_Name: Image (2)
   m_TagString: Untagged
@@ -357,6 +358,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 355373154}
   m_CullTransparentMesh: 0
+--- !u!114 &355373158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355373154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f6f20f0f596e7f498b775d6103b2dbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: 0.018673051
+      outSlope: 0.018673051
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.16155422
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.01891171
+      outSlope: -0.01891171
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.15950918
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  animationTime: 2
+  amplitude: 16
+  startingOffset: 0
 --- !u!1 &430928383
 GameObject:
   m_ObjectHideFlags: 0
@@ -2543,8 +2592,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -14.5, y: -445.94998}
-  m_SizeDelta: {x: 1215.8, y: 687.9}
+  m_AnchoredPosition: {x: -14.5, y: -475.7}
+  m_SizeDelta: {x: 1215.8, y: 747.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1643725830
 MonoBehaviour:
@@ -3510,7 +3559,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -11.1, y: 2.8}
+  m_AnchoredPosition: {x: -11.1, y: -20.6}
   m_SizeDelta: {x: 440.9, y: 110.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1913265747
@@ -3533,7 +3582,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Press X to Play
+  m_text: Press Space to Play
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 54b6dd852193ec549bfbaffaeb54df38, type: 2}
   m_sharedMaterial: {fileID: 6815565423449077270, guid: 54b6dd852193ec549bfbaffaeb54df38,
@@ -3562,7 +3611,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 59.4
+  m_fontSize: 55.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3603,12 +3652,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1913265747}
-    characterCount: 15
+    characterCount: 19
     spriteCount: 0
     spaceCount: 3
     wordCount: 4
     linkCount: 0
-    lineCount: 1
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0

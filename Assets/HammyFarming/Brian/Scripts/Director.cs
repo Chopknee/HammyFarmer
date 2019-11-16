@@ -96,6 +96,8 @@ namespace HammyFarming.Brian {
 
                 audioFadeIn.OnAlarm += FadeInDone;
             }
+
+            Instance = this;
         }
 
         static void OnKeyboardUsed(InputAction.CallbackContext context) {
@@ -110,10 +112,6 @@ namespace HammyFarming.Brian {
                 CurrentControlDevice = ControlDevice.Gamepad;
                 OnControlDeviceChanged?.Invoke(CurrentControlDevice);
             }
-        }
-
-        public void Start () {
-            Instance = this;
         }
 
         IEnumerator LoadSceneBase () {

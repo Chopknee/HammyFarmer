@@ -13,6 +13,10 @@ namespace HammyFarming.Brian.Monsters {
         public float upAmount;
         public float jumpRestTime = 2.5f;
         public float hitByWaterRestTime = 10;
+        public bool jumpPeriodically = false;
+        public float minMoveDelay = 1;
+        public float maxMoveDelay = 4;
+        public bool randomizeOrientation = true;
 
         public Transform target;
 
@@ -34,6 +38,8 @@ namespace HammyFarming.Brian.Monsters {
         Timeout jumpRestTimeout;
         Timeout restingTimeout;
 
+        Timeout moveTimeout;
+
         private void Awake () {
             reSpawnPoint = transform.position;
 
@@ -44,6 +50,13 @@ namespace HammyFarming.Brian.Monsters {
 
             jumpRestTimeout = new Timeout(jumpRestTime);
             restingTimeout = new Timeout(hitByWaterRestTime);
+
+            moveTimeout = new Timeout(Random.Range(minMoveDelay, maxMoveDelay));
+            moveTimeout.Start();
+
+            if (randomizeOrientation) {
+                transform.rotation = Random.rotation;
+            }
 
         }
 
@@ -84,6 +97,23 @@ namespace HammyFarming.Brian.Monsters {
                         jumpRestTimeout.Start();
                     }
                 }
+
+                if (jumpPeriodically) {
+                    if (moveTimeout.Tick(Time.deltaTime)) {
+                        moveTimeout.Reset();
+                        moveTimeout.timeoutTime = Random.Range(minMoveDelay, maxMoveDelay);
+                        moveTimeout.Start();
+
+                        //Pick a random direction and move there.
+                        //Vector3 forceDirection = Vector3.up
+                        Vector3 dist = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * 2.5f;
+                        dist.y *= upAmount;
+                        rb.AddForce(dist * jumpForce);
+                        rb.AddTorque(dist * 4);
+                        PlaySound(jumpSound, false);
+                    }
+                }
+
             }
         }
 
@@ -124,6 +154,9 @@ namespace HammyFarming.Brian.Monsters {
             jumpForce = Mathf.Max(1, jumpForce);
             randomPitchRange.x = Mathf.Max(0.001f, randomPitchRange.x);
             randomPitchRange.y = Mathf.Max(randomPitchRange.x + 0.001f, randomPitchRange.y);
+
+            minMoveDelay = Mathf.Clamp(minMoveDelay, 0.25f, maxMoveDelay - 0.01f);
+            maxMoveDelay = Mathf.Clamp(maxMoveDelay, minMoveDelay + 0.01f, 360);
         }
 
         void PlaySound ( AudioClip cl, bool randomPitch ) {

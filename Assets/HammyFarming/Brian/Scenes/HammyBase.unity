@@ -2458,16 +2458,16 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -0.06321915
-      outSlope: -0.06321915
+      inSlope: -3.2184253
+      outSlope: -3.2184253
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.1848435
+      inWeight: 0.022494912
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  animationTime: 1.25
+  animationTime: 2.2
   isFinished: 0
   startOnAwake: 1
   setControls: 1
