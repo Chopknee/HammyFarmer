@@ -53,6 +53,9 @@ MonoBehaviour:
   horizontalSmoothing: 20
   verticalSmoothing: 20
   zoomSmoothing: 15
+  followDistanceConstraint: {x: 4, y: 11.22}
+  asisstModeVerticalOffset: 3.5
+  cameraAsisstMode: 1
   maxZoomDistance: 15
   target: {fileID: 538416297667782550}
   cameraCollisionLayers:
@@ -331,11 +334,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Camera
-      objectReference: {fileID: 0}
-    - target: {fileID: 7957060315675633785, guid: a1b4996e21799d543839e0968854d56e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7957060315675633784, guid: a1b4996e21799d543839e0968854d56e,
         type: 3}

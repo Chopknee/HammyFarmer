@@ -71,8 +71,16 @@ namespace Hammy
                 {
                     ""name"": ""Look"",
                     ""type"": ""Value"",
-                    ""id"": ""0c5fa063-5e58-43a9-9eaf-29d8424d0dd1"",
+                    ""id"": ""7b095ca8-0bc8-4e16-9739-fa3d97dd2e69"",
                     ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ActivateCameraAsisst"",
+                    ""type"": ""Button"",
+                    ""id"": ""0c5fa063-5e58-43a9-9eaf-29d8424d0dd1"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
                 },
@@ -278,7 +286,7 @@ namespace Hammy
                     ""id"": ""999fc3e8-6a4a-4240-94bf-1013186ae8f6"",
                     ""path"": ""<Gamepad>/rightStick/y"",
                     ""interactions"": """",
-                    ""processors"": ""Scale(factor=10)"",
+                    ""processors"": ""StickDeadzone(max=0.07),Scale(factor=10)"",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Zoom"",
                     ""isComposite"": false,
@@ -289,7 +297,7 @@ namespace Hammy
                     ""id"": ""8671d0fc-5fcd-4c32-9c25-9cb18bd6be0f"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
-                    ""processors"": ""InvertVector2,ScaleVector2(x=35,y=35)"",
+                    ""processors"": ""StickDeadzone(max=0.07),InvertVector2,ScaleVector2(x=35,y=35)"",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Look"",
                     ""isComposite"": false,
@@ -349,6 +357,28 @@ namespace Hammy
                     ""action"": ""Debug"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""77c37bba-fcc1-4bc6-bb79-bb75c0cf4a4b"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ActivateCameraAsisst"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a358758-34be-40ca-bac2-9798b0a6244d"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""ActivateCameraAsisst"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1185,6 +1215,7 @@ namespace Hammy
             m_Hammy_Pause = m_Hammy.FindAction("Pause", throwIfNotFound: true);
             m_Hammy_Zoom = m_Hammy.FindAction("Zoom", throwIfNotFound: true);
             m_Hammy_Look = m_Hammy.FindAction("Look", throwIfNotFound: true);
+            m_Hammy_ActivateCameraAsisst = m_Hammy.FindAction("ActivateCameraAsisst", throwIfNotFound: true);
             m_Hammy_Debug = m_Hammy.FindAction("Debug", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -1262,6 +1293,7 @@ namespace Hammy
         private readonly InputAction m_Hammy_Pause;
         private readonly InputAction m_Hammy_Zoom;
         private readonly InputAction m_Hammy_Look;
+        private readonly InputAction m_Hammy_ActivateCameraAsisst;
         private readonly InputAction m_Hammy_Debug;
         public struct HammyActions
         {
@@ -1274,6 +1306,7 @@ namespace Hammy
             public InputAction @Pause => m_Wrapper.m_Hammy_Pause;
             public InputAction @Zoom => m_Wrapper.m_Hammy_Zoom;
             public InputAction @Look => m_Wrapper.m_Hammy_Look;
+            public InputAction @ActivateCameraAsisst => m_Wrapper.m_Hammy_ActivateCameraAsisst;
             public InputAction @Debug => m_Wrapper.m_Hammy_Debug;
             public InputActionMap Get() { return m_Wrapper.m_Hammy; }
             public void Enable() { Get().Enable(); }
@@ -1305,6 +1338,9 @@ namespace Hammy
                     Look.started -= m_Wrapper.m_HammyActionsCallbackInterface.OnLook;
                     Look.performed -= m_Wrapper.m_HammyActionsCallbackInterface.OnLook;
                     Look.canceled -= m_Wrapper.m_HammyActionsCallbackInterface.OnLook;
+                    ActivateCameraAsisst.started -= m_Wrapper.m_HammyActionsCallbackInterface.OnActivateCameraAsisst;
+                    ActivateCameraAsisst.performed -= m_Wrapper.m_HammyActionsCallbackInterface.OnActivateCameraAsisst;
+                    ActivateCameraAsisst.canceled -= m_Wrapper.m_HammyActionsCallbackInterface.OnActivateCameraAsisst;
                     Debug.started -= m_Wrapper.m_HammyActionsCallbackInterface.OnDebug;
                     Debug.performed -= m_Wrapper.m_HammyActionsCallbackInterface.OnDebug;
                     Debug.canceled -= m_Wrapper.m_HammyActionsCallbackInterface.OnDebug;
@@ -1333,6 +1369,9 @@ namespace Hammy
                     Look.started += instance.OnLook;
                     Look.performed += instance.OnLook;
                     Look.canceled += instance.OnLook;
+                    ActivateCameraAsisst.started += instance.OnActivateCameraAsisst;
+                    ActivateCameraAsisst.performed += instance.OnActivateCameraAsisst;
+                    ActivateCameraAsisst.canceled += instance.OnActivateCameraAsisst;
                     Debug.started += instance.OnDebug;
                     Debug.performed += instance.OnDebug;
                     Debug.canceled += instance.OnDebug;
@@ -1545,6 +1584,7 @@ namespace Hammy
             void OnPause(InputAction.CallbackContext context);
             void OnZoom(InputAction.CallbackContext context);
             void OnLook(InputAction.CallbackContext context);
+            void OnActivateCameraAsisst(InputAction.CallbackContext context);
             void OnDebug(InputAction.CallbackContext context);
         }
         public interface IUIActions
