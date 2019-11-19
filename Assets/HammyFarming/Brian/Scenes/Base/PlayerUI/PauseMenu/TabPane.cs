@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace HammyFarming.Brian.Base.PauseMenu {
+namespace HammyFarming.Brian.Base.PlayerUI.PauseMenu {
 
     public class TabPane: MonoBehaviour, ISelectHandler, IDeselectHandler {
 

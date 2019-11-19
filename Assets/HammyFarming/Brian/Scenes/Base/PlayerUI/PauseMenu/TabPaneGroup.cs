@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace HammyFarming.Brian.Base.PauseMenu {
+namespace HammyFarming.Brian.Base.PlayerUI.PauseMenu {
 
     public class TabPaneGroup: MonoBehaviour {
 

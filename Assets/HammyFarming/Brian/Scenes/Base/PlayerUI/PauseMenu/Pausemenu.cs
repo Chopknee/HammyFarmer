@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace HammyFarming.Brian.Base.PauseMenu {
+namespace HammyFarming.Brian.Base.PlayerUI.PauseMenu {
 
     public class Pausemenu: MonoBehaviour {
 

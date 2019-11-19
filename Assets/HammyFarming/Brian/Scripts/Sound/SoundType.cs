@@ -1,4 +1,4 @@
-﻿using HammyFarming.Brian.Base.PauseMenu;
+﻿using HammyFarming.Brian.Base.PlayerUI.PauseMenu;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

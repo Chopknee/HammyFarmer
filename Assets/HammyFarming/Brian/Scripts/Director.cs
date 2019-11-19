@@ -46,7 +46,7 @@ namespace HammyFarming.Brian {
         [Header("Other")]
         public string hammyBaseSceneName;
 
-        public bool showAlphaDisclaimer = false;
+        public string LevelMusicCredit = "FILL ME IN";
 
         private static InputMaster _inputMaster;
         public static InputMaster InputMasterController {

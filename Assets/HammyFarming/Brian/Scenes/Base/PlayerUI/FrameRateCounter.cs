@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace HammyFarming.Brian.UI {
+namespace HammyFarming.Brian.Base.PlayerUI {
 
     public class FrameRateCounter: MonoBehaviour {
 

@@ -62729,6 +62729,11 @@ PrefabInstance:
       propertyPath: musicFadeTime
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2624585695655070999, guid: a5c4bbbc6d6f1884b879160a98fc6387,
+        type: 3}
+      propertyPath: LevelMusicCredit
+      value: 'Music Credit: Darren Curtis'
+      objectReference: {fileID: 0}
     - target: {fileID: 2624585696002747072, guid: a5c4bbbc6d6f1884b879160a98fc6387,
         type: 3}
       propertyPath: m_LocalPosition.z
