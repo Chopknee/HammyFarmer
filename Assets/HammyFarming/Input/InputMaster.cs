@@ -361,6 +361,22 @@ namespace Hammy
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Next Tab"",
+                    ""type"": ""Button"",
+                    ""id"": ""e8215111-7a97-46f3-8208-6934010719f1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Previous Tab"",
+                    ""type"": ""Button"",
+                    ""id"": ""9ba48b5b-de4b-4384-be82-4d22877ad6cc"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -625,6 +641,39 @@ namespace Hammy
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""TrackedDeviceSelect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""10ccd7ec-72fd-405a-a3d4-75b0332ccfa9"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Next Tab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""418840cc-0809-40ed-bfac-59117b576259"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Next Tab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cbf490b5-76af-408e-8fc6-6b33d5fd4856"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Previous Tab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1265,6 +1314,8 @@ namespace Hammy
             m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
             m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
             m_UI_TrackedDeviceSelect = m_UI.FindAction("TrackedDeviceSelect", throwIfNotFound: true);
+            m_UI_NextTab = m_UI.FindAction("Next Tab", throwIfNotFound: true);
+            m_UI_PreviousTab = m_UI.FindAction("Previous Tab", throwIfNotFound: true);
             // InputDevice
             m_InputDevice = asset.FindActionMap("InputDevice", throwIfNotFound: true);
             m_InputDevice_KeyboardAny = m_InputDevice.FindAction("KeyboardAny", throwIfNotFound: true);
@@ -1411,6 +1462,8 @@ namespace Hammy
         private readonly InputAction m_UI_TrackedDevicePosition;
         private readonly InputAction m_UI_TrackedDeviceOrientation;
         private readonly InputAction m_UI_TrackedDeviceSelect;
+        private readonly InputAction m_UI_NextTab;
+        private readonly InputAction m_UI_PreviousTab;
         public struct UIActions
         {
             private InputMaster m_Wrapper;
@@ -1426,6 +1479,8 @@ namespace Hammy
             public InputAction @TrackedDevicePosition => m_Wrapper.m_UI_TrackedDevicePosition;
             public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
             public InputAction @TrackedDeviceSelect => m_Wrapper.m_UI_TrackedDeviceSelect;
+            public InputAction @NextTab => m_Wrapper.m_UI_NextTab;
+            public InputAction @PreviousTab => m_Wrapper.m_UI_PreviousTab;
             public InputActionMap Get() { return m_Wrapper.m_UI; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1468,6 +1523,12 @@ namespace Hammy
                     TrackedDeviceSelect.started -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceSelect;
                     TrackedDeviceSelect.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceSelect;
                     TrackedDeviceSelect.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceSelect;
+                    NextTab.started -= m_Wrapper.m_UIActionsCallbackInterface.OnNextTab;
+                    NextTab.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnNextTab;
+                    NextTab.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnNextTab;
+                    PreviousTab.started -= m_Wrapper.m_UIActionsCallbackInterface.OnPreviousTab;
+                    PreviousTab.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnPreviousTab;
+                    PreviousTab.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnPreviousTab;
                 }
                 m_Wrapper.m_UIActionsCallbackInterface = instance;
                 if (instance != null)
@@ -1505,6 +1566,12 @@ namespace Hammy
                     TrackedDeviceSelect.started += instance.OnTrackedDeviceSelect;
                     TrackedDeviceSelect.performed += instance.OnTrackedDeviceSelect;
                     TrackedDeviceSelect.canceled += instance.OnTrackedDeviceSelect;
+                    NextTab.started += instance.OnNextTab;
+                    NextTab.performed += instance.OnNextTab;
+                    NextTab.canceled += instance.OnNextTab;
+                    PreviousTab.started += instance.OnPreviousTab;
+                    PreviousTab.performed += instance.OnPreviousTab;
+                    PreviousTab.canceled += instance.OnPreviousTab;
                 }
             }
         }
@@ -1671,6 +1738,8 @@ namespace Hammy
             void OnTrackedDevicePosition(InputAction.CallbackContext context);
             void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
             void OnTrackedDeviceSelect(InputAction.CallbackContext context);
+            void OnNextTab(InputAction.CallbackContext context);
+            void OnPreviousTab(InputAction.CallbackContext context);
         }
         public interface IInputDeviceActions
         {

@@ -55,7 +55,7 @@ public class TerrainDeform: MonoBehaviour {
         }
     }
 
-    void Start () {
+    void Awake () {
         rb = GetComponent<Rigidbody>();
         fieldRollingAS = gameObject.AddComponent<AudioSource>();
         fieldRollingAS.clip = fieldSound;

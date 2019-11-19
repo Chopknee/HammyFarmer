@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace HammyFarming.Brian.Interaction {
-
+    [RequireComponent(typeof(AudioSource))]
     public class ToolAttatchment: HammyInteractable {
 
         bool isHookedIn = false;
@@ -34,7 +34,7 @@ namespace HammyFarming.Brian.Interaction {
         }
 
         public override void Start () {
-            attachSoundAS = gameObject.AddComponent<AudioSource>();
+            attachSoundAS = GetComponent<AudioSource>();
             attachSoundAS.clip = attachSound;
             attachSoundAS.playOnAwake = false;
             attachSoundAS.loop = false;

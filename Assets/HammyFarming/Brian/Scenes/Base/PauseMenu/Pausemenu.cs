@@ -14,6 +14,9 @@ namespace HammyFarming.Brian.Base.PauseMenu {
         public static bool HorizontalInverted { get; private set; }
         public static float VerticalSensitivity { get; private set; }
         public static float HorizontalSensitivity { get; private set; }
+        public static float MasterVolume { get; private set; }
+        public static float MusicVolume { get; private set; }
+        public static float SoundFXVolume { get; private set; }
 
         public static Pausemenu Instance { get; private set; }
 
@@ -50,8 +53,12 @@ namespace HammyFarming.Brian.Base.PauseMenu {
             HorizontalInverted = PlayerPrefs.GetInt("HorizontalToggle", 0) == 1;
             InvertHorizontalToggle.isOn = HorizontalInverted;
 
-            HorizontalSensitivity = PlayerPrefs.GetFloat("HorizontalSensitivity");
-            VerticalSensitivity = PlayerPrefs.GetFloat("VerticalSensitivity");
+            HorizontalSensitivity = PlayerPrefs.GetFloat("HorizontalSensitivity", 1);
+            VerticalSensitivity = PlayerPrefs.GetFloat("VerticalSensitivity", 1);
+
+            MasterVolume = PlayerPrefs.GetFloat("MasterVolume", 1);
+            MusicVolume = PlayerPrefs.GetFloat("MusicVolume", 0.8f);
+            SoundFXVolume = PlayerPrefs.GetFloat("SoundFXVolume", 1);
 
 
             InvertVerticalToggle.onValueChanged.AddListener(verticalToggleChanged);
@@ -133,6 +140,10 @@ namespace HammyFarming.Brian.Base.PauseMenu {
 
             HorizontalSensitivity = PlayerPrefs.GetFloat("HorizontalSensitivity");
             VerticalSensitivity = PlayerPrefs.GetFloat("VerticalSensitivity");
+
+            MasterVolume = PlayerPrefs.GetFloat("MasterVolume");
+            MusicVolume = PlayerPrefs.GetFloat("MusicVolume");
+            SoundFXVolume = PlayerPrefs.GetFloat("SoundFXVolume");
 
             if (group == null) {
                 group = GetComponent<CanvasGroup>();

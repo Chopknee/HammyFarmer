@@ -35,6 +35,7 @@ namespace HammyFarming.Brian.Base.PauseMenu {
                     originalNav = myNavigation.selectOnDown;
                     myNavigation.selectOnDown = firstTabNavObject;
                     myButton.navigation = myNavigation;
+                    EventSystem.current.SetSelectedGameObject(firstTabNavObject.gameObject);
                 } else {
                     myNavigation.selectOnDown = originalNav;
                     myButton.navigation = myNavigation;
@@ -46,7 +47,7 @@ namespace HammyFarming.Brian.Base.PauseMenu {
 
         Navigation myNavigation;
 
-        void Start () {
+        void Awake () {
             myButton = GetComponent<Button>();
             myNavigation = myButton.navigation;
 

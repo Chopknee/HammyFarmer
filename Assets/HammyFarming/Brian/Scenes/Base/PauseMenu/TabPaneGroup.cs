@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace HammyFarming.Brian.Base.PauseMenu {
@@ -12,8 +10,23 @@ namespace HammyFarming.Brian.Base.PauseMenu {
         public int selectedPaneIndex = 0;
 
         void Start () {
-            
-            for (int i = 0; i < tabPanes.Length; i++ ) {
+            Initialize();
+            Director.InputMasterController.UI.NextTab.performed += ShowNextPane;
+            Director.InputMasterController.UI.PreviousTab.performed += ShowPreviousPane;
+        }
+
+        private void OnEnable() {
+            Initialize();
+        }
+
+        private void OnDestroy() {
+            Director.InputMasterController.UI.NextTab.performed -= ShowNextPane;
+            Director.InputMasterController.UI.PreviousTab.performed -= ShowPreviousPane;
+        }
+
+        //Set up all of the tabs and select the default one.
+        void Initialize() {
+            for (int i = 0; i < tabPanes.Length; i++) {
                 TabPane tp = tabPanes[i];
                 tp.OnTabClicked += OnTabPaneClicked;
                 if (i == defaultPaneIndex) {
@@ -29,19 +42,15 @@ namespace HammyFarming.Brian.Base.PauseMenu {
             //For gamepad
             HidePane(selectedPaneIndex);
             selectedPaneIndex++;
-            if (selectedPaneIndex >= tabPanes.Length) {
-                selectedPaneIndex = 0;
-            }
+            selectedPaneIndex = (selectedPaneIndex >= tabPanes.Length) ? 0 : selectedPaneIndex;
             ShowPane(selectedPaneIndex);
         }
 
-        void ShowLastPane ( InputAction.CallbackContext context ) {
+        void ShowPreviousPane ( InputAction.CallbackContext context ) {
             //For gamepad
             HidePane(selectedPaneIndex);
             selectedPaneIndex--;
-            if (selectedPaneIndex < 0) {
-                selectedPaneIndex = tabPanes.Length - 1;
-            }
+            selectedPaneIndex = (selectedPaneIndex < 0) ? selectedPaneIndex = tabPanes.Length - 1 : selectedPaneIndex;
             ShowPane(selectedPaneIndex);
         }
 

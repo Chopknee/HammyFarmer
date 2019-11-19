@@ -112,6 +112,7 @@ GameObject:
   - component: {fileID: 2021622204}
   - component: {fileID: 5383215258605720763}
   - component: {fileID: 4588130608464565713}
+  - component: {fileID: 104209852348531533}
   m_Layer: 0
   m_Name: SeedBomb
   m_TagString: Untagged
@@ -2376,7 +2377,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 9295e546702b2624c8faaf346ffa9103, type: 3}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -2385,8 +2386,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 10.2
+  MaxDistance: 18.6
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -2421,7 +2422,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -2486,15 +2487,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4afbdd911bbd964498be1ee21f0569e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destructionPrefab: {fileID: 3489782559702948712, guid: 8854d4153f283ef45a4e079abb23f81f,
+    type: 3}
+  timeToExplosion: 3
+  explosionRadius: 0
+  explosionForceMultiplier: 10
   debrisPrefab: {fileID: 4540854049173812594, guid: e524a4a4229e8ba4880d3b5f945595eb,
     type: 3}
   debrisCount: 10
   debrisRadius: 1.04
-  destructionPrefab: {fileID: 3489782559702948712, guid: 8854d4153f283ef45a4e079abb23f81f,
-    type: 3}
-  timeToExplosion: 3
-  explosionForce: 2500
-  upForcePercentage: 0.25
+  debrisSpawnForce: 100
+  debrisSpawnUpForce: 0.25
   messageGUI: {fileID: 344057350621020138}
 --- !u!114 &5383215258605720763
 MonoBehaviour:
@@ -2511,18 +2514,17 @@ MonoBehaviour:
   stampMap: {fileID: 2800000, guid: 5daf36e29d389a8479c324f013fe33d1, type: 3}
   stampScale: 0.8
   weight: 0.4
-  mudDragValue: 1.35
-  fieldSound: {fileID: 0}
-  soundVolume: 0.75
-  pitchSpeedMultiplier: 0
-  pitchMin: 0.1
-  pitchMax: 0.5
   minimumDeformationVelocity: 0.25
   deformWeight: -0.563
   tillWeight: -0.284
   waterWeight: 0
   additiveOnly: 1
+  fieldSound: {fileID: 0}
+  soundVolume: 0.75
+  pitchSpeedMultiplier: 0
+  pitchRange: {x: 0.001, y: 0.002}
   deformParticles: []
+  mudDragValue: 1.35
 --- !u!114 &4588130608464565713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2538,6 +2540,19 @@ MonoBehaviour:
   heightOffset: 3.5
   hoverTags:
   - {fileID: 2182438594246365005}
+--- !u!114 &104209852348531533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2150284598460932613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23edfb92f3a8fe24188e5beb8d6d4840, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundType: 2
 --- !u!1 &2150284598521421135
 GameObject:
   m_ObjectHideFlags: 0
