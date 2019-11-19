@@ -21,5 +21,10 @@ namespace Chopknee.Utility {
             return points;
         }
 
+        public static void ClampMinmax(ref float min, ref float max, float absoluteMinimum, float absoluteMaximum) {
+            min = Mathf.Clamp(min, absoluteMinimum, max - 0.01f);
+            max = Mathf.Clamp(max, min + 0.01f, absoluteMaximum);
+        }
+
     }
 }

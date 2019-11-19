@@ -1,6 +1,5 @@
-﻿using HammyFarming.Brian.UI;
-using System.Collections;
-using System.Collections.Generic;
+﻿using HammyFarming.Brian.Base.PauseMenu;
+using HammyFarming.Brian.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -24,7 +23,7 @@ namespace HammyFarming.Brian.Animation {
         public float horizontalSmoothing = 1;
         public float verticalSmoothing = 1;
         public float zoomSmoothing = 1;
-
+        public float minZoomDistance = 2.25f;
         public float maxZoomDistance = 10;
 
         [Header("Camera Asisst Settings")]
@@ -47,7 +46,8 @@ namespace HammyFarming.Brian.Animation {
 
             //Pre-initialize position for camera asisst mode
             targetedPosition = target.position + Quaternion.Euler(new Vector3(verticalRotation, horizontalRotation, 0)) * ( zoom * Vector3.back );
-            Director.InputMasterController.Hammy.ActivateCameraAsisst.performed += ActivateCameraAsisst;
+            Director.InputMasterController.Camera.ActivateCameraAsisst.performed += ActivateCameraAsisst;
+
         }
 
         Vector3 targetedPosition;
@@ -60,14 +60,16 @@ namespace HammyFarming.Brian.Animation {
             }
         }
 
+
+
         void LateUpdate () {
 
             if (target == null)
                 return;
 
             //Grabbing the deltas from the input class
-            Vector2 cameraDelta = Director.InputMasterController.Hammy.Look.ReadValue<Vector2>();
-            float zoomDelta = Director.InputMasterController.Hammy.Zoom.ReadValue<float>();
+            Vector2 cameraDelta = Director.InputMasterController.Camera.Look.ReadValue<Vector2>();
+            float zoomDelta = Director.InputMasterController.Camera.Zoom.ReadValue<float>();
             if (zoomDelta != 0) {
                 cameraDelta.y = 0;
             }
@@ -83,57 +85,80 @@ namespace HammyFarming.Brian.Animation {
                     zoom = diff.magnitude;
                     smoothedZoom = zoom;
 
-                    Vector3 from = target.position - transform.position;
-                    horizontalRotation = Vector3.SignedAngle(from, transform.forward, Vector3.up) + 180;
+                    horizontalRotation = -Mathf.Atan(diff.z / diff.x) * Mathf.Rad2Deg - 90;
+                    if (diff.x < 0) { horizontalRotation += 180; }
                     smoothedHorizontal = horizontalRotation;
-                    verticalRotation = Mathf.Acos(( target.position.y + asisstModeVerticalOffset ) / zoom);
+                    verticalRotation = Mathf.Rad2Deg * Mathf.Asin(( target.position.y + asisstModeVerticalOffset ) / (zoom + minZoomDistance));
                     smoothedVertical = verticalRotation;
+                    
+                    if (float.IsNaN(smoothedHorizontal)) {
+                        horizontalRotation = 0;
+                        smoothedHorizontal = 0;
+                    }
+                    if (float.IsNaN(smoothedVertical)) {
+                        verticalRotation = 0;
+                        smoothedVertical = 0;
+                    }
+
+                    if (float.IsNaN(smoothedZoom)) {
+                        zoom = 0;
+                        smoothedZoom = 0;
+                    }
                 }
             }
 
             Vector3 desiredPosition = targetedPosition;
 
-            if (cameraAsisstMode) {
 
-                Vector3 diff = desiredPosition - target.position;
-                float dist = diff.magnitude;
+            if (Director.InputMasterController.Camera.FocusCamera.ReadValue<float>() > 0 && false) {
+                //Follow behind hammy mode
 
-                diff.y = 0;
-                if (dist < followDistanceConstraint.x) {
-                    desiredPosition -= diff.normalized * (dist-followDistanceConstraint.x);
-                } else if (dist > followDistanceConstraint.y) {
-                    desiredPosition -= diff.normalized * (dist-followDistanceConstraint.y);
-                }
-
-                targetedPosition = new Vector3(desiredPosition.x, target.position.y + asisstModeVerticalOffset, desiredPosition.z);
+                Vector2 rollDirection = Director.InputMasterController.Hammy.Roll.ReadValue<Vector2>();
 
             } else {
+                //Camera assist mode
+                if (cameraAsisstMode) {
 
-                //The horizontal rotation of the camera
-                horizontalRotation += cameraDelta.x * horizontalSensitivity * Time.deltaTime * ( ( Pausemenu.HorizontalInverted ) ? -1 : 1 );
+                    Vector3 diff = desiredPosition - target.position;
+                    float dist = diff.magnitude;
 
-                //The vertical rotation of the camera
-                verticalRotation += cameraDelta.y * verticalSensitivity * Time.deltaTime * ( ( Pausemenu.VerticalInverted ) ? -1 : 1 );
-                verticalRotation = Mathf.Clamp(verticalRotation, -80, 80);
+                    diff.y = 0;
+                    if (dist < followDistanceConstraint.x) {
+                        desiredPosition -= diff.normalized * ( dist - followDistanceConstraint.x );
+                    } else if (dist > followDistanceConstraint.y) {
+                        desiredPosition -= diff.normalized * ( dist - followDistanceConstraint.y );
+                    }
 
+                    targetedPosition = new Vector3(desiredPosition.x, target.position.y + asisstModeVerticalOffset, desiredPosition.z);
 
-                //Zoom Control
-                zoom += -1 * zoomDelta * zoomSensitivity * Time.deltaTime;
-                zoom = Mathf.Clamp(zoom, 2.25f, maxZoomDistance);
-
-
-                if (Time.deltaTime < 0.036f) {//Checking if the 
-                    smoothedHorizontal += ( horizontalRotation - smoothedHorizontal ) * Time.deltaTime * horizontalSmoothing;
-                    smoothedVertical += ( verticalRotation - smoothedVertical ) * Time.deltaTime * verticalSmoothing;
-                    smoothedZoom += ( zoom - smoothedZoom ) * Time.deltaTime * zoomSmoothing;
                 } else {
-                    smoothedHorizontal = horizontalRotation;
-                    smoothedVertical = verticalRotation;
-                    smoothedZoom = zoom;
-                }
+                    //Manual camera mode
 
-                //
-                desiredPosition = target.position + Quaternion.Euler(new Vector3(smoothedVertical, smoothedHorizontal, 0)) * ( smoothedZoom * Vector3.back );
+                    //The horizontal rotation of the camera
+                    horizontalRotation += cameraDelta.x * horizontalSensitivity * Time.deltaTime * ( ( Pausemenu.HorizontalInverted ) ? -1 : 1 ) * Pausemenu.HorizontalSensitivity;
+
+                    //The vertical rotation of the camera
+                    verticalRotation += cameraDelta.y * verticalSensitivity * Time.deltaTime * ( ( Pausemenu.VerticalInverted ) ? -1 : 1 ) * Pausemenu.VerticalSensitivity;
+                    verticalRotation = Mathf.Clamp(verticalRotation, -80, 80);
+
+
+                    //Zoom Control
+                    zoom += -1 * zoomDelta * zoomSensitivity * Time.deltaTime;
+                    zoom = Mathf.Clamp(zoom, 2.25f, maxZoomDistance);
+
+
+                    if (Time.deltaTime < 0.036f) {//Checking if the 
+                        smoothedHorizontal += ( horizontalRotation - smoothedHorizontal ) * Time.deltaTime * horizontalSmoothing;
+                        smoothedVertical += ( verticalRotation - smoothedVertical ) * Time.deltaTime * verticalSmoothing;
+                        smoothedZoom += ( zoom - smoothedZoom ) * Time.deltaTime * zoomSmoothing;
+                    } else {
+                        smoothedHorizontal = horizontalRotation;
+                        smoothedVertical = verticalRotation;
+                        smoothedZoom = zoom;
+                    }
+
+                    desiredPosition = target.position + Quaternion.Euler(new Vector3(smoothedVertical, smoothedHorizontal, 0)) * ( smoothedZoom * Vector3.back );
+                }
             }
 
             //Detecting if there is anything obstructing the camera from reaching the desired position.
@@ -159,6 +184,9 @@ namespace HammyFarming.Brian.Animation {
             //Keep the constraints sensible.
             followDistanceConstraint.x = Mathf.Clamp(followDistanceConstraint.x, 0f, followDistanceConstraint.y - 0.01f);
             followDistanceConstraint.y = Mathf.Clamp(followDistanceConstraint.y, followDistanceConstraint.x + 0.01f, int.MaxValue);
+
+            minZoomDistance = Mathf.Clamp(minZoomDistance, 0.5f, maxZoomDistance - 0.01f);
+            maxZoomDistance = Mathf.Clamp(maxZoomDistance, minZoomDistance + 0.01f, int.MaxValue);
         }
 
         private void OnDrawGizmosSelected () {

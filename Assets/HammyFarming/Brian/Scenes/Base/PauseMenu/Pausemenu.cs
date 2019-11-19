@@ -6,12 +6,15 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace HammyFarming.Brian.UI {
+namespace HammyFarming.Brian.Base.PauseMenu {
 
     public class Pausemenu: MonoBehaviour {
 
         public static bool VerticalInverted { get; private set; }
         public static bool HorizontalInverted { get; private set; }
+        public static float VerticalSensitivity { get; private set; }
+        public static float HorizontalSensitivity { get; private set; }
+
         public static Pausemenu Instance { get; private set; }
 
 
@@ -46,6 +49,9 @@ namespace HammyFarming.Brian.UI {
             InvertVerticalToggle.isOn = VerticalInverted;
             HorizontalInverted = PlayerPrefs.GetInt("HorizontalToggle", 0) == 1;
             InvertHorizontalToggle.isOn = HorizontalInverted;
+
+            HorizontalSensitivity = PlayerPrefs.GetFloat("HorizontalSensitivity");
+            VerticalSensitivity = PlayerPrefs.GetFloat("VerticalSensitivity");
 
 
             InvertVerticalToggle.onValueChanged.AddListener(verticalToggleChanged);
@@ -124,6 +130,10 @@ namespace HammyFarming.Brian.UI {
         }
 
         void Hide () {
+
+            HorizontalSensitivity = PlayerPrefs.GetFloat("HorizontalSensitivity");
+            VerticalSensitivity = PlayerPrefs.GetFloat("VerticalSensitivity");
+
             if (group == null) {
                 group = GetComponent<CanvasGroup>();
             }

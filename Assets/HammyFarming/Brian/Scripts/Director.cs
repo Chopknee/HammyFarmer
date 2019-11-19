@@ -139,15 +139,15 @@ namespace HammyFarming.Brian {
                 InputMasterController.Hammy.Roll.Enable();
                 InputMasterController.Hammy.Use.Enable();
                 InputMasterController.Hammy.Jump.Enable();
-                InputMasterController.Hammy.Zoom.Enable();
-                InputMasterController.Hammy.Look.Enable();
+                InputMasterController.Camera.Zoom.Enable();
+                InputMasterController.Camera.Look.Enable();
             } else {
                 InputMasterController.Hammy.Attach.Disable();
                 InputMasterController.Hammy.Roll.Disable();
                 InputMasterController.Hammy.Use.Disable();
                 InputMasterController.Hammy.Jump.Disable();
-                InputMasterController.Hammy.Zoom.Disable();
-                InputMasterController.Hammy.Look.Disable();
+                InputMasterController.Camera.Zoom.Disable();
+                InputMasterController.Camera.Look.Disable();
             }
         }
 

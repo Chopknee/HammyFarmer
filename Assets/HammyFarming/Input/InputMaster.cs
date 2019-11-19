@@ -61,30 +61,6 @@ namespace Hammy
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Zoom"",
-                    ""type"": ""Value"",
-                    ""id"": ""7f8f5120-e9ca-4cf7-be4a-ce84a6ef5d12"",
-                    ""expectedControlType"": ""Axis"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Look"",
-                    ""type"": ""Value"",
-                    ""id"": ""7b095ca8-0bc8-4e16-9739-fa3d97dd2e69"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""ActivateCameraAsisst"",
-                    ""type"": ""Button"",
-                    ""id"": ""0c5fa063-5e58-43a9-9eaf-29d8424d0dd1"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
                     ""name"": ""Debug"",
                     ""type"": ""Button"",
                     ""id"": ""e64bf18b-6444-42da-a683-e3f1d3551a30"",
@@ -250,72 +226,6 @@ namespace Hammy
                 },
                 {
                     ""name"": """",
-                    ""id"": ""bf229df5-378a-4722-8811-bcb9201c703d"",
-                    ""path"": ""<Mouse>/scroll/y"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Zoom"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""Gamepad Zoom"",
-                    ""id"": ""5792643c-3d71-4c97-9a9c-2ed0354da658"",
-                    ""path"": ""ButtonWithOneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Zoom"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier"",
-                    ""id"": ""4b937e3e-6186-4eaf-95a0-11f6fc9c0107"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Zoom"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""button"",
-                    ""id"": ""999fc3e8-6a4a-4240-94bf-1013186ae8f6"",
-                    ""path"": ""<Gamepad>/rightStick/y"",
-                    ""interactions"": """",
-                    ""processors"": ""StickDeadzone(max=0.07),Scale(factor=10)"",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Zoom"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8671d0fc-5fcd-4c32-9c25-9cb18bd6be0f"",
-                    ""path"": ""<Gamepad>/rightStick"",
-                    ""interactions"": """",
-                    ""processors"": ""StickDeadzone(max=0.07),InvertVector2,ScaleVector2(x=35,y=35)"",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""941074cd-52b5-4655-a2e7-ddef8de4f937"",
-                    ""path"": ""<Mouse>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""ea22bb49-582c-4b38-b218-e0027562fd3e"",
                     ""path"": ""<Keyboard>/backquote"",
                     ""interactions"": """",
@@ -357,28 +267,6 @@ namespace Hammy
                     ""action"": ""Debug"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""77c37bba-fcc1-4bc6-bb79-bb75c0cf4a4b"",
-                    ""path"": ""<Gamepad>/rightStickPress"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""ActivateCameraAsisst"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3a358758-34be-40ca-bac2-9798b0a6244d"",
-                    ""path"": ""<Keyboard>/c"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""ActivateCameraAsisst"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1174,6 +1062,156 @@ namespace Hammy
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Camera"",
+            ""id"": ""364d9657-d1fe-458a-afdf-36af4ad4ca9e"",
+            ""actions"": [
+                {
+                    ""name"": ""Zoom"",
+                    ""type"": ""Value"",
+                    ""id"": ""131ad66b-4a39-4398-bf14-686f5db0fb51"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""7d7bcaa2-37e7-4c7a-8d44-561a75d9a84f"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ActivateCameraAsisst"",
+                    ""type"": ""Button"",
+                    ""id"": ""48efe316-7e5b-4cb8-aeb2-a89c9fadbb32"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Focus Camera"",
+                    ""type"": ""Button"",
+                    ""id"": ""29190608-2019-4b38-80ac-d8ef67d4aefc"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""91f1bd67-e168-4660-825d-e358031ace9b"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Focus Camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""be747abc-c80d-4c7b-a56e-79efe06701e0"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Focus Camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d1b63202-58f3-4672-b3ce-101762f91e2b"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ActivateCameraAsisst"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5db74f72-e655-4c99-aebb-be9b87efadb5"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""ActivateCameraAsisst"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""78149a3f-b16c-47a5-bea0-7ac86c412294"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": ""StickDeadzone(max=0.07),InvertVector2,ScaleVector2(x=35,y=35)"",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""14fd65c8-99ea-4d5e-adf2-64f9b14366a3"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""204eefa9-b957-4272-a0a9-2e22bd180f0e"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Gamepad Zoom"",
+                    ""id"": ""63c8d85b-1a28-4bf1-896a-575fcc7dc4f3"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""0a6e3d3d-dbec-4e08-b73a-ae65abd336d9"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""cd308f9d-155c-47f5-9f1a-230095c08bf9"",
+                    ""path"": ""<Gamepad>/rightStick/y"",
+                    ""interactions"": """",
+                    ""processors"": ""StickDeadzone(max=0.07),Scale(factor=10)"",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -1213,9 +1251,6 @@ namespace Hammy
             m_Hammy_Use = m_Hammy.FindAction("Use", throwIfNotFound: true);
             m_Hammy_Jump = m_Hammy.FindAction("Jump", throwIfNotFound: true);
             m_Hammy_Pause = m_Hammy.FindAction("Pause", throwIfNotFound: true);
-            m_Hammy_Zoom = m_Hammy.FindAction("Zoom", throwIfNotFound: true);
-            m_Hammy_Look = m_Hammy.FindAction("Look", throwIfNotFound: true);
-            m_Hammy_ActivateCameraAsisst = m_Hammy.FindAction("ActivateCameraAsisst", throwIfNotFound: true);
             m_Hammy_Debug = m_Hammy.FindAction("Debug", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -1237,6 +1272,12 @@ namespace Hammy
             m_InputDevice_GamepadAny = m_InputDevice.FindAction("GamepadAny", throwIfNotFound: true);
             m_InputDevice_GamepadAnyButton = m_InputDevice.FindAction("GamepadAnyButton", throwIfNotFound: true);
             m_InputDevice_MainMenuStart = m_InputDevice.FindAction("MainMenuStart", throwIfNotFound: true);
+            // Camera
+            m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
+            m_Camera_Zoom = m_Camera.FindAction("Zoom", throwIfNotFound: true);
+            m_Camera_Look = m_Camera.FindAction("Look", throwIfNotFound: true);
+            m_Camera_ActivateCameraAsisst = m_Camera.FindAction("ActivateCameraAsisst", throwIfNotFound: true);
+            m_Camera_FocusCamera = m_Camera.FindAction("Focus Camera", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -1291,9 +1332,6 @@ namespace Hammy
         private readonly InputAction m_Hammy_Use;
         private readonly InputAction m_Hammy_Jump;
         private readonly InputAction m_Hammy_Pause;
-        private readonly InputAction m_Hammy_Zoom;
-        private readonly InputAction m_Hammy_Look;
-        private readonly InputAction m_Hammy_ActivateCameraAsisst;
         private readonly InputAction m_Hammy_Debug;
         public struct HammyActions
         {
@@ -1304,9 +1342,6 @@ namespace Hammy
             public InputAction @Use => m_Wrapper.m_Hammy_Use;
             public InputAction @Jump => m_Wrapper.m_Hammy_Jump;
             public InputAction @Pause => m_Wrapper.m_Hammy_Pause;
-            public InputAction @Zoom => m_Wrapper.m_Hammy_Zoom;
-            public InputAction @Look => m_Wrapper.m_Hammy_Look;
-            public InputAction @ActivateCameraAsisst => m_Wrapper.m_Hammy_ActivateCameraAsisst;
             public InputAction @Debug => m_Wrapper.m_Hammy_Debug;
             public InputActionMap Get() { return m_Wrapper.m_Hammy; }
             public void Enable() { Get().Enable(); }
@@ -1332,15 +1367,6 @@ namespace Hammy
                     Pause.started -= m_Wrapper.m_HammyActionsCallbackInterface.OnPause;
                     Pause.performed -= m_Wrapper.m_HammyActionsCallbackInterface.OnPause;
                     Pause.canceled -= m_Wrapper.m_HammyActionsCallbackInterface.OnPause;
-                    Zoom.started -= m_Wrapper.m_HammyActionsCallbackInterface.OnZoom;
-                    Zoom.performed -= m_Wrapper.m_HammyActionsCallbackInterface.OnZoom;
-                    Zoom.canceled -= m_Wrapper.m_HammyActionsCallbackInterface.OnZoom;
-                    Look.started -= m_Wrapper.m_HammyActionsCallbackInterface.OnLook;
-                    Look.performed -= m_Wrapper.m_HammyActionsCallbackInterface.OnLook;
-                    Look.canceled -= m_Wrapper.m_HammyActionsCallbackInterface.OnLook;
-                    ActivateCameraAsisst.started -= m_Wrapper.m_HammyActionsCallbackInterface.OnActivateCameraAsisst;
-                    ActivateCameraAsisst.performed -= m_Wrapper.m_HammyActionsCallbackInterface.OnActivateCameraAsisst;
-                    ActivateCameraAsisst.canceled -= m_Wrapper.m_HammyActionsCallbackInterface.OnActivateCameraAsisst;
                     Debug.started -= m_Wrapper.m_HammyActionsCallbackInterface.OnDebug;
                     Debug.performed -= m_Wrapper.m_HammyActionsCallbackInterface.OnDebug;
                     Debug.canceled -= m_Wrapper.m_HammyActionsCallbackInterface.OnDebug;
@@ -1363,15 +1389,6 @@ namespace Hammy
                     Pause.started += instance.OnPause;
                     Pause.performed += instance.OnPause;
                     Pause.canceled += instance.OnPause;
-                    Zoom.started += instance.OnZoom;
-                    Zoom.performed += instance.OnZoom;
-                    Zoom.canceled += instance.OnZoom;
-                    Look.started += instance.OnLook;
-                    Look.performed += instance.OnLook;
-                    Look.canceled += instance.OnLook;
-                    ActivateCameraAsisst.started += instance.OnActivateCameraAsisst;
-                    ActivateCameraAsisst.performed += instance.OnActivateCameraAsisst;
-                    ActivateCameraAsisst.canceled += instance.OnActivateCameraAsisst;
                     Debug.started += instance.OnDebug;
                     Debug.performed += instance.OnDebug;
                     Debug.canceled += instance.OnDebug;
@@ -1557,6 +1574,63 @@ namespace Hammy
             }
         }
         public InputDeviceActions @InputDevice => new InputDeviceActions(this);
+
+        // Camera
+        private readonly InputActionMap m_Camera;
+        private ICameraActions m_CameraActionsCallbackInterface;
+        private readonly InputAction m_Camera_Zoom;
+        private readonly InputAction m_Camera_Look;
+        private readonly InputAction m_Camera_ActivateCameraAsisst;
+        private readonly InputAction m_Camera_FocusCamera;
+        public struct CameraActions
+        {
+            private InputMaster m_Wrapper;
+            public CameraActions(InputMaster wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Zoom => m_Wrapper.m_Camera_Zoom;
+            public InputAction @Look => m_Wrapper.m_Camera_Look;
+            public InputAction @ActivateCameraAsisst => m_Wrapper.m_Camera_ActivateCameraAsisst;
+            public InputAction @FocusCamera => m_Wrapper.m_Camera_FocusCamera;
+            public InputActionMap Get() { return m_Wrapper.m_Camera; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(CameraActions set) { return set.Get(); }
+            public void SetCallbacks(ICameraActions instance)
+            {
+                if (m_Wrapper.m_CameraActionsCallbackInterface != null)
+                {
+                    Zoom.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnZoom;
+                    Zoom.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnZoom;
+                    Zoom.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnZoom;
+                    Look.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnLook;
+                    Look.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnLook;
+                    Look.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnLook;
+                    ActivateCameraAsisst.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnActivateCameraAsisst;
+                    ActivateCameraAsisst.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnActivateCameraAsisst;
+                    ActivateCameraAsisst.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnActivateCameraAsisst;
+                    FocusCamera.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnFocusCamera;
+                    FocusCamera.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnFocusCamera;
+                    FocusCamera.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnFocusCamera;
+                }
+                m_Wrapper.m_CameraActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    Zoom.started += instance.OnZoom;
+                    Zoom.performed += instance.OnZoom;
+                    Zoom.canceled += instance.OnZoom;
+                    Look.started += instance.OnLook;
+                    Look.performed += instance.OnLook;
+                    Look.canceled += instance.OnLook;
+                    ActivateCameraAsisst.started += instance.OnActivateCameraAsisst;
+                    ActivateCameraAsisst.performed += instance.OnActivateCameraAsisst;
+                    ActivateCameraAsisst.canceled += instance.OnActivateCameraAsisst;
+                    FocusCamera.started += instance.OnFocusCamera;
+                    FocusCamera.performed += instance.OnFocusCamera;
+                    FocusCamera.canceled += instance.OnFocusCamera;
+                }
+            }
+        }
+        public CameraActions @Camera => new CameraActions(this);
         private int m_KeyboardandMouseSchemeIndex = -1;
         public InputControlScheme KeyboardandMouseScheme
         {
@@ -1582,9 +1656,6 @@ namespace Hammy
             void OnUse(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
             void OnPause(InputAction.CallbackContext context);
-            void OnZoom(InputAction.CallbackContext context);
-            void OnLook(InputAction.CallbackContext context);
-            void OnActivateCameraAsisst(InputAction.CallbackContext context);
             void OnDebug(InputAction.CallbackContext context);
         }
         public interface IUIActions
@@ -1608,6 +1679,13 @@ namespace Hammy
             void OnGamepadAny(InputAction.CallbackContext context);
             void OnGamepadAnyButton(InputAction.CallbackContext context);
             void OnMainMenuStart(InputAction.CallbackContext context);
+        }
+        public interface ICameraActions
+        {
+            void OnZoom(InputAction.CallbackContext context);
+            void OnLook(InputAction.CallbackContext context);
+            void OnActivateCameraAsisst(InputAction.CallbackContext context);
+            void OnFocusCamera(InputAction.CallbackContext context);
         }
     }
 }

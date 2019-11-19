@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace HammyFarming.Brian.UI {
+namespace HammyFarming.Brian.Base.PauseMenu {
 
     public class ReportBug : MonoBehaviour {
 
