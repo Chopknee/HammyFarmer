@@ -177,6 +177,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7445591831400534659}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &156185848 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8662197145775614617, guid: f3b7159828eb2a6439f18292eca7e272,
+    type: 3}
+  m_PrefabInstance: {fileID: 6682848522232993750}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &158663905
 Mesh:
   m_ObjectHideFlags: 0
@@ -340,6 +346,18 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &160585325 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8662197146019231398, guid: f3b7159828eb2a6439f18292eca7e272,
+    type: 3}
+  m_PrefabInstance: {fileID: 6682848522232993750}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &167762011 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8662197145699660070, guid: f3b7159828eb2a6439f18292eca7e272,
+    type: 3}
+  m_PrefabInstance: {fileID: 6682848522232993750}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &215995102
 Mesh:
   m_ObjectHideFlags: 0
@@ -7594,6 +7612,12 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1374955551 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8662197144137631557, guid: f3b7159828eb2a6439f18292eca7e272,
+    type: 3}
+  m_PrefabInstance: {fileID: 6682848522232993750}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1396763257
 GameObject:
   m_ObjectHideFlags: 0
@@ -10316,6 +10340,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7323787004741691549, guid: f3b7159828eb2a6439f18292eca7e272,
+        type: 3}
+      propertyPath: frontRightWheel
+      value: 
+      objectReference: {fileID: 156185848}
+    - target: {fileID: 7323787004741691549, guid: f3b7159828eb2a6439f18292eca7e272,
+        type: 3}
+      propertyPath: frontLeftWheel
+      value: 
+      objectReference: {fileID: 160585325}
+    - target: {fileID: 7323787004741691549, guid: f3b7159828eb2a6439f18292eca7e272,
+        type: 3}
+      propertyPath: backLeftWheel
+      value: 
+      objectReference: {fileID: 167762011}
+    - target: {fileID: 7323787004741691549, guid: f3b7159828eb2a6439f18292eca7e272,
+        type: 3}
+      propertyPath: backRigtWheel
+      value: 
+      objectReference: {fileID: 1374955551}
+    - target: {fileID: 7323787004741691549, guid: f3b7159828eb2a6439f18292eca7e272,
+        type: 3}
+      propertyPath: wheelTorqueAxis.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7323787004741691549, guid: f3b7159828eb2a6439f18292eca7e272,
+        type: 3}
+      propertyPath: wheelAngularVelocity
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7323787004741691549, guid: f3b7159828eb2a6439f18292eca7e272,
+        type: 3}
+      propertyPath: wheelTorqueAxis.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6682848522313873019, guid: f3b7159828eb2a6439f18292eca7e272,
         type: 3}
       propertyPath: m_Mesh
@@ -10326,6 +10385,26 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 722361800}
+    - target: {fileID: 8662197145775614617, guid: f3b7159828eb2a6439f18292eca7e272,
+        type: 3}
+      propertyPath: m_Name
+      value: Front Right Wheel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662197146019231398, guid: f3b7159828eb2a6439f18292eca7e272,
+        type: 3}
+      propertyPath: m_Name
+      value: Front Left Wheel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662197145699660070, guid: f3b7159828eb2a6439f18292eca7e272,
+        type: 3}
+      propertyPath: m_Name
+      value: Back Left Wheel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662197144137631557, guid: f3b7159828eb2a6439f18292eca7e272,
+        type: 3}
+      propertyPath: m_Name
+      value: Back Right Wheel
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3b7159828eb2a6439f18292eca7e272, type: 3}
 --- !u!1001 &7445591831400534659
