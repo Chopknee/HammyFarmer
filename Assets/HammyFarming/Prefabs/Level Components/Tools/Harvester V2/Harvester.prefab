@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &705785631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 705785632}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &705785632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705785631}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.00081, y: 0.026, z: -0.01445}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6050595593998752396}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &485473598084711173
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,7 +390,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1558558529742038350}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4efd34e76800b3c4589f45c8c08e89da, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -405,7 +435,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1558558529850375921}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4efd34e76800b3c4589f45c8c08e89da, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -450,7 +480,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1558558529958814414}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4efd34e76800b3c4589f45c8c08e89da, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -495,7 +525,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1558558530221593389}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4efd34e76800b3c4589f45c8c08e89da, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -2367,6 +2397,7 @@ Transform:
   - {fileID: 6682848521969196759}
   - {fileID: 6682848520723211863}
   - {fileID: 6682848521062224391}
+  - {fileID: 705785632}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2379,11 +2410,11 @@ Rigidbody:
   m_GameObject: {fileID: 7323787004741691551}
   serializedVersion: 2
   m_Mass: 20
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 1
+  m_AngularDrag: 0.5
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &7323787004741691549
@@ -2399,11 +2430,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activationTime: 1
+  wheelAngularVelocity: 5000
+  hammyJointSpring: 750
+  hammyJointDamper: 4
+  hammyAnchorPoint: {x: 0, y: 3.27, z: -1.7}
   capturing: 0
-  frontLeftWheel: {fileID: 0}
-  frontRightWheel: {fileID: 0}
-  backLeftWheel: {fileID: 0}
-  backRigtWheel: {fileID: 0}
+  frontLeftWheel: {fileID: 8662197146019231398}
+  frontRightWheel: {fileID: 8662197145775614617}
+  backLeftWheel: {fileID: 8662197145699660070}
+  backRigtWheel: {fileID: 8662197144137631557}
+  wheelTorqueAxis: {x: 0, y: 1, z: 0}
 --- !u!1 &7733429548202456700
 GameObject:
   m_ObjectHideFlags: 0
@@ -2572,7 +2608,7 @@ GameObject:
   - component: {fileID: 8180604622523829053}
   - component: {fileID: 6682848520875360247}
   m_Layer: 0
-  m_Name: Big Harvester Wheel (3)
+  m_Name: Back Right Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2647,8 +2683,8 @@ Rigidbody:
   m_GameObject: {fileID: 8662197144137631557}
   serializedVersion: 2
   m_Mass: 35
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 1
+  m_AngularDrag: 0.5
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -2763,7 +2799,7 @@ GameObject:
   - component: {fileID: 8180604622971157854}
   - component: {fileID: 6682848522083946379}
   m_Layer: 0
-  m_Name: Big Harvester Wheel (2)
+  m_Name: Back Left Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2838,8 +2874,8 @@ Rigidbody:
   m_GameObject: {fileID: 8662197145699660070}
   serializedVersion: 2
   m_Mass: 35
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 1
+  m_AngularDrag: 0.5
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -2954,7 +2990,7 @@ GameObject:
   - component: {fileID: 8180604622894933729}
   - component: {fileID: 6682848522078659375}
   m_Layer: 0
-  m_Name: Big Harvester Wheel
+  m_Name: Front Right Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3029,8 +3065,8 @@ Rigidbody:
   m_GameObject: {fileID: 8662197145775614617}
   serializedVersion: 2
   m_Mass: 35
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 1
+  m_AngularDrag: 0.5
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -3145,7 +3181,7 @@ GameObject:
   - component: {fileID: 8180604622787410654}
   - component: {fileID: 6682848522089480633}
   m_Layer: 0
-  m_Name: Big Harvester Wheel (1)
+  m_Name: Front Left Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3220,8 +3256,8 @@ Rigidbody:
   m_GameObject: {fileID: 8662197146019231398}
   serializedVersion: 2
   m_Mass: 35
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 1
+  m_AngularDrag: 0.5
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0

@@ -1,10 +1,10 @@
 ﻿using HammyFarming.Brian.Interaction;
 using UnityEngine;
 
-namespace HammyFarming.Brian.Animation {
+namespace HammyFarming.Brian.Base.Hammy {
 
     //Not something for adjusting. Don't mess with this. It is a huge work in progress.
-    public class HammyController: MonoBehaviour {
+    public class AnimationController: MonoBehaviour {
 
         Rigidbody rb;
         Animator hammyAnimator;

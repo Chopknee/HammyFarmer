@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace HammyFarming.Brian.Interaction {
+namespace HammyFarming.Brian.Base.Hammy {
 
     public class BallControl: MonoBehaviour {
 

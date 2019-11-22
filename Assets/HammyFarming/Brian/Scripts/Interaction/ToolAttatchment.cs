@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using HammyFarming.Brian.Base.Hammy;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -44,6 +45,7 @@ namespace HammyFarming.Brian.Interaction {
             tooFarSquared = tooFarRadius * tooFarRadius;
 
             base.Start();
+
             HammyFarming.Brian.Base.PlayerInput.ControlMaster.Hammy.Attach.performed += OnAttachPushed;
         }
 
@@ -66,16 +68,8 @@ namespace HammyFarming.Brian.Interaction {
 
         void OnAttachPushed (InputAction.CallbackContext context) {
             if (isHookedIn && !hasChangedState) {
-                //Disconnect it
-                isHookedIn = false;
-                Destroy(attachmentJoint);
-                Destroy(hammy.GetComponent<ConfigurableJoint>());
-                PlaySound(disconnectSound);
+                Disconnect();
             }
-        }
-
-        private void OnDestroy () {
-            HammyFarming.Brian.Base.PlayerInput.ControlMaster.Hammy.Attach.performed -= OnAttachPushed;
         }
 
         private void FixedUpdate () {
@@ -83,14 +77,11 @@ namespace HammyFarming.Brian.Interaction {
             if (isHookedIn) {
                 if (( hammy.transform.position - transform.position ).sqrMagnitude > tooFarSquared) {
                     if (teleportWhenTooFar) {
-                        //Just tp to the hammy
+                        //Just tp to the hammy if tp mode has been set.
                         transform.position = hammy.transform.position;
                     } else {
                         //Disconnect
-                        isHookedIn = false;
-                        Destroy(attachmentJoint);
-                        Destroy(hammy.GetComponent<ConfigurableJoint>());
-                        PlaySound(breakConnectionSound);
+                        Disconnect();
                     }
                 }
             }
@@ -98,25 +89,49 @@ namespace HammyFarming.Brian.Interaction {
 
         public override void HammyHookedIn ( GameObject hammy ) {
             if (!isHookedIn) {
-                hasChangedState = true;
-                isHookedIn = true;
-                attachmentJoint = RecreateJoint(gameObject, hammy.GetComponent<Rigidbody>());
-                attachmentJoint.anchor = rbOffset;
-                attachmentJoint.autoConfigureConnectedAnchor = false;
-                attachmentJoint.connectedAnchor = Vector3.zero;
-
-                //ConfigurableJoint hbcj = RecreateJoint(hammy, rb);
-                //hbcj.autoConfigureConnectedAnchor = false;
-                //hbcj.connectedAnchor = Vector3.zero;
-
-                PlaySound(attachSound);
+                Connect();
             }
+        }
+
+        ToolConnections currentHammyConnections;
+
+        public void Connect() {
+            //We force hammy to let go of any connected tools!
+            if (currentHammyConnections == null) {
+                currentHammyConnections = hammy.GetComponent<ToolConnections>();
+            }
+
+            if (currentHammyConnections.connectedTool != null) {
+                currentHammyConnections.connectedTool.Disconnect();
+            }
+
+            hasChangedState = true;
+            isHookedIn = true;
+            attachmentJoint = RecreateJoint(gameObject, hammy.GetComponent<Rigidbody>());
+            attachmentJoint.anchor = rbOffset;
+            attachmentJoint.autoConfigureConnectedAnchor = false;
+            attachmentJoint.connectedAnchor = Vector3.zero;
+            PlaySound(attachSound);
+            currentHammyConnections.connectedTool = this;
+        }
+
+        public void Disconnect() {
+            isHookedIn = false;
+            Destroy(attachmentJoint);
+            Destroy(hammy.GetComponent<ConfigurableJoint>());
+            PlaySound(breakConnectionSound);
+            currentHammyConnections.connectedTool = null;
         }
 
         void PlaySound ( AudioClip clip ) {
             attachSoundAS.Stop();
             attachSoundAS.clip = clip;
             attachSoundAS.Play();
+        }
+
+
+        private void OnDestroy () {
+            HammyFarming.Brian.Base.PlayerInput.ControlMaster.Hammy.Attach.performed -= OnAttachPushed;
         }
 
         ConfigurableJoint RecreateJoint (GameObject go, Rigidbody connected) {
