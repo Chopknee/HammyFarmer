@@ -51,7 +51,7 @@ namespace HammyFarming.Brian.Interaction {
             cameraTracker.transform.SetParent(transform);
             CameraTrackTransform = cameraTracker.transform;
             //Associate the jump with the jump control.
-            Director.InputMasterController.Hammy.Jump.performed += Jump;
+            HammyFarming.Brian.Base.PlayerInput.ControlMaster.Hammy.Jump.performed += Jump;
 
             //Generate a set of points used later for checking if the ball is on the ground.
             groundCheckPoints = new Vector3[numAlternateGroundChecks + 1];
@@ -103,7 +103,7 @@ namespace HammyFarming.Brian.Interaction {
             }
 
             //Read the roll axis from the player input.
-            Vector2 axes = Director.InputMasterController.Hammy.Roll.ReadValue<Vector2>();
+            Vector2 axes = HammyFarming.Brian.Base.PlayerInput.ControlMaster.Hammy.Roll.ReadValue<Vector2>();
 
             //Reset the camera track transform.
             CameraTrackTransform.rotation = Quaternion.identity;
@@ -144,7 +144,7 @@ namespace HammyFarming.Brian.Interaction {
         }
 
         private void OnDestroy () {
-            Director.InputMasterController.Hammy.Jump.performed -= Jump;
+            HammyFarming.Brian.Base.PlayerInput.ControlMaster.Hammy.Jump.performed -= Jump;
         }
     }
 }

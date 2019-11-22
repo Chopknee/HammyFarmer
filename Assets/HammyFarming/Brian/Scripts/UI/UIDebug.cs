@@ -47,9 +47,11 @@ namespace HammyFarming.Brian.UI {
             logMessages = new List<GameObject>();
 
             if (Instance == null) {
-                DontDestroyOnLoad(this.gameObject);
+                DontDestroyOnLoad(gameObject);
+                Instance = this;
             } else {
                 Destroy(gameObject);
+                return;
             }
 
             Application.logMessageReceived += LogLogged;
@@ -58,7 +60,7 @@ namespace HammyFarming.Brian.UI {
             cg.blocksRaycasts = false;
             cg.alpha = 0;
 
-            Director.InputMasterController.Hammy.Debug.performed += OpenDebug;
+            HammyFarming.Brian.Base.PlayerInput.ControlMaster.Hammy.Debug.performed += OpenDebug;
         }
 
         void OpenDebug ( InputAction.CallbackContext context ) {

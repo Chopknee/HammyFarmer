@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace HammyFarming.Brian.UI {
@@ -16,19 +14,19 @@ namespace HammyFarming.Brian.UI {
                 return;
             }
 
-            Director.InputMasterController.InputDevice.GamepadAnyButton.performed += AnyActionPerformed;
-            Director.InputMasterController.InputDevice.KeyboardAnyButton.performed += AnyActionPerformed;
+            HammyFarming.Brian.Base.PlayerInput.ControlMaster.InputDevice.GamepadAnyButton.performed += AnyActionPerformed;
+            HammyFarming.Brian.Base.PlayerInput.ControlMaster.InputDevice.KeyboardAnyButton.performed += AnyActionPerformed;
             hasShown = true;
-            Director.SetControlsEnabled(false);
-            Director.InputMasterController.InputDevice.MainMenuStart.Disable();
+            HammyFarming.Brian.Base.PlayerInput.SetHammyControlsEnabled(false);
+            HammyFarming.Brian.Base.PlayerInput.ControlMaster.InputDevice.MainMenuStart.Disable();
         }
 
         void AnyActionPerformed(InputAction.CallbackContext context) {
             gameObject.SetActive(false);
-            Director.InputMasterController.InputDevice.GamepadAnyButton.performed -= AnyActionPerformed;
-            Director.InputMasterController.InputDevice.KeyboardAnyButton.performed -= AnyActionPerformed;
-            Director.SetControlsEnabled(true);
-            Director.InputMasterController.InputDevice.MainMenuStart.Enable();
+            HammyFarming.Brian.Base.PlayerInput.ControlMaster.InputDevice.GamepadAnyButton.performed -= AnyActionPerformed;
+            HammyFarming.Brian.Base.PlayerInput.ControlMaster.InputDevice.KeyboardAnyButton.performed -= AnyActionPerformed;
+            HammyFarming.Brian.Base.PlayerInput.SetHammyControlsEnabled(true);
+            HammyFarming.Brian.Base.PlayerInput.ControlMaster.InputDevice.MainMenuStart.Enable();
         }
     }
 

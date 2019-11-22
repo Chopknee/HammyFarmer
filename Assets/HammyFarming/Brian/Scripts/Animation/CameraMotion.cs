@@ -1,5 +1,4 @@
-﻿using HammyFarming.Brian.Base.PlayerUI.PauseMenu;
-using HammyFarming.Brian.UI;
+﻿using HammyFarming.Brian.Base;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -46,7 +45,7 @@ namespace HammyFarming.Brian.Animation {
 
             //Pre-initialize position for camera asisst mode
             targetedPosition = target.position + Quaternion.Euler(new Vector3(verticalRotation, horizontalRotation, 0)) * ( zoom * Vector3.back );
-            Director.InputMasterController.Camera.ActivateCameraAsisst.performed += ActivateCameraAsisst;
+            HammyFarming.Brian.Base.PlayerInput.ControlMaster.Camera.ActivateCameraAsisst.performed += ActivateCameraAsisst;
 
         }
 
@@ -60,6 +59,10 @@ namespace HammyFarming.Brian.Animation {
             }
         }
 
+        private void OnDestroy () {
+            HammyFarming.Brian.Base.PlayerInput.ControlMaster.Camera.ActivateCameraAsisst.performed -= ActivateCameraAsisst;
+        }
+
 
 
         void LateUpdate () {
@@ -68,8 +71,8 @@ namespace HammyFarming.Brian.Animation {
                 return;
 
             //Grabbing the deltas from the input class
-            Vector2 cameraDelta = Director.InputMasterController.Camera.Look.ReadValue<Vector2>();
-            float zoomDelta = Director.InputMasterController.Camera.Zoom.ReadValue<float>();
+            Vector2 cameraDelta = HammyFarming.Brian.Base.PlayerInput.ControlMaster.Camera.Look.ReadValue<Vector2>();
+            float zoomDelta = HammyFarming.Brian.Base.PlayerInput.ControlMaster.Camera.Zoom.ReadValue<float>();
             if (zoomDelta != 0) {
                 cameraDelta.y = 0;
             }
@@ -110,10 +113,10 @@ namespace HammyFarming.Brian.Animation {
             Vector3 desiredPosition = targetedPosition;
 
 
-            if (Director.InputMasterController.Camera.FocusCamera.ReadValue<float>() > 0 && false) {
+            if (HammyFarming.Brian.Base.PlayerInput.ControlMaster.Camera.FocusCamera.ReadValue<float>() > 0 && false) {
                 //Follow behind hammy mode
 
-                Vector2 rollDirection = Director.InputMasterController.Hammy.Roll.ReadValue<Vector2>();
+                Vector2 rollDirection = HammyFarming.Brian.Base.PlayerInput.ControlMaster.Hammy.Roll.ReadValue<Vector2>();
 
             } else {
                 //Camera assist mode
@@ -135,10 +138,16 @@ namespace HammyFarming.Brian.Animation {
                     //Manual camera mode
 
                     //The horizontal rotation of the camera
-                    horizontalRotation += cameraDelta.x * horizontalSensitivity * Time.deltaTime * ( ( Pausemenu.HorizontalInverted ) ? -1 : 1 ) * Pausemenu.HorizontalSensitivity;
+                    horizontalRotation += cameraDelta.x * 
+                        horizontalSensitivity * Time.deltaTime * 
+                        ( ( HammyFarming.Brian.Base.GameSettings.HorizontalInverted ) ? -1 : 1 ) * 
+                        HammyFarming.Brian.Base.GameSettings.HorizontalSensitivity;
 
                     //The vertical rotation of the camera
-                    verticalRotation += cameraDelta.y * verticalSensitivity * Time.deltaTime * ( ( Pausemenu.VerticalInverted ) ? -1 : 1 ) * Pausemenu.VerticalSensitivity;
+                    verticalRotation += cameraDelta.y * verticalSensitivity * Time.deltaTime * 
+                        ( ( HammyFarming.Brian.Base.GameSettings.VerticalInverted ) ? -1 : 1 ) * 
+                        HammyFarming.Brian.Base.GameSettings.VerticalSensitivity;
+
                     verticalRotation = Mathf.Clamp(verticalRotation, -80, 80);
 
 

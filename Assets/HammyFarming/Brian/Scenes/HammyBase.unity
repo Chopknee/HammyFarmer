@@ -580,7 +580,6 @@ GameObject:
   m_Component:
   - component: {fileID: 137894054}
   - component: {fileID: 137894056}
-  - component: {fileID: 137894055}
   m_Layer: 5
   m_Name: Music Volume
   m_TagString: Untagged
@@ -611,22 +610,6 @@ RectTransform:
   m_AnchoredPosition: {x: -82.365, y: 194.6}
   m_SizeDelta: {x: 470.47, y: 58.81}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &137894055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 137894053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d0755d25213fd141a1750f5d05692a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerPrefName: MusicVolume
-  minValue: 0
-  maxValue: 1
-  defaultValue: 1
 --- !u!114 &137894056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -670,10 +653,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1285243654}
   m_HandleRect: {fileID: 1564565632}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.00001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.1
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1756,7 +1739,6 @@ GameObject:
   m_Component:
   - component: {fileID: 705437232}
   - component: {fileID: 705437233}
-  - component: {fileID: 705437234}
   m_Layer: 5
   m_Name: Horizontal Sensitivity
   m_TagString: Untagged
@@ -1833,28 +1815,12 @@ MonoBehaviour:
   m_MinValue: 0.1
   m_MaxValue: 2
   m_WholeNumbers: 0
-  m_Value: 0.1
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &705437234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 705437231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d0755d25213fd141a1750f5d05692a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerPrefName: HorizontalSensitivity
-  minValue: 0.1
-  maxValue: 2
-  defaultValue: 1
 --- !u!1 &716866834
 GameObject:
   m_ObjectHideFlags: 0
@@ -2712,6 +2678,7 @@ GameObject:
   - component: {fileID: 886447583}
   - component: {fileID: 886447582}
   - component: {fileID: 886447584}
+  - component: {fileID: 886447585}
   m_Layer: 5
   m_Name: AudioPane
   m_TagString: Untagged
@@ -2790,6 +2757,21 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &886447585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886447580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e0ce2d310abd6941bb6ef2c78515e55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MasterSlider: {fileID: 1312270555}
+  MusicSlider: {fileID: 137894056}
+  SFXSlider: {fileID: 2076584069}
 --- !u!1 &941336046
 GameObject:
   m_ObjectHideFlags: 0
@@ -3068,7 +3050,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1069905993}
   - component: {fileID: 1069905994}
-  - component: {fileID: 1069905995}
   m_Layer: 5
   m_Name: Vertical Sensitivity
   m_TagString: Untagged
@@ -3145,28 +3126,12 @@ MonoBehaviour:
   m_MinValue: 0.1
   m_MaxValue: 2
   m_WholeNumbers: 0
-  m_Value: 0.1
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &1069905995
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1069905992}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d0755d25213fd141a1750f5d05692a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerPrefName: VerticalSensitivity
-  minValue: 0.1
-  maxValue: 2
-  defaultValue: 1
 --- !u!1 &1092565928
 GameObject:
   m_ObjectHideFlags: 0
@@ -4109,7 +4074,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1312270553}
   - component: {fileID: 1312270555}
-  - component: {fileID: 1312270554}
   m_Layer: 5
   m_Name: Master Volume
   m_TagString: Untagged
@@ -4140,22 +4104,6 @@ RectTransform:
   m_AnchoredPosition: {x: -82.365, y: 278.19995}
   m_SizeDelta: {x: 470.47, y: 58.81}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1312270554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1312270552}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d0755d25213fd141a1750f5d05692a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerPrefName: Master Volume
-  minValue: 0
-  maxValue: 1
-  defaultValue: 1
 --- !u!114 &1312270555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4199,10 +4147,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1331957098}
   m_HandleRect: {fileID: 1728397083}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.00001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.1
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -7331,7 +7279,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2076584067}
   - component: {fileID: 2076584069}
-  - component: {fileID: 2076584068}
   m_Layer: 5
   m_Name: Sound Effects Volume
   m_TagString: Untagged
@@ -7362,22 +7309,6 @@ RectTransform:
   m_AnchoredPosition: {x: -82.365, y: 102.39994}
   m_SizeDelta: {x: 470.47, y: 58.81}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2076584068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2076584066}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d0755d25213fd141a1750f5d05692a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerPrefName: SoundFXVolume
-  minValue: 0
-  maxValue: 1
-  defaultValue: 1
 --- !u!114 &2076584069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7421,10 +7352,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1195427269}
   m_HandleRect: {fileID: 378764614}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.00001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -7738,18 +7669,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &1917818628050855887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3127500811153158000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf9f15218ddf80e4892fb433e091557d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!222 &2031577373609289002
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8645,7 +8564,6 @@ GameObject:
   - component: {fileID: 3127500811153158012}
   - component: {fileID: 3127500811153158013}
   - component: {fileID: 3127500811153158014}
-  - component: {fileID: 1917818628050855887}
   m_Layer: 5
   m_Name: PlayerUI
   m_TagString: Untagged
@@ -9058,6 +8976,7 @@ GameObject:
   - component: {fileID: 6002535477908378518}
   - component: {fileID: 9139088566924106738}
   - component: {fileID: 3514390048797035337}
+  - component: {fileID: 3514390048797035338}
   m_Layer: 5
   m_Name: ControlsPane
   m_TagString: Untagged
@@ -9077,6 +8996,22 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &3514390048797035338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3514390048797035336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d796d5406ca1c248baabc14caf85b67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VerticalSensit: {fileID: 1069905994}
+  HorizontalSensit: {fileID: 705437233}
+  VerticalInvertedToggle: {fileID: 3127500810393046685}
+  HorizontalInvertedToggle: {fileID: 3127500811472401299}
 --- !u!1 &3683016692995782598
 GameObject:
   m_ObjectHideFlags: 0
@@ -9125,9 +9060,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec7441cdddc82ce45b071904badbdb56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InvertVerticalToggle: {fileID: 3127500810393046685}
-  InvertHorizontalToggle: {fileID: 3127500811472401299}
-  SMBmodeToggle: {fileID: 0}
   quitButton: {fileID: 3127500810154219547}
   resumeButton: {fileID: 3127500810025417475}
   resetButton: {fileID: 5727852416805970586}

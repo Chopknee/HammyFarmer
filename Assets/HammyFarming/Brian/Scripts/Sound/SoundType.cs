@@ -11,31 +11,61 @@ namespace HammyFarming.Brian.Sound {
         public enum Type { Master, Music, SFX };
 
         public Type soundType;
-        AudioSource[] auses;
-        float vol = 0;
-        private void Awake() {
-            auses = GetComponents<AudioSource>();
+
+        public bool shouldFadeOut = false;
+
+        Dictionary<AudioSource, float> ausesAndVolumes;
+
+        float _fd = 1;
+        public float FadeAmount {
+            get {
+                return _fd;
+            }
+            set {
+                _fd = value;
+                UpdateVolume();
+            }
         }
 
-        float targetVolume = 0;
+        private void Awake() {
+            HammyFarming.Brian.Base.GameSettings.OnSettingsChanged += UpdateVolume;
 
-        private void Update() {
+            ausesAndVolumes = new Dictionary<AudioSource, float>();
+            foreach (AudioSource aus in GetComponents<AudioSource>()) {
+                ausesAndVolumes.Add(aus, aus.volume);
+            }
+
+            UpdateVolume();
+
+            if (shouldFadeOut) {
+                if (Director.Instance != null) {
+                    Director.Instance.audioSources.Add(this);
+                }
+            }
+        }
+
+        private void OnDestroy () {
+            HammyFarming.Brian.Base.GameSettings.OnSettingsChanged -= UpdateVolume;
+        }
+
+        void UpdateVolume() {
+            float targetVolume = 0;
             switch (soundType) {
                 case Type.Master:
-                    targetVolume = Mathf.Log10(Pausemenu.MasterVolume);
+                    targetVolume = HammyFarming.Brian.Base.GameSettings.MasterVolume;
                     break;
                 case Type.Music:
-                    targetVolume = Mathf.Log10(Pausemenu.MusicVolume * Pausemenu.MasterVolume);
+                    targetVolume = HammyFarming.Brian.Base.GameSettings.MusicVolume * HammyFarming.Brian.Base.GameSettings.MasterVolume;
                     break;
                 case Type.SFX:
-                    targetVolume = Mathf.Log10(Pausemenu.SoundFXVolume * Pausemenu.MasterVolume);
+                    targetVolume = HammyFarming.Brian.Base.GameSettings.SFXVolume * HammyFarming.Brian.Base.GameSettings.MasterVolume;
                     break;
             }
 
-            if (targetVolume != vol) {
-                vol = targetVolume;
-                foreach (AudioSource aus in auses) {
-                    aus.volume = vol;
+            //
+            if (ausesAndVolumes != null) {
+                foreach (KeyValuePair<AudioSource, float> kvPair in ausesAndVolumes) {
+                    kvPair.Key.volume = targetVolume * _fd * kvPair.Value;
                 }
             }
         }

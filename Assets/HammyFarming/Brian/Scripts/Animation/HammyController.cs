@@ -32,7 +32,7 @@ namespace HammyFarming.Brian.Animation {
             hammyAnimator.SetFloat("Animation State", 1 - Mathf.Clamp(rb.velocity.magnitude, 0, 1));
 
             Vector3 forward = transform.forward;
-            Vector2 stick = Director.InputMasterController.Hammy.Roll.ReadValue<Vector2>();
+            Vector2 stick = HammyFarming.Brian.Base.PlayerInput.ControlMaster.Hammy.Roll.ReadValue<Vector2>();
             if (stick.magnitude > 0.1f) {
                 forward = stick.y * BallControl.CameraTrackTransform.forward + stick.x * BallControl.CameraTrackTransform.right;
                 forward.Normalize();

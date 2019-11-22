@@ -8,7 +8,6 @@ namespace HammyFarming.Brian.Base.PlayerUI.PauseMenu {
     [RequireComponent(typeof(Slider))]
     public class SliderSetting: MonoBehaviour {
 
-
         public string PlayerPrefName = "UnknownSliderValue";
         public float minValue = 0;
         public float maxValue = 1;

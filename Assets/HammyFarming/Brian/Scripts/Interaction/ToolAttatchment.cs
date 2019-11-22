@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace HammyFarming.Brian.Interaction {
     [RequireComponent(typeof(AudioSource))]
@@ -43,7 +44,7 @@ namespace HammyFarming.Brian.Interaction {
             tooFarSquared = tooFarRadius * tooFarRadius;
 
             base.Start();
-            Director.InputMasterController.Hammy.Attach.performed += context => OnAttachPushed();
+            HammyFarming.Brian.Base.PlayerInput.ControlMaster.Hammy.Attach.performed += OnAttachPushed;
         }
 
         bool hasChangedState = false;
@@ -63,7 +64,7 @@ namespace HammyFarming.Brian.Interaction {
             }
         }
 
-        void OnAttachPushed () {
+        void OnAttachPushed (InputAction.CallbackContext context) {
             if (isHookedIn && !hasChangedState) {
                 //Disconnect it
                 isHookedIn = false;
@@ -71,6 +72,10 @@ namespace HammyFarming.Brian.Interaction {
                 Destroy(hammy.GetComponent<ConfigurableJoint>());
                 PlaySound(disconnectSound);
             }
+        }
+
+        private void OnDestroy () {
+            HammyFarming.Brian.Base.PlayerInput.ControlMaster.Hammy.Attach.performed -= OnAttachPushed;
         }
 
         private void FixedUpdate () {

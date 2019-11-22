@@ -7,7 +7,9 @@ namespace HammyFarming.Brian.Animation {
     public class FaceCamera: MonoBehaviour {
 
         private void LateUpdate () {
-            transform.LookAt(Camera.main.transform);
+            if (Camera.main != null) {
+                transform.LookAt(Camera.main.transform);
+            }
         }
     }
 }

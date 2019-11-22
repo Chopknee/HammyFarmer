@@ -1,4 +1,5 @@
 ﻿using HammyFarming.Brian;
+using HammyFarming.Brian.Base;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,41 +15,36 @@ public class PromptSwap: MonoBehaviour {
 
     private void Awake () {
         sr = GetComponent<SpriteRenderer>();
-
-        if (Director.Instance != null) {
-            subscribed = true;
-            Director.OnControlDeviceChanged += OnControlSchemeChanged;
-        }
+        subscribed = true;
+        PlayerInput.OnControlDeviceChanged += OnControlSchemeChanged;
 
     }
 
     void Update () {
-        if (!subscribed && Director.Instance != null) {
+        if (!subscribed) {
             subscribed = true;
-            Director.OnControlDeviceChanged += OnControlSchemeChanged;
+            PlayerInput.OnControlDeviceChanged += OnControlSchemeChanged;
         }
     }
 
     private void OnDestroy () {
         if (subscribed) {
-            Director.OnControlDeviceChanged -= OnControlSchemeChanged;
+            PlayerInput.OnControlDeviceChanged -= OnControlSchemeChanged;
         }
     }
 
-    void OnControlSchemeChanged(Director.ControlDevice device) {
+    void OnControlSchemeChanged(PlayerInput.ControlDevice device) {
         switch (device) {
-            case Director.ControlDevice.Gamepad:
+            case PlayerInput.ControlDevice.Gamepad:
                 sr.sprite = GamepadPromptSprite;
                 break;
-            case Director.ControlDevice.Keyboard:
+            case PlayerInput.ControlDevice.Keyboard:
                 sr.sprite = KeyboardPromptSprite;
                 break;
         }
     }
 
     private void OnEnable () {
-        if (Director.Instance != null) {
-            OnControlSchemeChanged(Director.CurrentControlDevice);
-        }
+        OnControlSchemeChanged(PlayerInput.CurrentControlDevice);
     }
 }

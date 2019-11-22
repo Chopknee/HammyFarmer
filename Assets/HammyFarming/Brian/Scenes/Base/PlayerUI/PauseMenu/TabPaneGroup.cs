@@ -11,8 +11,8 @@ namespace HammyFarming.Brian.Base.PlayerUI.PauseMenu {
 
         void Start () {
             Initialize();
-            Director.InputMasterController.UI.NextTab.performed += ShowNextPane;
-            Director.InputMasterController.UI.PreviousTab.performed += ShowPreviousPane;
+            HammyFarming.Brian.Base.PlayerInput.ControlMaster.UI.NextTab.performed += ShowNextPane;
+            HammyFarming.Brian.Base.PlayerInput.ControlMaster.UI.PreviousTab.performed += ShowPreviousPane;
         }
 
         private void OnEnable() {
@@ -20,8 +20,8 @@ namespace HammyFarming.Brian.Base.PlayerUI.PauseMenu {
         }
 
         private void OnDestroy() {
-            Director.InputMasterController.UI.NextTab.performed -= ShowNextPane;
-            Director.InputMasterController.UI.PreviousTab.performed -= ShowPreviousPane;
+            HammyFarming.Brian.Base.PlayerInput.ControlMaster.UI.NextTab.performed -= ShowNextPane;
+            HammyFarming.Brian.Base.PlayerInput.ControlMaster.UI.PreviousTab.performed -= ShowPreviousPane;
         }
 
         //Set up all of the tabs and select the default one.

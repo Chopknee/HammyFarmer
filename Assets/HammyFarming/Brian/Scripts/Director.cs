@@ -1,4 +1,5 @@
 ﻿using Hammy;
+using HammyFarming.Brian.Sound;
 using HammyFarming.Brian.UI;
 using HammyFarming.Brian.Utils;
 using System.Collections;
@@ -19,13 +20,8 @@ namespace HammyFarming.Brian {
         public delegate void SiloFillChanged ( float value );
         public SiloFillChanged OnSiloFillChanged;
 
-        public delegate void ControlDeviceChanged ( ControlDevice device );
-        public static ControlDeviceChanged OnControlDeviceChanged;
-
         public delegate void LevelStarted ();
         public LevelStarted OnLevelStarted;
-
-        public enum ControlDevice { Keyboard, Gamepad };
 
         [Header("Goal and Growth Settings")]
         [Tooltip("How much does hammy need to collect for the level to be 'complete'?")]
@@ -41,25 +37,12 @@ namespace HammyFarming.Brian {
 
         public string backgroundMusicTag = "BGM";
 
-        public static ControlDevice CurrentControlDevice;
-
         [Header("Other")]
-        public string hammyBaseSceneName;
+        public string hammyBaseSceneName = "HammyBase";
 
         public string LevelMusicCredit = "FILL ME IN";
 
-        private static InputMaster _inputMaster;
-        public static InputMaster InputMasterController {
-            get {
-                if (_inputMaster == null) {
-                    _inputMaster = new InputMaster();
-                    _inputMaster.Enable();
-                    _inputMaster.InputDevice.KeyboardAny.performed += OnKeyboardUsed;
-                    _inputMaster.InputDevice.GamepadAny.performed += OnGamepadUsed;
-                }
-                return _inputMaster;
-            }
-        }
+
 
         float _siloFill;
         public float SiloFillLevel {
@@ -72,45 +55,35 @@ namespace HammyFarming.Brian {
             }
         }
 
-        Dictionary<AudioSource, float> audioSourcesAndTargetVolumes;
+        public List<SoundType> audioSources;
+
+        //Dictionary<AudioSource, float> audioSourcesAndTargetVolumes;
         Timeout audioFadeIn;
         Timeout audioFadeOut;
 
         void Awake () {
 
+            Instance = this;
+
             //Figure out what level should be loaded
             //Try to load the basic components stuff
             StartCoroutine(LoadSceneBase());
-            CurrentControlDevice = ControlDevice.Gamepad;
-
+            
+            audioSources = new List<SoundType>();
             if (fadeBackgroundMusic) {
                 audioFadeIn = new Timeout(musicFadeTime, true);
                 audioFadeOut = new Timeout(musicFadeTime, false);
-                audioSourcesAndTargetVolumes = new Dictionary<AudioSource, float>();
-
+                
+                //An expensive search for all possible sound things!
                 foreach (GameObject go in GameObject.FindGameObjectsWithTag(backgroundMusicTag)) {
-                    AudioSource aus = go.GetComponent<AudioSource>();
-                    audioSourcesAndTargetVolumes.Add(aus, aus.volume);
-                    aus.volume = 0;
+                    SoundType st = go.GetComponent<SoundType>();
+                    if (st != null) {
+                        audioSources.Add(st);
+                        st.FadeAmount = 0;
+                    }
                 }
 
                 audioFadeIn.OnAlarm += FadeInDone;
-            }
-
-            Instance = this;
-        }
-
-        static void OnKeyboardUsed(InputAction.CallbackContext context) {
-            if (CurrentControlDevice != ControlDevice.Keyboard) {
-                CurrentControlDevice = ControlDevice.Keyboard;
-                OnControlDeviceChanged?.Invoke(CurrentControlDevice);
-            }
-        }
-
-        static void OnGamepadUsed(InputAction.CallbackContext context) {
-            if (CurrentControlDevice != ControlDevice.Gamepad) {
-                CurrentControlDevice = ControlDevice.Gamepad;
-                OnControlDeviceChanged?.Invoke(CurrentControlDevice);
             }
         }
 
@@ -133,53 +106,30 @@ namespace HammyFarming.Brian {
             OnLevelStarted?.Invoke();
         }
 
-        public static void SetControlsEnabled ( bool enabled ) {
-            if (enabled) {
-                InputMasterController.Hammy.Attach.Enable();
-                InputMasterController.Hammy.Roll.Enable();
-                InputMasterController.Hammy.Use.Enable();
-                InputMasterController.Hammy.Jump.Enable();
-                InputMasterController.Camera.Zoom.Enable();
-                InputMasterController.Camera.Look.Enable();
-            } else {
-                InputMasterController.Hammy.Attach.Disable();
-                InputMasterController.Hammy.Roll.Disable();
-                InputMasterController.Hammy.Use.Disable();
-                InputMasterController.Hammy.Jump.Disable();
-                InputMasterController.Camera.Zoom.Disable();
-                InputMasterController.Camera.Look.Disable();
-            }
-        }
-
         private void Update () {
             audioFadeIn.Tick(Time.deltaTime);
             if (audioFadeIn.running) {
-                foreach (KeyValuePair<AudioSource, float> auses in audioSourcesAndTargetVolumes) {
-                    auses.Key.volume = Mathf.Lerp(0, auses.Value, audioFadeIn.percentComplete);
+                foreach (SoundType st in audioSources) {
+                    st.FadeAmount = Mathf.Lerp(0, 1, audioFadeIn.percentComplete);
                 }
             }
 
             audioFadeOut.Tick(Time.deltaTime);
             if (audioFadeOut.running) {
-                foreach (KeyValuePair<AudioSource, float> auses in audioSourcesAndTargetVolumes) {
-                    auses.Key.volume = Mathf.Lerp(auses.Value, 0, audioFadeOut.percentComplete);
+                foreach (SoundType st in audioSources) {
+                    st.FadeAmount = Mathf.Lerp(1, 0, audioFadeIn.percentComplete);
                 }
             }
         }
 
         void FadeInDone(float t) {
-            foreach (KeyValuePair<AudioSource, float> auses in audioSourcesAndTargetVolumes) {
-                auses.Key.volume = auses.Value;
+            foreach (SoundType st in audioSources) {
+                st.FadeAmount = 1;
             }
         }
 
         void FadeOutDone(float t) {
 
-        }
-
-        private void OnDestroy () {
-            InputMasterController.InputDevice.KeyboardAny.performed -= OnKeyboardUsed;
-            InputMasterController.InputDevice.GamepadAny.performed -= OnGamepadUsed;
         }
 
         public static void SetScene ( int sceneIndex ) {
@@ -191,7 +141,7 @@ namespace HammyFarming.Brian {
                     sfi.StartFade();
                 }
             }
-            SetControlsEnabled(false);
+            HammyFarming.Brian.Base.PlayerInput.SetHammyControlsEnabled(false);
             if (Instance != null) {
                 Instance.audioFadeOut.Start();
             }
@@ -200,6 +150,7 @@ namespace HammyFarming.Brian {
 
             if (Instance == null) {
                 Instance = new GameObject("FakeDirector").AddComponent<Director>();
+
             }
             Instance.StartCoroutine(LoadLevel());
         }

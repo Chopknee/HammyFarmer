@@ -25,7 +25,7 @@ namespace HammyFarming.Brian.UI {
             cg = GetComponent<CanvasGroup>();
             fadeTimeout = new Timeout(animationTime, startOnAwake);
             if (setControls) {
-                Director.SetControlsEnabled(false);
+                HammyFarming.Brian.Base.PlayerInput.SetHammyControlsEnabled(false);
             }
         }
 
@@ -39,7 +39,7 @@ namespace HammyFarming.Brian.UI {
                 cg.alpha = curve.Evaluate(Mathf.Lerp(0, 1, 1));
                 isFinished = true;
                 if (setControls) {
-                    Director.SetControlsEnabled(true);
+                    HammyFarming.Brian.Base.PlayerInput.SetHammyControlsEnabled(true);
                 }
                 if (disableWhenFinished) {
                     gameObject.SetActive(false);

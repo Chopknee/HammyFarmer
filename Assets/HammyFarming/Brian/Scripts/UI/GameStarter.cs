@@ -6,7 +6,7 @@ namespace HammyFarming.Brian.UI {
     public class GameStarter: MonoBehaviour {
         
         void Start () {
-            Director.InputMasterController.InputDevice.MainMenuStart.performed += DoThing;
+            HammyFarming.Brian.Base.PlayerInput.ControlMaster.InputDevice.MainMenuStart.performed += DoThing;
         }
 
         void DoThing(InputAction.CallbackContext context) {
@@ -15,7 +15,7 @@ namespace HammyFarming.Brian.UI {
         }
 
         private void OnDestroy () {
-            Director.InputMasterController.InputDevice.MainMenuStart.performed -= DoThing;
+            HammyFarming.Brian.Base.PlayerInput.ControlMaster.InputDevice.MainMenuStart.performed -= DoThing;
         }
     }
 }
