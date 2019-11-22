@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 1007809286927603809}
   - component: {fileID: 948023654059444140}
   m_Layer: 16
-  m_Name: Seed
+  m_Name: RaddishSeed
   m_TagString: Seed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -185,6 +185,7 @@ MonoBehaviour:
     m_Bits: 1024
   sr: {fileID: 1205997520}
   growing: 0
+  dying: 1
   colorUnderMe: {r: 0, g: 0, b: 0, a: 0}
   crowdedRadius: 0.69
 --- !u!65 &948023654059444140

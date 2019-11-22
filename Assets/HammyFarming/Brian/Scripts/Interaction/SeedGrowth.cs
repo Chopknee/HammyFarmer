@@ -23,7 +23,8 @@ public class SeedGrowth: MonoBehaviour {
 
     float t = 0;
     float ns = 0;
-    public bool growing;
+    public bool growing = false;
+    public bool dying = true;
     public Color colorUnderMe;
 
     public float crowdedRadius = 1;
@@ -39,6 +40,7 @@ public class SeedGrowth: MonoBehaviour {
             if (Physics.Raycast(transform.position + ( Vector3.up * 5 ), Vector3.down, out RaycastHit hit, 50, fieldMask)) {
                 colorUnderMe = hit.collider.gameObject.GetComponent<FarmFieldDeformation>().GetFieldValuesAt(hit.textureCoord);
                 growing = colorUnderMe.g > minimumTilledness && colorUnderMe.b > minimumWetness;
+                dying = colorUnderMe.g < minimumTilledness;
                 if (growing) {
                     if (sr != null) { sr.sprite = canGrowIcon; }
                 } else {
@@ -64,7 +66,9 @@ public class SeedGrowth: MonoBehaviour {
         if (growing) {
             ns += Time.deltaTime;
             dt = 0;
-        } else {
+        }
+
+        if (dying) {
             dt += Time.deltaTime;
             ns = 0;
         }
