@@ -1,4 +1,5 @@
-﻿using HammyFarming.Brian.Utils;
+﻿using HammyFarming.Brian.Base.Hammy;
+using HammyFarming.Brian.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -29,9 +30,11 @@ namespace HammyFarming.Brian.Tools {
         public GameObject backLeftWheel;
         public GameObject backRigtWheel;
 
-        GameObject hammy;
+        private GameObject hammy;
+        private CameraMotion cameraAnchor;
+        private Transform cameraAnchorPoint;
 
-        ConfigurableJoint hammyJoint;
+        private ConfigurableJoint hammyJoint;
 
         bool canReconnect = true;
 
@@ -53,6 +56,8 @@ namespace HammyFarming.Brian.Tools {
             }
             activateTimeout = new Timeout(activationTime, false);
             deactivateTimeout = new Timeout(activationTime, false);
+
+            cameraAnchorPoint = transform.Find("CameraAnchor");
         }
 
         public Vector3 wheelTorqueAxis;
@@ -71,6 +76,9 @@ namespace HammyFarming.Brian.Tools {
                 hammyJoint = MakeHammyJoint(hammy, hammyJointSpring, hammyJointDamper);
                 Base.PlayerInput.ControlMaster.Hammy.Jump.performed += HammyJumped;
                 capturing = true;
+                cameraAnchor = hammy.GetComponentInChildren<CameraMotion>();
+                cameraAnchor.managed = true;
+                cameraAnchor.managedTargetTransform = cameraAnchorPoint;
             }
 
             if (deactivateTimeout.Tick(Time.deltaTime)) {
@@ -119,6 +127,7 @@ namespace HammyFarming.Brian.Tools {
             deactivateTimeout.Start();//Delay time before hammy can re capture control??
             Base.PlayerInput.ControlMaster.Hammy.Jump.performed -= HammyJumped;
             canReconnect = false;
+            cameraAnchor.managed = false;
         }
 
         private void OnDestroy () {

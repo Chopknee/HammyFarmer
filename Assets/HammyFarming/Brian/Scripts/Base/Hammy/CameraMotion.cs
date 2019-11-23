@@ -2,16 +2,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace HammyFarming.Brian.Animation {
+namespace HammyFarming.Brian.Base.Hammy {
 
     public class CameraMotion: MonoBehaviour {
 
-        //This is just for the target camera position, not the camera it'self
-        //It is assumed that this is part of a parent game object.
         [Header("Manual Camera Settings")]
         [Range(0, 360)]
         public float horizontalRotation = 0;
-        [Range(-90, 90)]
+        [Range(-80, 80)]
         public float verticalRotation = 0;
         public float zoom = 0;
 
@@ -41,6 +39,19 @@ namespace HammyFarming.Brian.Animation {
         public LayerMask cameraCollisionLayers;
         public float forwardPushOnCollide = 0.1f;
 
+        private bool _managed = false;
+        [HideInInspector]
+        public bool managed {
+            get { return _managed; }
+            set {
+                _managed = value;
+                targetedPosition = transform.position;
+            }
+        }
+
+        [HideInInspector]
+        public Transform managedTargetTransform;
+
         private void Awake () {
 
             //Pre-initialize position for camera asisst mode
@@ -54,7 +65,7 @@ namespace HammyFarming.Brian.Animation {
 
         void ActivateCameraAsisst(InputAction.CallbackContext context) {
             if (!cameraAsisstMode) {
-                cameraAsisstMode = true;//Don't totally care about fixing it up.
+                cameraAsisstMode = true;
                 targetedPosition = transform.position;
             }
         }
@@ -62,8 +73,6 @@ namespace HammyFarming.Brian.Animation {
         private void OnDestroy () {
             HammyFarming.Brian.Base.PlayerInput.ControlMaster.Camera.ActivateCameraAsisst.performed -= ActivateCameraAsisst;
         }
-
-
 
         void LateUpdate () {
 
@@ -113,10 +122,20 @@ namespace HammyFarming.Brian.Animation {
             Vector3 desiredPosition = targetedPosition;
 
 
-            if (HammyFarming.Brian.Base.PlayerInput.ControlMaster.Camera.FocusCamera.ReadValue<float>() > 0 && false) {
-                //Follow behind hammy mode
+            if (managed) {//In managed mode, it is assumed that there is a target position given. We are simply trying to lerp to that position.
+                //If given a to target, the camera will try it's best to go there.
 
-                Vector2 rollDirection = HammyFarming.Brian.Base.PlayerInput.ControlMaster.Hammy.Roll.ReadValue<Vector2>();
+                if (managedTargetTransform == null) {//If no target was set, just go back to normal mode
+                    managed = false;
+                    return;
+                }
+
+                Vector3 delta = desiredPosition - managedTargetTransform.position;
+
+                float mag = delta.magnitude;
+
+                desiredPosition = Vector3.Slerp(desiredPosition, managedTargetTransform.position, mag * Time.deltaTime);
+                targetedPosition = desiredPosition;
 
             } else {
                 //Camera assist mode
