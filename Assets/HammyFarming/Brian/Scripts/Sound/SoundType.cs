@@ -1,4 +1,5 @@
-﻿using HammyFarming.Brian.Base.PlayerUI.PauseMenu;
+﻿using HammyFarming.Brian.Base;
+using HammyFarming.Brian.Base.PlayerUI.PauseMenu;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,8 +12,6 @@ namespace HammyFarming.Brian.Sound {
         public enum Type { Master, Music, SFX };
 
         public Type soundType;
-
-        public bool shouldFadeOut = false;
 
         Dictionary<AudioSource, float> ausesAndVolumes;
 
@@ -29,7 +28,6 @@ namespace HammyFarming.Brian.Sound {
 
         private void Awake() {
             HammyFarming.Brian.Base.GameSettings.OnSettingsChanged += UpdateVolume;
-
             ausesAndVolumes = new Dictionary<AudioSource, float>();
             foreach (AudioSource aus in GetComponents<AudioSource>()) {
                 ausesAndVolumes.Add(aus, aus.volume);
@@ -37,11 +35,16 @@ namespace HammyFarming.Brian.Sound {
 
             UpdateVolume();
 
-            if (shouldFadeOut) {
-                if (Director.Instance != null) {
-                    Director.Instance.audioSources.Add(this);
-                }
+            LevelManagement.OnLevelAwake += LevelAwake;
+            
+            if (!LevelManagement.IsLevelLoaded) {
+                FadeAmount = 0;
             }
+
+        }
+
+        void LevelAwake() {
+            LevelSound.Instance.audioSources.Add(this);
         }
 
         private void OnDestroy () {

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using HammyFarming.Brian.Base;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -34,9 +35,11 @@ namespace HammyFarming.Brian.Interaction {
             if (other.gameObject.CompareTag("HammyBall")) {
                 if (sceneToLoad != -1 || reloadSceneIfNotSet) {
                     if (sceneToLoad != -1) {
-                        Director.SetScene(sceneToLoad);
+                        //Director.SetScene(sceneToLoad);
+                        LevelManagement.Instance.LoadLevel(sceneToLoad);
                     } else {
-                        Director.SetScene(SceneManager.GetActiveScene().buildIndex);
+                        //Director.SetScene(SceneManager.GetActiveScene().buildIndex);
+                        LevelManagement.Instance.LoadLevel(SceneManager.GetActiveScene().buildIndex);
                     }
                 }
             }

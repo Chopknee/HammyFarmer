@@ -63,6 +63,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   forwardPushOnCollide: 0.1
+  managedTargetTransform: {fileID: 0}
 --- !u!1 &538416297667782542
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,7 +439,8 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7957060315675633786, guid: a1b4996e21799d543839e0968854d56e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a1b4996e21799d543839e0968854d56e, type: 3}
 --- !u!4 &538416298270948348 stripped
 Transform:

@@ -78,14 +78,15 @@ namespace HammyFarming.Brian.Base.PlayerUI.PauseMenu {
             Hide();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            Director.SetScene(SceneManager.GetActiveScene().buildIndex);
+            //Director.SetScene(SceneManager.GetActiveScene().buildIndex);
+            LevelManagement.Instance.LoadLevel(SceneManager.GetActiveScene().buildIndex);
         }
 
         void returnHub () {
             Hide();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            Director.SetScene(1);
+            LevelManagement.Instance.LoadLevel(1);
         }
 
         void Show () {

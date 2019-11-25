@@ -1,4 +1,4 @@
-﻿using HammyFarming.Brian.Utils;
+﻿using HammyFarming.Brian.Utils.Timing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,7 +27,7 @@ public class RaddishGrowth : MonoBehaviour {
 
     public float growPercent {
         get {
-            return growTimer.percentComplete;
+            return growTimer.NormalizedTime;
         }
     }
 
@@ -43,7 +43,7 @@ public class RaddishGrowth : MonoBehaviour {
     }
 
     void Update() {
-        transform.localScale = Vector3.Lerp(startScale, endScale, growTimer.percentComplete);
+        transform.localScale = Vector3.Lerp(startScale, endScale, growTimer.NormalizedTime);
 
         if (growTimer.Tick(Time.deltaTime)) {
             //Debug.Log("Raddish has grown!");

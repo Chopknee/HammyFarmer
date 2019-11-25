@@ -1,4 +1,4 @@
-﻿using HammyFarming.Brian.Utils;
+﻿using HammyFarming.Brian.Utils.Timing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -59,14 +59,14 @@ namespace HammyFarming.Brian.Interaction {
                     ffield = other.gameObject.GetComponent<FarmFieldDeformation>();
                 }
 
-                if (canWaterTimeout.percentComplete >= 1) {
+                if (canWaterTimeout.NormalizedTime >= 1) {
                     Destroy(gameObject);
                 }
             }
         }
 
         public void OnCollisionStay ( Collision collision ) {
-            if (canWaterTimeout.percentComplete >= 1) {
+            if (canWaterTimeout.NormalizedTime >= 1) {
                 Destroy(gameObject);
             }
         }

@@ -19115,85 +19115,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1001 &644192440
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2624585695655070997, guid: a5c4bbbc6d6f1884b879160a98fc6387,
-        type: 3}
-      propertyPath: m_Name
-      value: Director
-      objectReference: {fileID: 0}
-    - target: {fileID: 2624585695655070998, guid: a5c4bbbc6d6f1884b879160a98fc6387,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1646.9757
-      objectReference: {fileID: 0}
-    - target: {fileID: 2624585695655070998, guid: a5c4bbbc6d6f1884b879160a98fc6387,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 593.74164
-      objectReference: {fileID: 0}
-    - target: {fileID: 2624585695655070998, guid: a5c4bbbc6d6f1884b879160a98fc6387,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -54.8125
-      objectReference: {fileID: 0}
-    - target: {fileID: 2624585695655070998, guid: a5c4bbbc6d6f1884b879160a98fc6387,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2624585695655070998, guid: a5c4bbbc6d6f1884b879160a98fc6387,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2624585695655070998, guid: a5c4bbbc6d6f1884b879160a98fc6387,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2624585695655070998, guid: a5c4bbbc6d6f1884b879160a98fc6387,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2624585695655070998, guid: a5c4bbbc6d6f1884b879160a98fc6387,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2624585695655070998, guid: a5c4bbbc6d6f1884b879160a98fc6387,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2624585695655070998, guid: a5c4bbbc6d6f1884b879160a98fc6387,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2624585695655070998, guid: a5c4bbbc6d6f1884b879160a98fc6387,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2624585695655070999, guid: a5c4bbbc6d6f1884b879160a98fc6387,
-        type: 3}
-      propertyPath: SiloFillGoal
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2624585695655070999, guid: a5c4bbbc6d6f1884b879160a98fc6387,
-        type: 3}
-      propertyPath: showAlphaDisclaimer
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a5c4bbbc6d6f1884b879160a98fc6387, type: 3}
 --- !u!43 &668744243
 Mesh:
   m_ObjectHideFlags: 0
@@ -26205,7 +26126,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: To Sandbox
+  m_Text: Test Level
 --- !u!222 &1236495036
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -26713,6 +26634,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1321520884}
   - component: {fileID: 1321520883}
+  - component: {fileID: 1321520885}
   m_Layer: 0
   m_Name: SoundController
   m_TagString: BGM
@@ -26830,6 +26752,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1321520885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321520882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23edfb92f3a8fe24188e5beb8d6d4840, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundType: 1
 --- !u!1 &1352386728
 GameObject:
   m_ObjectHideFlags: 0
@@ -30423,6 +30358,59 @@ Transform:
   m_Father: {fileID: 44791278}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1625177418
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1625177419}
+  - component: {fileID: 1625177421}
+  - component: {fileID: 1625177420}
+  m_Layer: 0
+  m_Name: LevelSoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1625177419
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625177418}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2624585696298538414}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1625177420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625177418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30126c592c9f44f4180b50ed03cdab4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSources: []
+--- !u!81 &1625177421
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625177418}
+  m_Enabled: 1
 --- !u!43 &1721694947
 Mesh:
   m_ObjectHideFlags: 0
@@ -45914,3 +45902,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53adda58ee8f78b44b292311af949091, type: 3}
+--- !u!1 &2624585696298538413
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2624585696298538414}
+  - component: {fileID: 2624585696298538415}
+  m_Layer: 0
+  m_Name: Director
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2624585696298538414
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2624585696298538413}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1625177419}
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2624585696298538415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2624585696298538413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6345c33565bbc1d4ab73199542961bb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SiloFillGoal: 100
+  FullGrowthScore: 5
+  hammyBaseSceneName: HammyBase
+  LevelMusicCredit: 'MUSIC CREDIT: UNKNOWN HAMSTER'

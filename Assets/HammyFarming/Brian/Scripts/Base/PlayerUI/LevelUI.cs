@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HammyFarming.Brian.Utils {
+namespace HammyFarming.Brian.Base.PlayerUI {
 
     public class LevelUI: MonoBehaviour {
 

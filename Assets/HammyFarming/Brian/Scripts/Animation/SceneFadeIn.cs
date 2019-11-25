@@ -1,4 +1,4 @@
-﻿using HammyFarming.Brian.Utils;
+﻿using HammyFarming.Brian.Utils.Timing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,9 +24,6 @@ namespace HammyFarming.Brian.UI {
 
             cg = GetComponent<CanvasGroup>();
             fadeTimeout = new Timeout(animationTime, startOnAwake);
-            if (setControls) {
-                HammyFarming.Brian.Base.PlayerInput.SetHammyControlsEnabled(false);
-            }
         }
 
         public void StartFade() {
@@ -47,7 +44,7 @@ namespace HammyFarming.Brian.UI {
             }
 
             if (fadeTimeout.running) {
-                cg.alpha = curve.Evaluate(Mathf.Lerp(0, 1, fadeTimeout.percentComplete));
+                cg.alpha = curve.Evaluate(Mathf.Lerp(0, 1, fadeTimeout.NormalizedTime));
             }
         }
     }

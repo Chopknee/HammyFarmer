@@ -1,4 +1,5 @@
-﻿using HammyFarming.Brian.Utils;
+﻿using HammyFarming.Brian.Base;
+using HammyFarming.Brian.Utils.Timing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -58,14 +59,11 @@ namespace HammyFarming.Brian.Monsters {
                 transform.rotation = Random.rotation;
             }
 
-        }
-
-        private void Start () {
-            Director.Instance.OnLevelStarted += LevelStarted;
+            LevelManagement.OnLevelStart += LevelStarted;
         }
 
         void LevelStarted() {
-            Director.Instance.OnLevelStarted -= LevelStarted;
+            LevelManagement.OnLevelStart -= LevelStarted;
             if (target == null) {
                 target = GameObject.FindGameObjectWithTag("HammyBall").transform;
             }

@@ -1,4 +1,4 @@
-﻿using HammyFarming.Brian.Utils;
+﻿using HammyFarming.Brian.Utils.Timing;
 using UnityEngine;
 using UnityEngine.UI;
 

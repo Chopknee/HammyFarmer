@@ -1,17 +1,19 @@
-﻿using UnityEngine;
+﻿using HammyFarming.Brian.Base;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace HammyFarming.Brian.UI {
+namespace HammyFarming.Scenes.HammyOpenScene {
 
     public class GameStarter: MonoBehaviour {
         
-        void Start () {
+        void Awake () {
             HammyFarming.Brian.Base.PlayerInput.ControlMaster.InputDevice.MainMenuStart.performed += DoThing;
         }
 
         void DoThing(InputAction.CallbackContext context) {
             //Load the scene here
-            Director.SetScene(1);
+            LevelManagement.Instance.LoadLevel(1);
+            //Director.SetScene(1);
         }
 
         private void OnDestroy () {

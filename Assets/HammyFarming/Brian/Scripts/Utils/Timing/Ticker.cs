@@ -1,4 +1,6 @@
-﻿namespace HammyFarming.Brian.Utils {
+﻿using UnityEngine;
+
+namespace HammyFarming.Brian.Utils.Timing {
 
     /// <summary>
     /// A simple class for performing timed actions, as opposed to using coroutines.
@@ -6,69 +8,77 @@
     /// When finished, runover will hold the difference between the end time and actual time.
     /// </summary>
 
-    public class Timeout {
+    public class Ticker : MonoBehaviour {
         
         /// <summary>
         /// Delagate for when the timer ends. Parameter is for the runover time.
         /// </summary>
         /// <param name="runover"></param>
-        public delegate void Alarm ( float runover );
+        public delegate void AlarmDelegate ( float runover );
         /// <summary>
         /// A handy Alarm delegate for other objects to subscribe to the end of the alarm.
         /// </summary>
-        public Alarm OnAlarm;
+        public AlarmDelegate OnAlarm;
 
+        public delegate void TickDelegate ( float percentComplete );
 
-        public float timeoutTime = 0;
-        public float currentTime = 0;
-        public bool running { get; private set; }
+        public TickDelegate OnTick;
 
+        public float time = 0;
+        public float CurrentTime { get; private set; }
 
-        public float runover {
+        private bool _running = false;
+        public bool Running {
             get {
-                return currentTime - timeoutTime;
+                return _running;
+            }
+            set {
+                _running = value;
+                enabled = value;
             }
         }
 
-        public float percentComplete {
+
+        public float Runover {
             get {
-                return currentTime / timeoutTime;
+                return CurrentTime - time;
             }
         }
 
-        public Timeout ( float timeoutTime, bool started = false ) {
-            this.timeoutTime = timeoutTime;
-            running = started;
+        public float NormalizeTime {
+            get {
+                return CurrentTime / time;
+            }
         }
 
         /// <summary>
         /// Begins the timeout from whatever position it was previously.
         /// </summary>
-        public void Start () {
-            running = true;
+        public void Run () {
+            Running = true;
         }
 
         /// <summary>
         /// Stops the timeout from running.
         /// </summary>
         public void Pause () {
-            running = false;
+            Running = false;
         }
 
         /// <summary>
         /// Stops the timeout from running and resets the time.
         /// </summary>
-        public void Reset () {
-            running = false;
-            currentTime = 0;
+        public void Res () {
+            Running = false;
+            CurrentTime = 0;
         }
 
         /// <summary>
         /// Resets the timeout and starts it running.
         /// </summary>
         public void ReStart () {
-            currentTime = 0;
-            running = true;
+            CurrentTime = 0;
+            Running = true;
         }
 
         /// <summary>
@@ -76,17 +86,24 @@
         /// </summary>
         /// <param name="deltaTime"></param>
         /// <returns></returns>
-        public bool Tick ( float deltaTime ) {
-            if (running) {
-                currentTime += deltaTime;
-                if (currentTime >= timeoutTime) {
-                    OnAlarm?.Invoke(runover);
-                    running = false;
+        private bool Tick ( float deltaTime ) {
+            if (Running) {
+                CurrentTime += deltaTime;
+                if (CurrentTime >= time) {
+                    Running = false;
                     return true;
                 }
                 return false;
             }
             return false;
+        }
+
+        private void Update () {
+            if (Tick(Time.deltaTime)) {
+                OnAlarm?.Invoke(Runover);
+            } else {
+                OnTick?.Invoke(NormalizeTime);
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using HammyFarming.Brian.Base.Hammy;
-using HammyFarming.Brian.Utils;
+using HammyFarming.Brian.Utils.Timing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -67,7 +67,7 @@ namespace HammyFarming.Brian.Tools {
                 activateTimeout.Tick(Time.deltaTime);
             }
 
-            if (activateTimeout.percentComplete > 0.99f && canReconnect) {
+            if (activateTimeout.NormalizedTime > 0.99f && canReconnect) {
                 //Taking control of the harvester
                 activateTimeout.Reset();
                 foreach (ConfigurableJoint wheel in wheelsCJs) {
