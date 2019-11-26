@@ -55,7 +55,7 @@ MonoBehaviour:
   zoomSmoothing: 15
   minZoomDistance: 2.25
   maxZoomDistance: 15
-  followDistanceConstraint: {x: 4, y: 11.22}
+  followDistanceConstraint: {x: 6, y: 8}
   asisstModeVerticalOffset: 3.5
   cameraAsisstMode: 1
   target: {fileID: 538416297667782550}

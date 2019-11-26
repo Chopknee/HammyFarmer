@@ -1,4 +1,5 @@
 ﻿using HammyFarming.Brian.Base;
+using HammyFarming.Brian.Utils.Timing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -44,29 +45,34 @@ namespace HammyFarming.Brian.Base.Hammy {
         public bool managed {
             get { return _managed; }
             set {
+                if (value != _managed)
+                    DoTransition();
+
                 _managed = value;
-                targetedPosition = transform.position;
+                //This should trigger a smoothed transition???
             }
         }
+
+        Vector3 assistFixedPosition = Vector3.zero;
+        Timeout transitionTimeout;
+        Vector3 transitionStartPosition = Vector3.zero;
 
         [HideInInspector]
         public Transform managedTargetTransform;
 
         private void Awake () {
-
-            //Pre-initialize position for camera asisst mode
-            targetedPosition = target.position + Quaternion.Euler(new Vector3(verticalRotation, horizontalRotation, 0)) * ( zoom * Vector3.back );
+            assistFixedPosition = target.position + Quaternion.Euler(new Vector3(verticalRotation, horizontalRotation, 0)) * ( zoom * Vector3.back );
             HammyFarming.Brian.Base.PlayerInput.ControlMaster.Camera.ActivateCameraAsisst.performed += ActivateCameraAsisst;
 
+            transitionTimeout = new Timeout(0.10f);
+
         }
-
-        Vector3 targetedPosition;
-
 
         void ActivateCameraAsisst(InputAction.CallbackContext context) {
             if (!cameraAsisstMode) {
                 cameraAsisstMode = true;
-                targetedPosition = transform.position;
+                assistFixedPosition = transform.position;
+                DoTransition();
             }
         }
 
@@ -90,6 +96,7 @@ namespace HammyFarming.Brian.Base.Hammy {
             if (cameraAsisstMode) {
                 //Check if the player has attempted to move the camera manually
                 if (cameraDelta != Vector2.zero || zoomDelta != 0) {
+                    DoTransition();
                     //Player wants to control camera manually
                     cameraAsisstMode = false;
                     //Calculate the horizontal, vertical, and zoom values
@@ -119,73 +126,17 @@ namespace HammyFarming.Brian.Base.Hammy {
                 }
             }
 
-            Vector3 desiredPosition = targetedPosition;
+            Vector3 desiredPosition = transform.position;
 
 
-            if (managed) {//In managed mode, it is assumed that there is a target position given. We are simply trying to lerp to that position.
-                //If given a to target, the camera will try it's best to go there.
-
-                if (managedTargetTransform == null) {//If no target was set, just go back to normal mode
-                    managed = false;
-                    return;
-                }
-
-                Vector3 delta = desiredPosition - managedTargetTransform.position;
-
-                float mag = delta.magnitude;
-
-                desiredPosition = Vector3.Slerp(desiredPosition, managedTargetTransform.position, mag * Time.deltaTime);
-                targetedPosition = desiredPosition;
-
+            if (managed) {
+                desiredPosition = GetManagedPosition(desiredPosition);
             } else {
                 //Camera assist mode
                 if (cameraAsisstMode) {
-
-                    Vector3 diff = desiredPosition - target.position;
-                    float dist = diff.magnitude;
-
-                    diff.y = 0;
-                    if (dist < followDistanceConstraint.x) {
-                        desiredPosition -= diff.normalized * ( dist - followDistanceConstraint.x );
-                    } else if (dist > followDistanceConstraint.y) {
-                        desiredPosition -= diff.normalized * ( dist - followDistanceConstraint.y );
-                    }
-
-                    targetedPosition = new Vector3(desiredPosition.x, target.position.y + asisstModeVerticalOffset, desiredPosition.z);
-
+                    desiredPosition = GetAssistPosition();
                 } else {
-                    //Manual camera mode
-
-                    //The horizontal rotation of the camera
-                    horizontalRotation += cameraDelta.x * 
-                        horizontalSensitivity * Time.deltaTime * 
-                        ( ( HammyFarming.Brian.Base.GameSettings.HorizontalInverted ) ? -1 : 1 ) * 
-                        HammyFarming.Brian.Base.GameSettings.HorizontalSensitivity;
-
-                    //The vertical rotation of the camera
-                    verticalRotation += cameraDelta.y * verticalSensitivity * Time.deltaTime * 
-                        ( ( HammyFarming.Brian.Base.GameSettings.VerticalInverted ) ? -1 : 1 ) * 
-                        HammyFarming.Brian.Base.GameSettings.VerticalSensitivity;
-
-                    verticalRotation = Mathf.Clamp(verticalRotation, -80, 80);
-
-
-                    //Zoom Control
-                    zoom += -1 * zoomDelta * zoomSensitivity * Time.deltaTime;
-                    zoom = Mathf.Clamp(zoom, 2.25f, maxZoomDistance);
-
-
-                    if (Time.deltaTime < 0.036f) {//Checking if the 
-                        smoothedHorizontal += ( horizontalRotation - smoothedHorizontal ) * Time.deltaTime * horizontalSmoothing;
-                        smoothedVertical += ( verticalRotation - smoothedVertical ) * Time.deltaTime * verticalSmoothing;
-                        smoothedZoom += ( zoom - smoothedZoom ) * Time.deltaTime * zoomSmoothing;
-                    } else {
-                        smoothedHorizontal = horizontalRotation;
-                        smoothedVertical = verticalRotation;
-                        smoothedZoom = zoom;
-                    }
-
-                    desiredPosition = target.position + Quaternion.Euler(new Vector3(smoothedVertical, smoothedHorizontal, 0)) * ( smoothedZoom * Vector3.back );
+                    desiredPosition = GetManualPosition(desiredPosition, cameraDelta, zoomDelta);
                 }
             }
 
@@ -200,12 +151,106 @@ namespace HammyFarming.Brian.Base.Hammy {
                 collided = true;
             }
 
-            transform.position = desiredPosition;
+            if (transitionTimeout.running) {
+                transform.position = Vector3.Slerp(transitionStartPosition, desiredPosition, transitionTimeout.NormalizedTime);
+            } else {
+                transform.position = desiredPosition;
+            }
+
             transform.LookAt(target);
 
             if (collided) {
                 transform.position += transform.forward * forwardPushOnCollide;
             }
+
+            if (transitionTimeout.Tick(Time.deltaTime)) {
+                transitionTimeout.Reset();
+            }
+        }
+
+        private Vector3 GetManagedPosition(Vector3 inPosition) {
+            //In managed mode, it is assumed that there is a target position given. We are simply trying to lerp to that position.
+            //If given a to target, the camera will try it's best to go there.
+            if (managedTargetTransform == null) {//If no target was set, just go back to normal mode
+                managed = false;
+                return inPosition;
+            }
+
+            Vector3 delta = inPosition - managedTargetTransform.position;
+
+            float mag = delta.magnitude;
+
+            return Vector3.Slerp(inPosition, managedTargetTransform.position, mag * Time.deltaTime);
+        }
+
+        private Vector3 GetAssistPosition() {
+            //Difference between our current and desired position
+            Vector3 awayFromTarget = assistFixedPosition - target.position;
+            float magnitude = awayFromTarget.magnitude;
+
+            awayFromTarget.y = 0;
+            //If we are too close
+            if (magnitude < followDistanceConstraint.x) {
+                //Attempt at smoothing the sudden bump from the boundaries
+
+                float underage = magnitude - followDistanceConstraint.x;
+                Vector3 target = assistFixedPosition - ( awayFromTarget.normalized * underage );
+                assistFixedPosition = Vector3.Slerp(assistFixedPosition, target, underage * Time.deltaTime);
+
+                //assistFixedPosition -= awayFromTarget.normalized * ( underage );
+            //If we are too far away
+            } else if (magnitude > followDistanceConstraint.y) {
+
+                float overage = magnitude - followDistanceConstraint.y;
+                Vector3 target = assistFixedPosition - ( awayFromTarget.normalized * overage );
+                assistFixedPosition = Vector3.Slerp(assistFixedPosition, target, overage * Time.deltaTime);
+
+                //assistFixedPosition -= awayFromTarget.normalized * ( overage );
+            }
+
+            assistFixedPosition = new Vector3(assistFixedPosition.x, target.position.y + asisstModeVerticalOffset, assistFixedPosition.z);
+
+            return assistFixedPosition;
+        }
+
+        private Vector3 GetManualPosition(Vector3 inPosition, Vector2 cameraDelta, float zoomDelta) {
+            //Manual camera mode
+
+            //The horizontal rotation of the camera
+            horizontalRotation += cameraDelta.x *
+                horizontalSensitivity * Time.deltaTime *
+                ( ( HammyFarming.Brian.Base.GameSettings.HorizontalInverted ) ? -1 : 1 ) *
+                HammyFarming.Brian.Base.GameSettings.HorizontalSensitivity;
+
+            //The vertical rotation of the camera
+            verticalRotation += cameraDelta.y * verticalSensitivity * Time.deltaTime *
+                ( ( HammyFarming.Brian.Base.GameSettings.VerticalInverted ) ? -1 : 1 ) *
+                HammyFarming.Brian.Base.GameSettings.VerticalSensitivity;
+
+            verticalRotation = Mathf.Clamp(verticalRotation, -80, 80);
+
+
+            //Zoom Control
+            zoom += -1 * zoomDelta * zoomSensitivity * Time.deltaTime;
+            zoom = Mathf.Clamp(zoom, 2.25f, maxZoomDistance);
+
+
+            if (Time.deltaTime < 0.036f) {//Checking if the 
+                smoothedHorizontal += ( horizontalRotation - smoothedHorizontal ) * Time.deltaTime * horizontalSmoothing;
+                smoothedVertical += ( verticalRotation - smoothedVertical ) * Time.deltaTime * verticalSmoothing;
+                smoothedZoom += ( zoom - smoothedZoom ) * Time.deltaTime * zoomSmoothing;
+            } else {
+                smoothedHorizontal = horizontalRotation;
+                smoothedVertical = verticalRotation;
+                smoothedZoom = zoom;
+            }
+
+            return target.position + Quaternion.Euler(new Vector3(smoothedVertical, smoothedHorizontal, 0)) * ( smoothedZoom * Vector3.back );
+        }
+
+        private void DoTransition() {
+            transitionStartPosition = transform.position;
+            transitionTimeout.ReStart();
         }
 
         private void OnValidate () {
