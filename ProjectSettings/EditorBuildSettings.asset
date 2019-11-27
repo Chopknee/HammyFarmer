@@ -9,16 +9,16 @@ EditorBuildSettings:
     path: Assets/HammyFarming/Scenes/HammyOpenScene.unity
     guid: 0dc891435d97462429f75eff17f3e014
   - enabled: 1
-    path: Assets/HammyFarming/Scenes/LevelSelect.unity
+    path: Assets/HammyFarming/Scenes/Level Select/LevelSelect.unity
     guid: 431d262927659a34a9991a5d3793e063
   - enabled: 1
-    path: Assets/HammyFarming/Scenes/00Test.unity
+    path: Assets/HammyFarming/Scenes/Test00/00Test.unity
     guid: 244fde58b940d0d4fb8f8e61bcc56113
   - enabled: 1
-    path: Assets/HammyFarming/Scenes/01Spring.unity
+    path: Assets/HammyFarming/Scenes/Spring01/01Spring.unity
     guid: 5b614327c1a025f4ba8d8a7b25cbe1de
   - enabled: 1
-    path: Assets/HammyFarming/Scenes/02Summer.unity
+    path: Assets/HammyFarming/Scenes/Summer02/02Summer.unity
     guid: f39a853967f71d74095aafaaa10e5c9a
   - enabled: 1
     path: Assets/HammyFarming/Brian/Scenes/Base/HammyBase.unity
