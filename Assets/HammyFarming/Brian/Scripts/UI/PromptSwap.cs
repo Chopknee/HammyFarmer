@@ -1,8 +1,4 @@
-﻿using HammyFarming.Brian;
-using HammyFarming.Brian.Base;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PromptSwap: MonoBehaviour {
 
@@ -16,35 +12,35 @@ public class PromptSwap: MonoBehaviour {
     private void Awake () {
         sr = GetComponent<SpriteRenderer>();
         subscribed = true;
-        PlayerInput.OnControlDeviceChanged += OnControlSchemeChanged;
+        HammyFarming.Brian.GameManagement.PlayerInput.OnControlDeviceChanged += OnControlSchemeChanged;
 
     }
 
     void Update () {
         if (!subscribed) {
             subscribed = true;
-            PlayerInput.OnControlDeviceChanged += OnControlSchemeChanged;
+            HammyFarming.Brian.GameManagement.PlayerInput.OnControlDeviceChanged += OnControlSchemeChanged;
         }
     }
 
     private void OnDestroy () {
         if (subscribed) {
-            PlayerInput.OnControlDeviceChanged -= OnControlSchemeChanged;
+            HammyFarming.Brian.GameManagement.PlayerInput.OnControlDeviceChanged -= OnControlSchemeChanged;
         }
     }
 
-    void OnControlSchemeChanged(PlayerInput.ControlDevice device) {
+    void OnControlSchemeChanged( HammyFarming.Brian.GameManagement.PlayerInput.ControlDevice device) {
         switch (device) {
-            case PlayerInput.ControlDevice.Gamepad:
+            case HammyFarming.Brian.GameManagement.PlayerInput.ControlDevice.Gamepad:
                 sr.sprite = GamepadPromptSprite;
                 break;
-            case PlayerInput.ControlDevice.Keyboard:
+            case HammyFarming.Brian.GameManagement.PlayerInput.ControlDevice.Keyboard:
                 sr.sprite = KeyboardPromptSprite;
                 break;
         }
     }
 
     private void OnEnable () {
-        OnControlSchemeChanged(PlayerInput.CurrentControlDevice);
+        OnControlSchemeChanged(HammyFarming.Brian.GameManagement.PlayerInput.CurrentControlDevice);
     }
 }

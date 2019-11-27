@@ -17,8 +17,8 @@ namespace HammyFarming.Brian.Interaction {
         //bool controlsHooked = false;
 
         public virtual void Start () {
-            HammyFarming.Brian.Base.PlayerInput.ControlMaster.Hammy.Attach.performed += OnHammyHook;
-            HammyFarming.Brian.Base.PlayerInput.ControlMaster.Hammy.Use.performed += OnHammyInteract;
+            HammyFarming.Brian.GameManagement.PlayerInput.ControlMaster.Hammy.Attach.performed += OnHammyHook;
+            HammyFarming.Brian.GameManagement.PlayerInput.ControlMaster.Hammy.Use.performed += OnHammyInteract;
         }
 
 
@@ -50,8 +50,8 @@ namespace HammyFarming.Brian.Interaction {
         }
 
         private void OnDestroy () {
-            HammyFarming.Brian.Base.PlayerInput.ControlMaster.Hammy.Attach.performed -= OnHammyHook;
-            HammyFarming.Brian.Base.PlayerInput.ControlMaster.Hammy.Use.performed -= OnHammyInteract;
+            HammyFarming.Brian.GameManagement.PlayerInput.ControlMaster.Hammy.Attach.performed -= OnHammyHook;
+            HammyFarming.Brian.GameManagement.PlayerInput.ControlMaster.Hammy.Use.performed -= OnHammyInteract;
         }
 
         //Override any of these to get the desired functionality

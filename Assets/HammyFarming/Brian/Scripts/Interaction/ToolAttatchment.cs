@@ -1,6 +1,4 @@
-﻿using HammyFarming.Brian.Base.Hammy;
-using System.Collections;
-using System.Collections.Generic;
+﻿using HammyFarming.Hammy;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -46,7 +44,7 @@ namespace HammyFarming.Brian.Interaction {
 
             base.Start();
 
-            HammyFarming.Brian.Base.PlayerInput.ControlMaster.Hammy.Attach.performed += OnAttachPushed;
+            HammyFarming.Brian.GameManagement.PlayerInput.ControlMaster.Hammy.Attach.performed += OnAttachPushed;
         }
 
         bool hasChangedState = false;
@@ -131,7 +129,7 @@ namespace HammyFarming.Brian.Interaction {
 
 
         private void OnDestroy () {
-            HammyFarming.Brian.Base.PlayerInput.ControlMaster.Hammy.Attach.performed -= OnAttachPushed;
+            HammyFarming.Brian.GameManagement.PlayerInput.ControlMaster.Hammy.Attach.performed -= OnAttachPushed;
         }
 
         ConfigurableJoint RecreateJoint (GameObject go, Rigidbody connected) {

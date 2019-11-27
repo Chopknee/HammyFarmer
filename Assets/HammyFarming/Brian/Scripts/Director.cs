@@ -1,8 +1,6 @@
-﻿using HammyFarming.Brian.Base;
+﻿using HammyFarming.Brian.GameManagement;
 using HammyFarming.Brian.Utils.Timing;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace HammyFarming.Brian {
 
@@ -10,7 +8,9 @@ namespace HammyFarming.Brian {
 
         public static Director Instance;
 
-        public static GameObject HammyGameObject;
+        public static GameObject Hammy;
+        public static GameObject LevelCamera;
+        public static GameObject PauseMenu;
 
         [Header("Goal and Growth Settings")]
         [Tooltip("How much does hammy need to collect for the level to be 'complete'?")]
@@ -51,7 +51,15 @@ namespace HammyFarming.Brian {
         }
 
         public void SpawnPlayer() {
-            StartCoroutine(LoadSceneBase());
+            Hammy = Instantiate(Resources.Load<GameObject>("Prefabs/Hammy/HammyBall"));
+        }
+
+        public void SpawnCamera() {
+            LevelCamera = Instantiate(Resources.Load<GameObject>("Prefabs/Camera/LevelCamera"));
+        }
+
+        public void SpawnPauseMenu() {
+            PauseMenu = Instantiate(Resources.Load<GameObject>("Prefabs/PauseMenu/PauseMenu"));
         }
 
         public void Update () {
@@ -61,24 +69,10 @@ namespace HammyFarming.Brian {
             }
         }
 
-        //The scene which contains all parts pertaining to gameplay.
-        private IEnumerator LoadSceneBase () {
-
-            AsyncOperation levelBaseLoader = SceneManager.LoadSceneAsync(hammyBaseSceneName, LoadSceneMode.Additive);
-
-            while (!levelBaseLoader.isDone) {
-                yield return null;
-            }
-
-            //Putting the hammy object at any object tagged with spawn point.
-            HammyGameObject = GameObject.FindGameObjectWithTag("HammyBall");
-
-            GameObject go = GameObject.FindGameObjectWithTag("SpawnPoint");
-            if (go != null) {
-                HammyGameObject.transform.position = go.transform.position;
-            }
-
-            LevelManagement.OnLevelStart?.Invoke();
+        public void OnDestroy () {
+            Hammy = null;
+            LevelCamera = null;
+            PauseMenu = null;
         }
     }
 }

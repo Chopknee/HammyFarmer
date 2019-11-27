@@ -1,7 +1,4 @@
-﻿using HammyFarming.Brian.Base;
-using HammyFarming.Brian.Base.PlayerUI.PauseMenu;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace HammyFarming.Brian.Sound {
@@ -27,7 +24,7 @@ namespace HammyFarming.Brian.Sound {
         }
 
         private void Awake() {
-            HammyFarming.Brian.Base.GameSettings.OnSettingsChanged += UpdateVolume;
+            HammyFarming.Brian.GameManagement.GameSettings.OnSettingsChanged += UpdateVolume;
             ausesAndVolumes = new Dictionary<AudioSource, float>();
             foreach (AudioSource aus in GetComponents<AudioSource>()) {
                 ausesAndVolumes.Add(aus, aus.volume);
@@ -35,9 +32,9 @@ namespace HammyFarming.Brian.Sound {
 
             UpdateVolume();
 
-            LevelManagement.OnLevelAwake += LevelAwake;
+            HammyFarming.Brian.GameManagement.LevelManagement.OnLevelAwake += LevelAwake;
             
-            if (!LevelManagement.IsLevelLoaded) {
+            if (!HammyFarming.Brian.GameManagement.LevelManagement.IsLevelLoaded) {
                 FadeAmount = 0;
             }
 
@@ -48,20 +45,20 @@ namespace HammyFarming.Brian.Sound {
         }
 
         private void OnDestroy () {
-            HammyFarming.Brian.Base.GameSettings.OnSettingsChanged -= UpdateVolume;
+            HammyFarming.Brian.GameManagement.GameSettings.OnSettingsChanged -= UpdateVolume;
         }
 
         void UpdateVolume() {
             float targetVolume = 0;
             switch (soundType) {
                 case Type.Master:
-                    targetVolume = HammyFarming.Brian.Base.GameSettings.MasterVolume;
+                    targetVolume = HammyFarming.Brian.GameManagement.GameSettings.MasterVolume;
                     break;
                 case Type.Music:
-                    targetVolume = HammyFarming.Brian.Base.GameSettings.MusicVolume * HammyFarming.Brian.Base.GameSettings.MasterVolume;
+                    targetVolume = HammyFarming.Brian.GameManagement.GameSettings.MusicVolume * HammyFarming.Brian.GameManagement.GameSettings.MasterVolume;
                     break;
                 case Type.SFX:
-                    targetVolume = HammyFarming.Brian.Base.GameSettings.SFXVolume * HammyFarming.Brian.Base.GameSettings.MasterVolume;
+                    targetVolume = HammyFarming.Brian.GameManagement.GameSettings.SFXVolume * HammyFarming.Brian.GameManagement.GameSettings.MasterVolume;
                     break;
             }
 

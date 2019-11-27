@@ -1,5 +1,4 @@
-﻿using HammyFarming.Brian.Base;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace HammyFarming.Brian.UI {
@@ -14,26 +13,26 @@ namespace HammyFarming.Brian.UI {
         void Start () {
             tmproGUI = GetComponent<TextMeshProUGUI>();
 
-            SetTextPrompt(PlayerInput.CurrentControlDevice);
-            PlayerInput.OnControlDeviceChanged += SetTextPrompt;
+            SetTextPrompt(HammyFarming.Brian.GameManagement.PlayerInput.CurrentControlDevice);
+            HammyFarming.Brian.GameManagement.PlayerInput.OnControlDeviceChanged += SetTextPrompt;
         }
 
         private void OnEnable () {
             if (tmproGUI != null) {
-                SetTextPrompt(PlayerInput.CurrentControlDevice);
+                SetTextPrompt(HammyFarming.Brian.GameManagement.PlayerInput.CurrentControlDevice);
             }
         }
 
         private void OnDestroy () {
-            PlayerInput.OnControlDeviceChanged -= SetTextPrompt;
+            HammyFarming.Brian.GameManagement.PlayerInput.OnControlDeviceChanged -= SetTextPrompt;
         }
 
-        void SetTextPrompt ( PlayerInput.ControlDevice device ) {
+        void SetTextPrompt ( HammyFarming.Brian.GameManagement.PlayerInput.ControlDevice device ) {
             switch (device) {
-                case PlayerInput.ControlDevice.Gamepad:
+                case HammyFarming.Brian.GameManagement.PlayerInput.ControlDevice.Gamepad:
                     tmproGUI.text = GamepadText;
                     break;
-                case PlayerInput.ControlDevice.Keyboard:
+                case HammyFarming.Brian.GameManagement.PlayerInput.ControlDevice.Keyboard:
                     tmproGUI.text = KeyboardText;
                     break;
             }

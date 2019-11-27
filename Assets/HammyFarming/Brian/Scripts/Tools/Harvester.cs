@@ -1,5 +1,4 @@
-﻿using HammyFarming.Brian.Base.Hammy;
-using HammyFarming.Brian.Utils.Timing;
+﻿using HammyFarming.Brian.Utils.Timing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -31,7 +30,7 @@ namespace HammyFarming.Brian.Tools {
         public GameObject backRigtWheel;
 
         private GameObject hammy;
-        private CameraMotion cameraAnchor;
+        private HammyFarming.Camera.CameraMotion cameraAnchor;
         private Transform cameraAnchorPoint;
 
         private ConfigurableJoint hammyJoint;
@@ -74,9 +73,9 @@ namespace HammyFarming.Brian.Tools {
                     wheel.angularYMotion = ConfigurableJointMotion.Free;
                 }
                 hammyJoint = MakeHammyJoint(hammy, hammyJointSpring, hammyJointDamper);
-                Base.PlayerInput.ControlMaster.Hammy.Jump.performed += HammyJumped;
+                GameManagement.PlayerInput.ControlMaster.Hammy.Jump.performed += HammyJumped;
                 capturing = true;
-                cameraAnchor = hammy.GetComponentInChildren<CameraMotion>();
+                cameraAnchor = Director.LevelCamera.GetComponent<HammyFarming.Camera.CameraMotion>();
                 cameraAnchor.managed = true;
                 cameraAnchor.managedTargetTransform = cameraAnchorPoint;
             }
@@ -89,7 +88,7 @@ namespace HammyFarming.Brian.Tools {
 
             if (capturing) {
 
-                Vector2 rollDirection = Base.PlayerInput.ControlMaster.Hammy.Roll.ReadValue<Vector2>();
+                Vector2 rollDirection = GameManagement.PlayerInput.ControlMaster.Hammy.Roll.ReadValue<Vector2>();
 
                 if (Mathf.Abs(rollDirection.x) > 0.1f) {
                     if (rollDirection.x > 0) {
@@ -125,7 +124,7 @@ namespace HammyFarming.Brian.Tools {
             }
             capturing = false;
             deactivateTimeout.Start();//Delay time before hammy can re capture control??
-            Base.PlayerInput.ControlMaster.Hammy.Jump.performed -= HammyJumped;
+            GameManagement.PlayerInput.ControlMaster.Hammy.Jump.performed -= HammyJumped;
             canReconnect = false;
             cameraAnchor.managed = false;
         }

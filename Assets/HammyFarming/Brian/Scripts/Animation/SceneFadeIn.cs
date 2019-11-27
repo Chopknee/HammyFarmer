@@ -36,7 +36,7 @@ namespace HammyFarming.Brian.UI {
                 cg.alpha = curve.Evaluate(Mathf.Lerp(0, 1, 1));
                 isFinished = true;
                 if (setControls) {
-                    HammyFarming.Brian.Base.PlayerInput.SetHammyControlsEnabled(true);
+                    HammyFarming.Brian.GameManagement.PlayerInput.SetHammyControlsEnabled(true);
                 }
                 if (disableWhenFinished) {
                     gameObject.SetActive(false);
