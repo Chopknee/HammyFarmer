@@ -28,6 +28,8 @@ namespace HammyFarming.Camera {
         public Vector2 followDistanceConstraint = new Vector2(2f, 4f);
         public float asisstModeVerticalOffset = 2f;
         public bool cameraAsisstMode = true;
+        public float assistReactivateDelay = 5f;
+        HammyFarming.Brian.Utils.Timing.Timeout assistReactivateTimeout;
 
         float smoothedHorizontal;
         float smoothedVertical;
@@ -76,7 +78,9 @@ namespace HammyFarming.Camera {
 
         private void Awake () {
             HammyFarming.Brian.GameManagement.PlayerInput.ControlMaster.Camera.ActivateCameraAsisst.performed += ActivateCameraAsisst;
-            transitionTimeout = new Timeout(0.10f);
+            transitionTimeout = new Timeout(0.25f);
+
+            assistReactivateTimeout = new HammyFarming.Brian.Utils.Timing.Timeout(assistReactivateDelay, false);
 
             if (target == null) {
                 enabled = false;
@@ -108,37 +112,13 @@ namespace HammyFarming.Camera {
                 cameraDelta.y = 0;
             }
 
-
-            if (cameraAsisstMode) {
-                //Check if the player has attempted to move the camera manually
-                if (cameraDelta != Vector2.zero || zoomDelta != 0) {
-                    DoTransition();
-                    //Player wants to control camera manually
-                    cameraAsisstMode = false;
-                    //Calculate the horizontal, vertical, and zoom values
-                    Vector3 diff = transform.position - target.position;
-                    zoom = diff.magnitude;
-                    smoothedZoom = zoom;
-
-                    horizontalRotation = -Mathf.Atan(diff.z / diff.x) * Mathf.Rad2Deg - 90;
-                    if (diff.x < 0) { horizontalRotation += 180; }
-                    smoothedHorizontal = horizontalRotation;
-                    verticalRotation = Mathf.Rad2Deg * Mathf.Asin(( target.position.y + asisstModeVerticalOffset ) / (zoom + minZoomDistance));
-                    smoothedVertical = verticalRotation;
-                    
-                    if (float.IsNaN(smoothedHorizontal)) {
-                        horizontalRotation = 0;
-                        smoothedHorizontal = 0;
-                    }
-                    if (float.IsNaN(smoothedVertical)) {
-                        verticalRotation = 0;
-                        smoothedVertical = 0;
-                    }
-
-                    if (float.IsNaN(smoothedZoom)) {
-                        zoom = 0;
-                        smoothedZoom = 0;
-                    }
+            if (cameraDelta != Vector2.zero || zoomDelta != 0) {
+                if (cameraAsisstMode) {
+                    //Turning off camera assist mode???
+                    DeActivateAssistMode();
+                } else {
+                    //Restarting the timeout???
+                    assistReactivateTimeout.ReStart();
                 }
             }
 
@@ -182,12 +162,17 @@ namespace HammyFarming.Camera {
             if (transitionTimeout.Tick(Time.deltaTime)) {
                 transitionTimeout.Reset();
             }
+
+            if (assistReactivateTimeout.Tick(Time.deltaTime)) {
+                cameraAsisstMode = true;
+                assistFixedPosition = transform.position;
+                DoTransition();
+                assistReactivateTimeout.Reset();
+            }
         }
 
         private Vector3 GetManagedPosition(Vector3 inPosition) {
-            //In managed mode, it is assumed that there is a target position given. We are simply trying to lerp to that position.
-            //If given a to target, the camera will try it's best to go there.
-            if (managedTargetTransform == null) {//If no target was set, just go back to normal mode
+            if (managedTargetTransform == null) {
                 managed = false;
                 return inPosition;
             }
@@ -262,6 +247,38 @@ namespace HammyFarming.Camera {
             }
 
             return target.position + Quaternion.Euler(new Vector3(smoothedVertical, smoothedHorizontal, 0)) * ( smoothedZoom * Vector3.back );
+        }
+
+        private void DeActivateAssistMode() {
+            DoTransition();
+            //Player wants to control camera manually
+            cameraAsisstMode = false;
+            //Calculate the horizontal, vertical, and zoom values
+            Vector3 diff = transform.position - target.position;
+            zoom = diff.magnitude;
+            smoothedZoom = zoom;
+
+            horizontalRotation = -Mathf.Atan(diff.z / diff.x) * Mathf.Rad2Deg - 90;
+            if (diff.x < 0) { horizontalRotation += 180; }
+            smoothedHorizontal = horizontalRotation;
+            verticalRotation = Mathf.Rad2Deg * Mathf.Asin(( target.position.y + asisstModeVerticalOffset ) / ( zoom + minZoomDistance ));
+            smoothedVertical = verticalRotation;
+
+            if (float.IsNaN(smoothedHorizontal)) {
+                horizontalRotation = 0;
+                smoothedHorizontal = 0;
+            }
+            if (float.IsNaN(smoothedVertical)) {
+                verticalRotation = 0;
+                smoothedVertical = 0;
+            }
+
+            if (float.IsNaN(smoothedZoom)) {
+                zoom = 0;
+                smoothedZoom = 0;
+            }
+
+            assistReactivateTimeout.Start();
         }
 
         private void DoTransition() {
