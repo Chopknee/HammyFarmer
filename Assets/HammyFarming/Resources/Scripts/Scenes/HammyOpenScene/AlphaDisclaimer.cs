@@ -32,8 +32,10 @@ namespace HammyFarming.Scenes.HammyOpenScene {
             float btn2 = HammyFarming.Brian.GameManagement.PlayerInput.ControlMaster.InputDevice.KeyboardAnyButton.ReadValue<float>();
 
             //For holding the button
-            if (btn1 > 0.0f || btn2 > 0.0f && !holdTimeout.running) {
-                holdTimeout.Start();
+            if ((btn1 > 0.0f || btn2 > 0.0f)) {
+                if (!holdTimeout.running) {
+                    holdTimeout.Start();
+                }
             } else {
                 if (!fadeTimeout.running) {
                     holdTimeout.Reset();

@@ -5673,6 +5673,7 @@ GameObject:
   m_Component:
   - component: {fileID: 132897095}
   - component: {fileID: 132897096}
+  - component: {fileID: 132897097}
   m_Layer: 0
   m_Name: Ambience
   m_TagString: Untagged
@@ -5790,6 +5791,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &132897097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132897094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23edfb92f3a8fe24188e5beb8d6d4840, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundType: 2
 --- !u!1 &140729553
 GameObject:
   m_ObjectHideFlags: 0
@@ -67490,6 +67504,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1721035173}
   - component: {fileID: 1721035174}
+  - component: {fileID: 1721035175}
   m_Layer: 0
   m_Name: Background Music
   m_TagString: Untagged
@@ -67607,6 +67622,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1721035175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721035172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23edfb92f3a8fe24188e5beb8d6d4840, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundType: 1
 --- !u!4 &1735367846 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3104864935123004638, guid: f855090ae03cdfa469025a16a48feb12,

@@ -46,6 +46,7 @@ namespace HammyFarming.Brian.Sound {
 
         private void OnDestroy () {
             HammyFarming.Brian.GameManagement.GameSettings.OnSettingsChanged -= UpdateVolume;
+            LevelSound.Instance.audioSources.Remove(this);
         }
 
         void UpdateVolume() {

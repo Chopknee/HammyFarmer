@@ -65,8 +65,14 @@ namespace HammyFarming.Brian.Sound {
         }
 
         public void SetSourcesVolume(float volume) {
-            foreach (SoundType st in audioSources) {
-                st.FadeAmount = volume;
+
+            for (int i = 0; i < audioSources.Count; i++) {
+                if (audioSources[i] == null) {
+                    audioSources.RemoveAt(i);
+                    i--;
+                    continue;
+                }
+                audioSources[i].FadeAmount = volume;
             }
         }
     }

@@ -17,8 +17,7 @@ namespace HammyFarming.Brian {
         private Color normalColor = Color.green;
         private Color warningColor = Color.yellow;
         private Color errorColor = Color.red;
-        [HideInInspector]
-        public int MaxLogMessages = 500;
+        private int MaxLogMessages = 500;
 
         CanvasGroup cg;
 
@@ -26,6 +25,8 @@ namespace HammyFarming.Brian {
 
         // Start is called before the first frame update
         void Awake () {
+            debugFont = Resources.Load<Font>("Fonts/cour");
+
             Debug.Log("Debug Log Spawned!");
             scrollView = transform.Find("DebugView").gameObject.GetComponent<ScrollRect>();
 
