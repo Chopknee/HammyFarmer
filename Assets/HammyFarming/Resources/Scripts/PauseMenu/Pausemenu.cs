@@ -11,28 +11,36 @@ namespace HammyFarming.PauseMenu {
 
     public class Pausemenu: MonoBehaviour {
 
-        public static Pausemenu Instance { get; private set; }
-
         public Button quitButton;
         public Button resumeButton;
         public Button resetButton;
         public Button returnToHubButton;
 
-        CanvasGroup group;
+        private CanvasGroup group;
         public bool showing = false;
 
+        private HammyFarming.Brian.Utils.Timing.Timeout transitionTimeout;
+        private float direction;
+
+        private RectTransform optionsPanel = null;
+        private Vector3 optsEnabledPos;
+        private Vector3 optsDisabledPos;
+
+        private RectTransform gameTitle = null;
+        private Vector3 titleEnabledPos;
+        private Vector3 titleDisabledPos;
+
+        private RectTransform levelMusicCredit = null;
+        private Vector3 musicCreditEnabledPos;
+        private Vector3 musicCreditDisabledPos;
+
+        private RectTransform companyLogo = null;
+        private Vector3 logoEnabledPos;
+        private Vector3 logoDisabledPos;
+
+        private RectTransform cover;
+
         private void Awake () {
-            //Preventing multiple instances from existing!!
-            if (Instance != null) {
-                Destroy(gameObject);
-                return;
-            }
-
-            Instance = this;
-        }
-
-        void Start () {
-
             HammyFarming.Brian.GameManagement.PlayerInput.ControlMaster.Hammy.Pause.performed += OnPausePressed;
 
             quitButton.onClick.AddListener(quit);
@@ -41,12 +49,68 @@ namespace HammyFarming.PauseMenu {
             returnToHubButton.onClick.AddListener(returnHub);
 
             group = GetComponent<CanvasGroup>();
-            Hide();
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             //Set resume to being selected
             EventSystem.current.SetSelectedGameObject(resumeButton.gameObject);
+
+            transitionTimeout = new Brian.Utils.Timing.Timeout(1, false);
+
+            cover = GetComponent<RectTransform>();
+
+            optionsPanel = transform.Find("Options Panel").GetComponent<RectTransform>();
+            optsEnabledPos = optionsPanel.localPosition;
+            optsDisabledPos = new Vector3(-2000.0f, 2000.0f, 0.0f);
+
+            gameTitle = transform.Find("GameTitle").GetComponent<RectTransform>();
+            titleEnabledPos = gameTitle.localPosition;
+            titleDisabledPos = new Vector3(2000.0f, 2000.0f, 0.0f);
+
+            levelMusicCredit = transform.Find("LevelMusicCredit").GetComponent<RectTransform>();
+            musicCreditEnabledPos = levelMusicCredit.localPosition;
+            musicCreditDisabledPos = new Vector3(-2000.0f, -2000.0f, 0.0f);
+
+            companyLogo = transform.Find("CompanyLogo").GetComponent<RectTransform>();
+            logoEnabledPos = companyLogo.localPosition;
+            logoDisabledPos = new Vector3(2000.0f, -2000.0f, 0.0f);
+
+
+            //Hide();
+            Hide();
+            transitionTimeout.currentTime = 0.95f;
+            Transition(0);
+        }
+
+        private void Update () {
+            if (transitionTimeout.running) {
+                float a = transitionTimeout.NormalizedTime;
+                Transition(( direction == 1 ) ? a : 1 - a);
+
+                if (transitionTimeout.Tick(Time.deltaTime)) {
+                    Transition(( direction == 1 ) ? 1 : 0);
+                    transitionTimeout.Reset();
+                }
+            }
+        }
+
+        void Transition(float a) {
+
+            a = HammyFarming.Brian.Utils.Easing.EaseInOutCirc(a);
+
+            optionsPanel.localPosition = Vector3.Lerp(optsDisabledPos, optsEnabledPos, a);
+            gameTitle.localPosition = Vector3.Lerp(titleDisabledPos, titleEnabledPos, a);
+            levelMusicCredit.localPosition = Vector3.Lerp(musicCreditDisabledPos, musicCreditEnabledPos, a);
+            companyLogo.localPosition = Vector3.Lerp(logoDisabledPos, logoEnabledPos, a);
+            group.alpha = a;
+
+            if (a == 1) {
+                group.interactable = true;
+                EventSystem.current.SetSelectedGameObject(resumeButton.gameObject);
+            } else {
+                if (group.interactable)
+                    group.interactable = false;
+            }
 
         }
 
@@ -90,14 +154,14 @@ namespace HammyFarming.PauseMenu {
         }
 
         void Show () {
+            transitionTimeout.Start();
+            direction = 1;
             if (group == null) {
                 group = GetComponent<CanvasGroup>();
             }
 
             HammyFarming.Brian.GameManagement.PlayerInput.SetHammyControlsEnabled(false);
-            group.interactable = true;
             group.blocksRaycasts = true;
-            group.alpha = 1;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             showing = true;
@@ -105,13 +169,13 @@ namespace HammyFarming.PauseMenu {
         }
 
         void Hide () {
+            transitionTimeout.Start();
+            direction = -1;
             if (group == null) {
                 group = GetComponent<CanvasGroup>();
             }
             HammyFarming.Brian.GameManagement.PlayerInput.SetHammyControlsEnabled(true);
-            group.interactable = false;
             group.blocksRaycasts = false;
-            group.alpha = 0;
             showing = false;
         }
 

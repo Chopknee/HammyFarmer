@@ -658,7 +658,7 @@ namespace Hammy
                 {
                     ""name"": """",
                     ""id"": ""418840cc-0809-40ed-bfac-59117b576259"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -669,7 +669,7 @@ namespace Hammy
                 {
                     ""name"": """",
                     ""id"": ""cbf490b5-76af-408e-8fc6-6b33d5fd4856"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
