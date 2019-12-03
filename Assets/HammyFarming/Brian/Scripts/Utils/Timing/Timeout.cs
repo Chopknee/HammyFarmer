@@ -88,5 +88,18 @@
             }
             return false;
         }
+
+        public float GetNormalizedSlice(float startA, float endA) {
+            float a = NormalizedTime;
+
+            if (a < startA) {
+                return 0;
+            }
+            if (a > endA) {
+                return 1;
+            }
+
+            return (a - startA) / (endA - startA);
+        }
     }
 }
