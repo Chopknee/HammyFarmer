@@ -130,14 +130,13 @@ MonoBehaviour:
   GroundLayers:
     serializedVersion: 2
     m_Bits: 3379
-  groundHitDistance: 1.74
+  groundHitDistance: 2
   jumpSleepTime: 0.45
   airControlDivider: 0.38
-  associatedCameraTransform: {fileID: 0}
   onGround: 1
   jumped: 1
   toolAnchor: {fileID: 0}
-  groundCheckHeightAdjustment: -0.5
+  groundCheckHeightAdjustment: -0.25
 --- !u!114 &538416297667782545
 MonoBehaviour:
   m_ObjectHideFlags: 0

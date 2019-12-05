@@ -8,25 +8,31 @@ namespace HammyFarming.Brian.Interaction {
 
         public float force = 100;
 
-        List<Collider> colliders = new List<Collider>();
+        List<Rigidbody> rigidBodies = new List<Rigidbody>();
 
         public void FixedUpdate () {
-            foreach (Collider c in colliders) {
-                if (c.GetComponent<Rigidbody>() != null) {
-                    c.GetComponent<Rigidbody>().AddForce(transform.up * force);
+            for (int i = 0; i < rigidBodies.Count; i++) {
+                Rigidbody rb = rigidBodies[i];
+                if (rb) {
+                    rb.AddForce(transform.up * force * rb.mass);
+                } else {
+                    rigidBodies.RemoveAt(i);
+                    i--;
                 }
             }
         }
 
         public void OnTriggerEnter ( Collider other ) {
-            if (!colliders.Contains(other)) {
-                colliders.Add(other);
+            Rigidbody rb = other.GetComponent<Rigidbody>();
+            if (rb & !rigidBodies.Contains(rb)) {
+                rigidBodies.Add(rb);
             }
         }
 
         public void OnTriggerExit ( Collider other ) {
-            if (colliders.Contains(other)) {
-                colliders.Remove(other);
+            Rigidbody rb = other.GetComponent<Rigidbody>();
+            if (rb & rigidBodies.Contains(rb)) {
+                rigidBodies.Remove(rb);
             }
         }
 

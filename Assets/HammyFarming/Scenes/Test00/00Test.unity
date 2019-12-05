@@ -619,7 +619,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1366
+  m_Name: pb_Mesh-24818
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5214,7 +5214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 497174778132926672, guid: 38aff89bdd318f546a6a00a2ada9cd05, type: 3}
-  delay: 0.5
+  delay: 5
   active: 1
   spawnPosition: {x: 0, y: 0, z: 0}
   appliedForceDirection: {x: 0, y: 0, z: 0}
@@ -5958,6 +5958,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: 0.03920008
+      objectReference: {fileID: 0}
+    - target: {fileID: 7323787004741691549, guid: f3b7159828eb2a6439f18292eca7e272,
+        type: 3}
+      propertyPath: wheelAngularVelocity
+      value: 2500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3b7159828eb2a6439f18292eca7e272, type: 3}

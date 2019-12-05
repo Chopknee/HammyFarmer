@@ -34,7 +34,7 @@ namespace HammyFarming.Hammy {
         Rigidbody rb;
 
         int numAlternateGroundChecks = 8;
-        public float groundCheckHeightAdjustment = -0.5f;
+        public float groundCheckHeightAdjustment = -40.5f;
         Vector3[] groundCheckPoints;
 
         private void Awake () {

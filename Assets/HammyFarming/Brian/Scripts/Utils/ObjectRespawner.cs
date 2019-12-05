@@ -21,12 +21,13 @@ public class ObjectRespawner : MonoBehaviour {
             if (respawns.Count > 0) {
                 GameObject other = respawns[0];
                 respawns.Remove(other);
-                if (other.GetComponent<Rigidbody>() != null) {
-                    if (respawnPoint != null) {
+                if (other & other.GetComponent<Rigidbody>()) {
+
+                    if (respawnPoint != null)
                         other.transform.position = respawnPoint.position;
-                    } else {
+                    else
                         other.transform.position = Vector3.zero;
-                    }
+
                     other.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 }
             }
