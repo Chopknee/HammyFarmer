@@ -30,6 +30,7 @@ namespace HammyFarming.Scenes.Summer02 {
             base.AwakeLevel();
             
             //Spawn the required level components to get things running
+			SpawnPlayerUI();
             SpawnPlayer();
             SpawnPauseMenu();
             SpawnCamera();
