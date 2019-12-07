@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/HammyFarming/Scenes/Level Select/LevelSelect.unity
     guid: 431d262927659a34a9991a5d3793e063
   - enabled: 1
-    path: Assets/HammyFarming/Scenes/Test00/00Test.unity
+    path: Assets/HammyFarming/Scenes/Credits00/Credits00.unity
     guid: 244fde58b940d0d4fb8f8e61bcc56113
   - enabled: 1
     path: Assets/HammyFarming/Scenes/Spring01/01Spring.unity

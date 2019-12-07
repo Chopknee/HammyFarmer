@@ -83,11 +83,11 @@ namespace HammyFarming.Brian.GameManagement {
             while (!levelLoad.isDone) {
 
                 if (levelLoad.progress >= 0.9f) {
-                    Debug.Log("Scene loaded, waiting for short period.");
+                    //Debug.Log("Scene loaded, waiting for short period.");
 
                     yield return null;
 
-                    Debug.Log("Allowing scene to load!.");
+                    //Debug.Log("Allowing scene to load!.");
                     levelLoad.allowSceneActivation = true;
                 }
             }

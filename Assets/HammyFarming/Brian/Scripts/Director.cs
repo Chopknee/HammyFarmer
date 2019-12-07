@@ -11,6 +11,7 @@ namespace HammyFarming.Brian {
         public static GameObject Hammy;
         public static GameObject LevelCamera;
         public static GameObject PauseMenu;
+        public static GameObject PlayerUI;
 
         [Header("Goal and Growth Settings")]
         [Tooltip("How much does hammy need to collect for the level to be 'complete'?")]
@@ -60,6 +61,10 @@ namespace HammyFarming.Brian {
 
         public void SpawnPauseMenu() {
             PauseMenu = Instantiate(Resources.Load<GameObject>("Prefabs/PauseMenu/PauseMenu"));
+        }
+
+        public void SpawnPlayerUI() {
+            PlayerUI = Instantiate(Resources.Load<GameObject>("Prefabs/PlayerUI/PlayerUI"));
         }
 
         public void Update () {

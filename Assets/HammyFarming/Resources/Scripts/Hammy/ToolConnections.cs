@@ -1,11 +1,16 @@
-﻿using HammyFarming.Brian.Interaction;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace HammyFarming.Hammy {
 
     public class ToolConnections: MonoBehaviour {
 
-        public ToolAttatchment connectedTool;
+        public HammyFarming.Brian.ToolAttachment connectedTool;
+
+        public delegate void ConnectHammy( HammyFarming.Brian.ToolAttachment connection );
+        public ConnectHammy OnHammyConnected;
+
+        public delegate void DisconnectHammy ( HammyFarming.Brian.ToolAttachment connection );
+        public DisconnectHammy OnHammyDisconnected;
 
     }
 }

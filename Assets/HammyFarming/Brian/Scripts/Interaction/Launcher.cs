@@ -14,7 +14,7 @@ namespace HammyFarming.Brian.Interaction {
             for (int i = 0; i < rigidBodies.Count; i++) {
                 Rigidbody rb = rigidBodies[i];
                 if (rb) {
-                    rb.AddForce(transform.up * force * rb.mass);
+                    rb.AddForce(transform.up * force); //* rb.mass);
                 } else {
                     rigidBodies.RemoveAt(i);
                     i--;
