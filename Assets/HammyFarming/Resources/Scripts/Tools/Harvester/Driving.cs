@@ -137,7 +137,9 @@ namespace HammyFarming.Tools.Harvester {
         }
 
         private void OnDestroy () {
-            
+            if (capturing) {
+                HammyFarming.Brian.GameManagement.PlayerInput.ControlMaster.Hammy.Jump.performed -= HammyJumped;
+            }    
         }
 
         private void OnTriggerEnter(Collider other) {

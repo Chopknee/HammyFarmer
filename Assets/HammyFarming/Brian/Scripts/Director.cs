@@ -24,8 +24,8 @@ namespace HammyFarming.Brian {
 
         public string LevelMusicCredit = "MUSIC CREDIT: UNKNOWN HAMSTER";
 
-        public delegate void SiloFillChanged ( float value );
-        public SiloFillChanged OnSiloFillChanged;
+        public delegate void SiloFillChangedDelegate ( float value );
+        public SiloFillChangedDelegate OnSiloFillChanged;
 
         float _siloFill;
         public float SiloFillLevel {

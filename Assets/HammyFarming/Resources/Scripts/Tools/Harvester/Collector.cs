@@ -15,13 +15,14 @@ namespace HammyFarming.Tools.Harvester {
             set { _fill = value; OnFillChanged?.Invoke(_fill); }
         }
 
-        public void Harvest ( HammyFarming.Farm.Plants.PlantGrowth plant ) {
+        public bool Harvest ( HammyFarming.Farm.Plants.PlantGrowth plant ) {
             float nf = fill + plant.growPercent * HammyFarming.Brian.Director.Instance.FullGrowthScore;
             if (nf < MaxFill) {
                 fill += plant.growPercent * HammyFarming.Brian.Director.Instance.FullGrowthScore;
                 Destroy(plant.gameObject);
+                return true;
             }
+            return false;
         }
-
     }
 }

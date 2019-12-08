@@ -6,7 +6,7 @@ namespace HammyFarming.Scenes.Spring01 {
 
     public class Director: HammyFarming.Brian.Director {
 
-        Transform levelUI;
+        private Transform levelUI = null;
 
         private HammyFarming.Scenes.Spring01.StartLetter startLetter = null;
         private CanvasGroup letterBlocker = null;
@@ -29,6 +29,8 @@ namespace HammyFarming.Scenes.Spring01 {
             backgroundFadeout = new HammyFarming.Brian.Utils.Timing.Timeout(1);
 
             HammyFarming.Brian.GameManagement.PlayerInput.ControlMaster.Hammy.Jump.performed += OnSkipPressed;
+
+            OnSiloFillChanged += SiloFillChanged;
         }
 
         public void OnSkipPressed ( UnityEngine.InputSystem.InputAction.CallbackContext context ) {
@@ -101,6 +103,16 @@ namespace HammyFarming.Scenes.Spring01 {
             levelUI.gameObject.SetActive(true);
 
         }
-    }
 
+        private bool siloFilled = false;
+        private GameObject EndSequence = null;
+
+        private void SiloFillChanged(float fill) {
+            if (fill >= base.SiloFillGoal && !siloFilled) {
+                siloFilled = true;
+                //Level has been completed, do the ending sequence
+                EndSequence = Instantiate(Resources.Load<GameObject>("Prefabs/Scenes/Spring01/Ending"));
+            }
+        }
+    }
 }

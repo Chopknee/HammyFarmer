@@ -92,12 +92,18 @@ namespace HammyFarming.Farm.Plants {
 
         public virtual void OnCollected () {}
 
+        public virtual void OnUprooted () {
+            enabled = false;
+        }
+
         private void OnTriggerEnter ( Collider other ) {
             if (other.CompareTag("Harvester")) {
                 HammyFarming.Tools.Harvester.Collector collector = other.GetComponent<HammyFarming.Tools.Harvester.Collector>();
                 if (collector) {
-                    collector.Harvest(this);
-                    OnCollected();
+                    if (collector.Harvest(this))
+                        OnCollected();
+                    else
+                        OnUprooted();
                 }
             }
         }

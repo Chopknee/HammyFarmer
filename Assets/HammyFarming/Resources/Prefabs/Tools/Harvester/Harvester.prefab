@@ -74,8 +74,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.11073369, y: 0.022917215, z: 0.016659578}
-  m_Center: {x: 0, y: 0, z: -0.004544213}
+  m_Size: {x: 0.11073369, y: 0.03661775, z: 0.016659578}
+  m_Center: {x: 0, y: -0.0068502664, z: -0.004544213}
 --- !u!54 &2019899611
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -541,7 +541,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4684699887569993228}
   - component: {fileID: 1464968788816720910}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -586,7 +586,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4684699887712134579}
   - component: {fileID: 1464968788741681073}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -631,7 +631,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4684699887753738636}
   - component: {fileID: 1464968789165618062}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -676,7 +676,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4684699888016246895}
   - component: {fileID: 1464968790505341549}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -899,7 +899,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2171728533376645325}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -1589,7 +1589,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.012850013, y: 0.01918459, z: -0.014629926}
+  m_ConnectedAnchor: {x: -0.0128500005, y: 0.019184595, z: -0.014629978}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -1838,7 +1838,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.00051000336, y: 0.01918459, z: -0.0024498762}
+  m_ConnectedAnchor: {x: -0.00051000004, y: 0.019184595, z: -0.0024499819}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -2043,7 +2043,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.012020009, y: 0.01918459, z: -0.014629926}
+  m_ConnectedAnchor: {x: 0.012020001, y: 0.019184595, z: -0.014629978}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -2248,7 +2248,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.00051000336, y: 0.01918459, z: -0.02718496}
+  m_ConnectedAnchor: {x: -0.00051000004, y: 0.019184595, z: -0.027184749}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -3223,7 +3223,7 @@ GameObject:
   - component: {fileID: 983674868242347337}
   - component: {fileID: 8180604622523829053}
   - component: {fileID: 6682848520875360247}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Back Right Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3317,7 +3317,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.042800013, y: -0.018254286, z: 0.039200135}
+  m_ConnectedAnchor: {x: -0.042800006, y: -0.018254286, z: 0.039200027}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -3414,7 +3414,7 @@ GameObject:
   - component: {fileID: 983674868870333226}
   - component: {fileID: 8180604622971157854}
   - component: {fileID: 6682848522083946379}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Back Left Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3508,7 +3508,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.042800013, y: -0.018254286, z: 0.039200135}
+  m_ConnectedAnchor: {x: 0.042800006, y: -0.018254286, z: 0.03920008}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -3605,7 +3605,7 @@ GameObject:
   - component: {fileID: 983674868760434837}
   - component: {fileID: 8180604622894933729}
   - component: {fileID: 6682848522078659375}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Front Right Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3699,7 +3699,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.042800013, y: -0.010924289, z: -0.010614158}
+  m_ConnectedAnchor: {x: -0.042800006, y: -0.010924286, z: -0.010614158}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -3796,7 +3796,7 @@ GameObject:
   - component: {fileID: 983674868514587818}
   - component: {fileID: 8180604622787410654}
   - component: {fileID: 6682848522089480633}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Front Left Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3890,7 +3890,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.042800013, y: -0.010924289, z: -0.010614158}
+  m_ConnectedAnchor: {x: 0.042800006, y: -0.010924286, z: -0.010614158}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
