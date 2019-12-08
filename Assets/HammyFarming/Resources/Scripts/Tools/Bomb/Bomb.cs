@@ -1,5 +1,4 @@
-﻿using Chopknee.Utility;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace HammyFarming.Tools.Bomb {
 
@@ -64,7 +63,7 @@ namespace HammyFarming.Tools.Bomb {
 
         public void SpawnDebris() {
             if (debrisCount > 0) {
-                foreach (Vector3 vec in Utility.FibonacciSphereDistro(debrisCount, debrisRadius)) {
+                foreach (Vector3 vec in HammyFarming.Brian.Utils.Utility.FibonacciSphereDistro(debrisCount, debrisRadius)) {
                     GameObject sd = Instantiate(debrisPrefab, transform.position + vec, Random.rotation);
                     sd.GetComponent<Rigidbody>().AddForce(
                         ( transform.position - ( transform.position + vec ) ) * ( debrisSpawnForce * ( 1 - debrisSpawnUpForce ) ) +

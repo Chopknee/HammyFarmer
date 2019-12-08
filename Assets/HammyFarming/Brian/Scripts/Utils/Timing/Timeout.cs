@@ -34,6 +34,9 @@
             get {
                 return currentTime / timeoutTime;
             }
+            set {
+                currentTime = value * timeoutTime;
+            }
         }
 
         public Timeout ( float timeoutTime, bool started = false ) {

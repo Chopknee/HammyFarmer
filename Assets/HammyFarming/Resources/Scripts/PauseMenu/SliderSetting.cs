@@ -1,5 +1,4 @@
-﻿using Chopknee.Utility;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace HammyFarming.PauseMenu {
@@ -29,7 +28,7 @@ namespace HammyFarming.PauseMenu {
         }
 
         private void OnValidate () {
-            Utility.ClampMinmax(ref minValue, ref maxValue, 0, 2);
+            HammyFarming.Brian.Utils.Utility.ClampMinmax(ref minValue, ref maxValue, 0, 2);
             if (mySlider == null) {
                 mySlider = GetComponent<Slider>();
             }

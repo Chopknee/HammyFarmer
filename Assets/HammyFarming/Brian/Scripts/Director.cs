@@ -67,7 +67,7 @@ namespace HammyFarming.Brian {
             PlayerUI = Instantiate(Resources.Load<GameObject>("Prefabs/PlayerUI/PlayerUI"));
         }
 
-        public void Update () {
+        public virtual void Update () {
             if (autoStartTimeout.Tick(Time.deltaTime)) {
                 autoStartTimeout.Reset();
                 AwakeLevel();

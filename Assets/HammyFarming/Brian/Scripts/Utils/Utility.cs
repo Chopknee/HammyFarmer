@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Chopknee.Utility {
+namespace HammyFarming.Brian.Utils {
 
     public class Utility {
 
@@ -24,6 +24,11 @@ namespace Chopknee.Utility {
         public static void ClampMinmax(ref float min, ref float max, float absoluteMinimum, float absoluteMaximum) {
             min = Mathf.Clamp(min, absoluteMinimum, max - 0.01f);
             max = Mathf.Clamp(max, min + 0.01f, absoluteMaximum);
+        }
+
+        public static string StringFill(string end, float a) {
+            int endPos = Mathf.FloorToInt(end.Length * a);
+            return end.Substring(0, endPos);
         }
 
     }
