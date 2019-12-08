@@ -215,12 +215,12 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: "\t\t    Dear Hamthaniel,\n\n       We hope you\u2019re doing well on your
-    own, our little paw-print! I know it\u2019s a scary world out there, with all
-    those giant itchies and what-nots, and I sooooooo wish we could be there as a
-    family to take care of you! But you\u2019re smart enough to get through this as
-    we travel through the tubes for more equipment. Papa left you some tools around
-    the farm so you can grow your own moo\u2019s for food. Hopefully the storm that
-    just went by didn\u2019t blow them all away! \r\n\r\nWith many squeaks,\r\n\r\n-Mama
+    own, our\nlittle paw-print! I know it\u2019s a scary world out there,\nwith all
+    those giant itchies and what-nots, and I\nsooooooo wish we could be there as a
+    family to take\ncare of you! But you\u2019re smart enough to get\nthrough this
+    as we travel through the tubes for\nmore equipment. Papa left you some tools around
+    the\nfarm so you can grow your own moo\u2019s for food.\nHopefully the storm that
+    just went by didn\u2019t blow\nthem all away! \r\n\r\nWith many squeaks,\r\n\r\n-Mama
     and Papa\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c1b556eafa4cb874881d1e897b62f8ab, type: 2}
@@ -441,7 +441,7 @@ GameObject:
   - component: {fileID: 172867592}
   - component: {fileID: 1284570556544534993}
   m_Layer: 5
-  m_Name: LevelStartLetter
+  m_Name: StartLetter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

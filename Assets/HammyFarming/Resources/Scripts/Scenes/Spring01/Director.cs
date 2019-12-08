@@ -36,11 +36,11 @@ namespace HammyFarming.Scenes.Spring01 {
         }
 
         public override void AwakeLevel () {
+            base.AwakeLevel();
             startLetter.Play();
         }
 
         private void StartLevel() {
-            base.AwakeLevel();
 
             HammyFarming.Brian.GameManagement.PlayerInput.ControlMaster.Hammy.Jump.performed -= OnSkipPressed;
             //Spawn the required level components to get things running
