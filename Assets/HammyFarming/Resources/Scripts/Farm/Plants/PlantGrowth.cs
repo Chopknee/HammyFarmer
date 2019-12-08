@@ -38,7 +38,6 @@ namespace HammyFarming.Farm.Plants {
         }
 
         public virtual void Update () {
-            
 
             if (growTimer.Tick(Time.deltaTime)) {
                 //Debug.Log("Raddish has grown!");
@@ -50,15 +49,12 @@ namespace HammyFarming.Farm.Plants {
                 //Do the soil check
                 soilCheckTimer.ReStart();
 
-                if (Physics.Raycast(transform.position + ( Vector3.up * 5 ), Vector3.down, out RaycastHit hit, 50, fieldMask) && growing) {
+                if (Physics.Raycast(transform.position + ( Vector3.up * 5 ), Vector3.down, out RaycastHit hit, 50, fieldMask)) {
                     //Only collides with the field.
                     //Now checking the color under the seed. (probably gonna do an average under the seed at some point.
                     colorUnderMe = hit.collider.gameObject.GetComponent<FarmFieldDeformation>().GetFieldValuesAt(hit.textureCoord);
                     growing = colorUnderMe.g >= minimumTilledness && colorUnderMe.b >= minimumWetness;
 
-                    if (growing) {
-                        OnGrowing();
-                    }
                     GrowthState(growing);
 
                     if (growing && !growTimer.running) {
@@ -74,6 +70,10 @@ namespace HammyFarming.Farm.Plants {
                     growTimer.Pause();
                     GrowthState(false);
                 }
+            }
+
+            if (growing) {
+                OnGrowing();
             }
         }
 

@@ -20,6 +20,12 @@ namespace HammyFarming.Tools.Harvester {
         HammyFarming.Brian.Utils.Timing.Timeout activateTimeout;
         HammyFarming.Brian.Utils.Timing.Timeout deactivateTimeout;
 
+        public delegate void ActivatedDelegate ();
+        public ActivatedDelegate OnActivated;
+
+        public delegate void DeactivatedDelegate ();
+        public DeactivatedDelegate OnDeactivated;
+
         ConfigurableJoint[] wheelsCJs;
         Rigidbody[] wheelsRBs;
 
@@ -77,6 +83,7 @@ namespace HammyFarming.Tools.Harvester {
                 cameraAnchor = HammyFarming.Brian.Director.LevelCamera.GetComponent<HammyFarming.Camera.CameraMotion>();
                 cameraAnchor.managed = true;
                 cameraAnchor.managedTargetTransform = cameraAnchorPoint;
+                OnActivated?.Invoke();
             }
 
             if (deactivateTimeout.Tick(Time.deltaTime)) {
@@ -126,6 +133,7 @@ namespace HammyFarming.Tools.Harvester {
             HammyFarming.Brian.GameManagement.PlayerInput.ControlMaster.Hammy.Jump.performed -= HammyJumped;
             canReconnect = false;
             cameraAnchor.managed = false;
+            OnDeactivated?.Invoke();
         }
 
         private void OnDestroy () {

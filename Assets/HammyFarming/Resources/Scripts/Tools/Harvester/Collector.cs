@@ -6,13 +6,14 @@ namespace HammyFarming.Tools.Harvester {
 
         public float MaxFill;
 
+        public delegate void FillChanged( float level );
+        public FillChanged OnFillChanged;
+
         float _fill;
         public float fill {
             get { return _fill; }
-            set { _fill = value; }
+            set { _fill = value; OnFillChanged?.Invoke(_fill); }
         }
-
-        public string PlantTag;
 
         public void Harvest ( HammyFarming.Farm.Plants.PlantGrowth plant ) {
             float nf = fill + plant.growPercent * HammyFarming.Brian.Director.Instance.FullGrowthScore;

@@ -13,9 +13,7 @@ namespace HammyFarming.Scenes.Spring01.Radish {
         }
 
         public override void OnGrowing () {
-
             base.OnGrowing();
-
             transform.localScale = Vector3.Lerp(startScale, endScale, growPercent);
         }
 
