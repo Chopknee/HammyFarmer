@@ -24,8 +24,8 @@ namespace HammyFarming.Brian {
 
         public string LevelMusicCredit = "MUSIC CREDIT: UNKNOWN HAMSTER";
 
-        public delegate void SiloFillChanged ( float value );
-        public SiloFillChanged OnSiloFillChanged;
+        public delegate void SiloFillChangedDelegate ( float value );
+        public SiloFillChangedDelegate OnSiloFillChanged;
 
         float _siloFill;
         public float SiloFillLevel {
@@ -67,7 +67,7 @@ namespace HammyFarming.Brian {
             PlayerUI = Instantiate(Resources.Load<GameObject>("Prefabs/PlayerUI/PlayerUI"));
         }
 
-        public void Update () {
+        public virtual void Update () {
             if (autoStartTimeout.Tick(Time.deltaTime)) {
                 autoStartTimeout.Reset();
                 AwakeLevel();

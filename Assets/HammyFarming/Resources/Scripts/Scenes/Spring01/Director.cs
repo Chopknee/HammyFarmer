@@ -1,35 +1,50 @@
 ﻿using HammyFarming.Brian.GameManagement;
 using HammyFarming.Brian.Sound;
-using HammyFarming.Brian.Utils.Timing;
 using UnityEngine;
 
 namespace HammyFarming.Scenes.Spring01 {
 
     public class Director: HammyFarming.Brian.Director {
 
-        CanvasGroup fadeInBlackout = null;
+        private Transform levelUI = null;
 
-        Ticker fadeTicker;
+        private HammyFarming.Scenes.Spring01.StartLetter startLetter = null;
+        private CanvasGroup letterBlocker = null;
 
-        Transform levelUI;
+        private HammyFarming.Brian.Utils.Timing.Timeout backgroundFadeout = null;
 
         protected override void Awake () {
             base.Awake();
-            //Spawn in a fade to fade back out from black.
-            fadeTicker = gameObject.AddComponent<Ticker>();
-            fadeTicker.time = 1.5f;
-            fadeTicker.OnTick += FadeTick;
-            fadeTicker.OnAlarm += FadeAlarm;
-
-            fadeInBlackout = Instantiate(Resources.Load<GameObject>("Prefabs/Scenes/SceneFadeIn")).GetComponent<CanvasGroup>();
 
             levelUI = Instantiate(Resources.Load<GameObject>("Prefabs/Scenes/Spring01/LevelUI")).transform;
             levelUI.gameObject.SetActive(false);
+
+            startLetter = Instantiate(Resources.Load<GameObject>("Prefabs/Scenes/Spring01/StartLetter")).GetComponent<HammyFarming.Scenes.Spring01.StartLetter>();
+            startLetter.OnFinished += StartLevel;
+            startLetter.Init();
+
+            letterBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/Scenes/Spring01/LetterBlocker")).GetComponent<CanvasGroup>();
+            letterBlocker.alpha = 1;
+
+            backgroundFadeout = new HammyFarming.Brian.Utils.Timing.Timeout(1);
+
+            HammyFarming.Brian.GameManagement.PlayerInput.ControlMaster.Hammy.Jump.performed += OnSkipPressed;
+
+            OnSiloFillChanged += SiloFillChanged;
+        }
+
+        public void OnSkipPressed ( UnityEngine.InputSystem.InputAction.CallbackContext context ) {
+            startLetter.Skip();
         }
 
         public override void AwakeLevel () {
             base.AwakeLevel();
+            startLetter.Play();
+        }
 
+        private void StartLevel() {
+
+            HammyFarming.Brian.GameManagement.PlayerInput.ControlMaster.Hammy.Jump.performed -= OnSkipPressed;
             //Spawn the required level components to get things running
             SpawnPlayerUI();
             SpawnPlayer();
@@ -55,18 +70,28 @@ namespace HammyFarming.Scenes.Spring01 {
             LevelManagement.OnLevelStart?.Invoke();
         }
 
-        void LevelStarted () {
-            fadeTicker.Run();
+        private void LevelStarted() {
+            backgroundFadeout.Start();
         }
 
+        public override void Update() {
+            base.Update();
 
-        void FadeTick ( float a ) {
-            fadeInBlackout.alpha = 1 - fadeTicker.NormalizeTime;
+            if (backgroundFadeout.running) {
+
+                letterBlocker.alpha = 1 - backgroundFadeout.NormalizedTime;
+
+                if (backgroundFadeout.Tick(Time.deltaTime)) {
+                    letterBlocker.alpha = 0;
+                    StartPlaying();
+                }
+            }
         }
 
-        void FadeAlarm ( float aO ) {
+        private void StartPlaying () {
             //When done, kill the fadeout object
-            Destroy(fadeInBlackout.gameObject);
+            Destroy(letterBlocker.gameObject);
+            Destroy(startLetter.gameObject);
 
             //Enable player controls
             PlayerInput.SetHammyControlsEnabled(true);
@@ -78,6 +103,16 @@ namespace HammyFarming.Scenes.Spring01 {
             levelUI.gameObject.SetActive(true);
 
         }
-    }
 
+        private bool siloFilled = false;
+        private GameObject EndSequence = null;
+
+        private void SiloFillChanged(float fill) {
+            if (fill >= base.SiloFillGoal && !siloFilled) {
+                siloFilled = true;
+                //Level has been completed, do the ending sequence
+                EndSequence = Instantiate(Resources.Load<GameObject>("Prefabs/Scenes/Spring01/Ending"));
+            }
+        }
+    }
 }

@@ -1,36 +1,48 @@
-﻿using HammyFarming.Brian.GameManagement;
-using HammyFarming.Brian.Sound;
-using HammyFarming.Brian.Utils.Timing;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace HammyFarming.Scenes.Summer02 {
-
     public class Director: HammyFarming.Brian.Director {
 
-        CanvasGroup fadeInBlackout = null;
-
-        Ticker fadeTicker;
 
         Transform levelUI;
 
+        private HammyFarming.Scenes.Summer02.StartLetter startLetter = null;
+        private CanvasGroup letterBlocker = null;
+
+        private HammyFarming.Brian.Utils.Timing.Timeout backgroundFadeout = null;
+
         protected override void Awake () {
             base.Awake();
-            //Spawn in a fade to fade back out from black.
-            fadeTicker = gameObject.AddComponent<Ticker>();
-            fadeTicker.time = 1.5f;
-            fadeTicker.OnTick += FadeTick;
-            fadeTicker.OnAlarm += FadeAlarm;
 
-            fadeInBlackout = Instantiate(Resources.Load<GameObject>("Prefabs/Scenes/SceneFadeIn")).GetComponent<CanvasGroup>();
+            levelUI = Instantiate(Resources.Load<GameObject>("Prefabs/Scenes/Summer02/LevelUI")).transform;
+            levelUI.gameObject.SetActive(false);
 
-            levelUI = Instantiate(Resources.Load<GameObject>("Prefabs/Scenes/Spring01/LevelUI")).transform;
+            startLetter = Instantiate(Resources.Load<GameObject>("Prefabs/Scenes/Summer02/StartLetter")).GetComponent<HammyFarming.Scenes.Summer02.StartLetter>();
+            startLetter.OnFinished += StartLevel;
+            startLetter.Init();
+
+            letterBlocker = Instantiate(Resources.Load<GameObject>("Prefabs/Scenes/Summer02/LetterBlocker")).GetComponent<CanvasGroup>();
+            letterBlocker.alpha = 1;
+
+            backgroundFadeout = new HammyFarming.Brian.Utils.Timing.Timeout(1);
+
+            HammyFarming.Brian.GameManagement.PlayerInput.ControlMaster.Hammy.Jump.performed += OnSkipPressed;
+        }
+
+        public void OnSkipPressed ( UnityEngine.InputSystem.InputAction.CallbackContext context ) {
+            startLetter.Skip();
         }
 
         public override void AwakeLevel () {
             base.AwakeLevel();
-            
+            startLetter.Play();
+        }
+
+        private void StartLevel () {
+
+            HammyFarming.Brian.GameManagement.PlayerInput.ControlMaster.Hammy.Jump.performed -= OnSkipPressed;
             //Spawn the required level components to get things running
-			SpawnPlayerUI();
+            SpawnPlayerUI();
             SpawnPlayer();
             SpawnPauseMenu();
             SpawnCamera();
@@ -42,40 +54,52 @@ namespace HammyFarming.Scenes.Summer02 {
             LevelCamera.GetComponent<HammyFarming.Camera.CameraMotion>().target = Hammy.transform;
 
             //Disable player controls temporarily
-            PlayerInput.SetHammyControlsEnabled(false);
+            HammyFarming.Brian.GameManagement.PlayerInput.SetHammyControlsEnabled(false);
 
             //Hook into the level started function
-            LevelManagement.OnLevelStart += LevelStarted;
+            HammyFarming.Brian.GameManagement.LevelManagement.OnLevelStart += LevelStarted;
 
             //Start the fading for sounds
-            LevelSound.Instance.FadeAudioSources(true, 1.0f);
+            HammyFarming.Brian.Sound.LevelSound.Instance.FadeAudioSources(true, 1.0f);
 
             //Tell the level to actually start
-            LevelManagement.OnLevelStart?.Invoke();
+            HammyFarming.Brian.GameManagement.LevelManagement.OnLevelStart?.Invoke();
         }
 
-        void LevelStarted () {
-            fadeTicker.Run();
+        private void LevelStarted () {
+            backgroundFadeout.Start();
         }
 
+        public override void Update () {
+            base.Update();
 
-        void FadeTick ( float a ) {
-            fadeInBlackout.alpha = 1 - fadeTicker.NormalizeTime;
+            if (backgroundFadeout.running) {
+
+                letterBlocker.alpha = 1 - backgroundFadeout.NormalizedTime;
+
+                if (backgroundFadeout.Tick(Time.deltaTime)) {
+                    letterBlocker.alpha = 0;
+                    StartPlaying();
+                }
+            }
         }
 
-        void FadeAlarm ( float aO ) {
+        private void StartPlaying () {
             //When done, kill the fadeout object
-            Destroy(fadeInBlackout.gameObject);
+            Destroy(letterBlocker.gameObject);
+            Destroy(startLetter.gameObject);
 
             //Enable player controls
-            PlayerInput.SetHammyControlsEnabled(true);
+            HammyFarming.Brian.GameManagement.PlayerInput.SetHammyControlsEnabled(true);
 
             //Target the audio listener to the player camera
-            LevelSound.Instance.CurrentListenTarget = LevelCamera.transform;
+            HammyFarming.Brian.Sound.LevelSound.Instance.CurrentListenTarget = LevelCamera.transform;
 
             //Set the level ui to active
             levelUI.gameObject.SetActive(true);
+
         }
+
     }
 
 }

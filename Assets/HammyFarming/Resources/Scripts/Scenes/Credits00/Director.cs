@@ -7,9 +7,11 @@ namespace HammyFarming.Scenes.Credits00 {
 
     public class Director: HammyFarming.Brian.Director {
 
-        CanvasGroup fadeInBlackout = null;
+        private CanvasGroup fadeInBlackout = null;
 
-        Ticker fadeTicker;
+        private Ticker fadeTicker = null;
+
+        private Transform levelUI = null;
 
         protected override void Awake () {
             base.Awake();
@@ -20,6 +22,10 @@ namespace HammyFarming.Scenes.Credits00 {
             fadeTicker.OnAlarm += FadeAlarm;
 
             fadeInBlackout = Instantiate(Resources.Load<GameObject>("Prefabs/Scenes/SceneFadeIn")).GetComponent<CanvasGroup>();
+
+            levelUI = Instantiate(Resources.Load<GameObject>("Prefabs/Scenes/Spring01/LevelUI")).transform;
+
+            OnSiloFillChanged += SiloFillChanged;
         }
 
         public override void AwakeLevel () {
@@ -67,6 +73,18 @@ namespace HammyFarming.Scenes.Credits00 {
             //Target the audio listener to the player camera
             LevelSound.Instance.CurrentListenTarget = LevelCamera.transform;
         }
-    }
 
+        private bool siloFilled = false;
+
+        private GameObject EndSequence = null;
+
+        private void SiloFillChanged ( float fill ) {
+            if (fill >= base.SiloFillGoal && !siloFilled) {
+                siloFilled = true;
+                
+                //Level has been completed, do the ending sequence
+                EndSequence = Instantiate(Resources.Load<GameObject>("Prefabs/Scenes/Credits00/Ending"));
+            }
+        }
+    }
 }

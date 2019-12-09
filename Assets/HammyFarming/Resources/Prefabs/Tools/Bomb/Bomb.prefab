@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6716896210305583405}
   - component: {fileID: 7532609915343235192}
   - component: {fileID: 8363386452638923646}
+  - component: {fileID: 5384288160838026066}
   m_Layer: 0
   m_Name: buttons-complete-05_7
   m_TagString: Untagged
@@ -31,7 +32,7 @@ Transform:
   m_LocalScale: {x: 0.22813, y: 0.22813, z: 0.22813}
   m_Children: []
   m_Father: {fileID: 2150284598460932639}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6716896210305583405
 SpriteRenderer:
@@ -108,8 +109,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   KeyboardPromptSprite: {fileID: 707480492490246125, guid: e2ee7216cee032b4dad2f866d56980cf,
     type: 3}
-  GamepadPromptSprite: {fileID: 334779162632884138, guid: e2ee7216cee032b4dad2f866d56980cf,
+  GamepadPromptSprite: {fileID: -9098667676857562224, guid: e2ee7216cee032b4dad2f866d56980cf,
     type: 3}
+--- !u!114 &5384288160838026066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706999153354691516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89daea8f84b00b246bc9d1b5eb4f2c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  up: {x: 0, y: 1, z: 0}
 --- !u!1 &2150284598460932613
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,8 +161,8 @@ Transform:
   m_LocalPosition: {x: 34.44, y: 9.78, z: 37.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6337242220915481345}
   - {fileID: 2150284598521421132}
+  - {fileID: 6337242220915481345}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2574,7 +2588,7 @@ Transform:
   m_LocalScale: {x: 1.2483, y: 1.1111742, z: 1.2483}
   m_Children: []
   m_Father: {fileID: 2150284598460932639}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2150284598521421128
 MeshFilter:
