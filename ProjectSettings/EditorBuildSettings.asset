@@ -21,9 +21,6 @@ EditorBuildSettings:
     path: Assets/HammyFarming/Scenes/Summer02/02Summer.unity
     guid: f39a853967f71d74095aafaaa10e5c9a
   - enabled: 1
-    path: Assets/HammyFarming/Scenes/Test01/Test01.unity
-    guid: 05ce0a2498f13284789f59aee4eeddd6
-  - enabled: 1
     path: Assets/HammyFarming/Scenes/Fall03/03Fall.unity
     guid: 30755357790517b4a8b553bdf75bc895
   - enabled: 1

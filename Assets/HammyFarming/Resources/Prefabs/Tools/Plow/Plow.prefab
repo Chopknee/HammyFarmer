@@ -4865,7 +4865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stampMap: {fileID: 2800000, guid: 6d1ca6973440a0b439f4d683562c3622, type: 3}
-  stampScale: 0.125
+  stampScale: 5
   weight: 0.5
   minimumDeformationVelocity: 0.1
   deformWeight: 0.509
