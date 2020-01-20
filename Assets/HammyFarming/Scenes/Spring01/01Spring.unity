@@ -14141,8 +14141,9 @@ Mesh:
 --- !u!1 &530540546
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 542005580810808298, guid: ade91de942c60b445be0f7ad11b1358d,
+    type: 3}
+  m_PrefabInstance: {fileID: 542005580317754344}
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
@@ -14157,8 +14158,9 @@ GameObject:
 --- !u!4 &530540547
 Transform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 542005580810808299, guid: ade91de942c60b445be0f7ad11b1358d,
+    type: 3}
+  m_PrefabInstance: {fileID: 542005580317754344}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 530540546}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -74915,6 +74917,75 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1001 &542005580317754344
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 542005580810808298, guid: ade91de942c60b445be0f7ad11b1358d,
+        type: 3}
+      propertyPath: m_Name
+      value: RespawnPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 542005580810808299, guid: ade91de942c60b445be0f7ad11b1358d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 118.977005
+      objectReference: {fileID: 0}
+    - target: {fileID: 542005580810808299, guid: ade91de942c60b445be0f7ad11b1358d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 542005580810808299, guid: ade91de942c60b445be0f7ad11b1358d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 21.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 542005580810808299, guid: ade91de942c60b445be0f7ad11b1358d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 542005580810808299, guid: ade91de942c60b445be0f7ad11b1358d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 542005580810808299, guid: ade91de942c60b445be0f7ad11b1358d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 542005580810808299, guid: ade91de942c60b445be0f7ad11b1358d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 542005580810808299, guid: ade91de942c60b445be0f7ad11b1358d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 542005580810808299, guid: ade91de942c60b445be0f7ad11b1358d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 542005580810808299, guid: ade91de942c60b445be0f7ad11b1358d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 542005580810808299, guid: ade91de942c60b445be0f7ad11b1358d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ade91de942c60b445be0f7ad11b1358d, type: 3}
 --- !u!1 &1058357080529060536
 GameObject:
   m_ObjectHideFlags: 0
@@ -74991,7 +75062,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87bc5ad563c45444ab32951350017f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HammyResetPosition: {x: 0, y: 0, z: 0}
   SiloFillGoal: 250
   FullGrowthScore: 5
-  hammyBaseSceneName: HammyBase
   LevelMusicCredit: 'MUSIC CREDIT: Darren Curtis'

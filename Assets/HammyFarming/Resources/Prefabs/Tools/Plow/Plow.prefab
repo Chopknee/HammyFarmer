@@ -4770,7 +4770,7 @@ GameObject:
   - component: {fileID: 5575015188499683353}
   - component: {fileID: -7200171345195671322}
   m_Layer: 13
-  m_Name: Till
+  m_Name: Plow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4865,7 +4865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stampMap: {fileID: 2800000, guid: 6d1ca6973440a0b439f4d683562c3622, type: 3}
-  stampScale: 0.6
+  stampScale: 0.125
   weight: 0.5
   minimumDeformationVelocity: 0.1
   deformWeight: 0.509
